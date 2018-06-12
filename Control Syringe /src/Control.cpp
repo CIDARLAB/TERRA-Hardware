@@ -1,7 +1,6 @@
 #include <Arduino.h>
-#include <iostream>
 #include <Servo.h>
-using namespace std;
+
 
 
 Servo myservo;  // create servo object to control a servo
