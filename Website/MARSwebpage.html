@@ -1,0 +1,546 @@
+{{Global_Menubar}}
+{{Team:BostonU_Hardware/CSS}}
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
+	<link rel="icon" type="image/png" href="assets/img/favicon.png">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+	<title>BostonU_HW Main Page</title>
+
+	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+
+	<style>
+	#page_background{
+		background-image: url("http://2017.igem.org/wiki/images/9/94/LARGE_background_MARS.png");
+		background-size:100%;
+	}
+	#Header_Pic{
+
+	}
+	#MARS{
+		width: 100px;
+		position: absolute;
+		z-index: 1;
+		margin-top: 3%;
+		margin-left: 2%;
+		/*margin-left: 4%;*/
+	}
+	#BACKGROUND{
+		width: 100%;
+		position: absolute;
+	}
+	#TITLE{
+		position: absolute;
+		width: 50%;
+		margin-left: 42%;
+		margin-top: 17%;
+		z-index: 2;
+
+	}
+	#FlowChart{
+		width: 100%;
+	}
+	.text{
+		margin-bottom: 5%;
+	}
+	.main-raised{
+		margin-bottom: 10%;
+	}
+	/*img[usemap] {
+		border: none;
+		height: auto;
+		max-width: 100%;
+		width: auto;
+	}*/
+
+
+#first-slider .main-container {
+  padding: 0;
+}
+
+
+#first-slider .slide1 h3, #first-slider .slide2 h3, #first-slider .slide3 h3, #first-slider .slide4 h3{
+    color: #fff;
+    font-size: 30px;
+      text-transform: uppercase;
+      font-weight:700;
+}
+
+#first-slider .slide1 h4,#first-slider .slide2 h4,#first-slider .slide3 h4,#first-slider .slide4 h4{
+    color: #fff;
+    font-size: 30px;
+      text-transform: uppercase;
+      font-weight:700;
+}
+#first-slider .slide1 .text-left ,#first-slider .slide3 .text-left #first-slider .slide2 .text-left{
+    padding-left: 40px;
+}
+
+
+#first-slider .carousel-indicators {
+  bottom: 0;
+}
+#first-slider .carousel-control.right,
+#first-slider .carousel-control.left {
+  background-image: none;
+}
+#first-slider .carousel .item {
+  min-height: 425px;
+  height: 100%;
+  width:100%;
+}
+
+.carousel-inner .item .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+
+#first-slider .carousel-control {
+    width: 6%;
+        text-shadow: none;
+}
+
+
+#first-slider h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+#first-slider .p {
+  padding-top: 125px;
+  text-align: center;
+}
+
+#first-slider .p a {
+  text-decoration: underline;
+}
+#first-slider .carousel-indicators li {
+    width: 14px;
+    height: 14px;
+    background-color: rgba(255,255,255,.4);
+  border:none;
+}
+#first-slider .carousel-indicators .active{
+    width: 16px;
+    height: 16px;
+    background-color: #fff;
+  border:none;
+}
+
+
+.carousel-fade .carousel-inner .item {
+  -webkit-transition-property: opacity;
+  transition-property: opacity;
+}
+.carousel-fade .carousel-inner .item,
+.carousel-fade .carousel-inner .active.left,
+.carousel-fade .carousel-inner .active.right {
+  opacity: 0;
+}
+.carousel-fade .carousel-inner .active,
+.carousel-fade .carousel-inner .next.left,
+.carousel-fade .carousel-inner .prev.right {
+  opacity: 1;
+}
+.carousel-fade .carousel-inner .next,
+.carousel-fade .carousel-inner .prev,
+.carousel-fade .carousel-inner .active.left,
+.carousel-fade .carousel-inner .active.right {
+  left: 0;
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+}
+.carousel-fade .carousel-control {
+  z-index: 2;
+}
+
+.carousel-control #right, .carousel-control #left {
+    position: absolute;
+    top: 50%;
+    z-index: 5;
+    display: inline-block;
+}
+.carousel-control #left{
+    left: 50%;
+    width: 38px;
+    height: 38px;
+    margin-top: -15px;
+    font-size: 30px;
+    color: #fff;
+    border: 3px solid #ffffff;
+    -webkit-border-radius: 23px;
+    -moz-border-radius: 23px;
+    border-radius: 53px;
+}
+.carousel-control #right{
+    right: 50%;
+    width: 38px;
+    height: 38px;
+    margin-top: -15px;
+    font-size: 30px;
+    color: #fff;
+    border: 3px solid #ffffff;
+    -webkit-border-radius: 23px;
+    -moz-border-radius: 23px;
+    border-radius: 53px;
+}
+.carousel-control {
+    opacity: 1;
+    filter: alpha(opacity=100);
+}
+
+
+/********************************/
+/*       Slides backgrounds     */
+/********************************/
+#first-slider .slide1 {
+    background-image: url("#");
+		/*background-size:contain;*/
+		background-size: cover;
+		background-position:center;
+    background-repeat: no-repeat;
+}
+#first-slider .slide2 {
+  background-image: url("#");
+	/*background-size:contain;*/
+	background-size: cover;
+	background-position:center;
+  background-repeat: no-repeat;
+}
+#first-slider .slide3 {
+  background-image: url("#");
+	/*background-size:contain;*/
+	background-size: cover;
+	background-position:center;
+	background-repeat: no-repeat;
+}
+
+
+
+
+/********************************/
+/*          Media Queries       */
+/********************************/
+@media screen and (min-width: 980px){
+
+}
+@media screen and (max-width: 640px){
+
+}
+
+	</style>
+
+</head>
+
+<body>
+
+<div class ="landing-page">
+<div class="wrapper" id="page_background">
+		<div class="header" id="Header_Pic">
+			<div class="header" id="Header_Pic">
+		<img src="http://2017.igem.org/wiki/images/9/94/LARGE_background_MARS.png" id="BACKGROUND">
+		<div class="container" margin-top:"2%">
+<div class="col-md-5">
+
+		<img src="http://2017.igem.org/wiki/images/2/22/MARSLogo2.png" width="100%" style="margin-top:-20%">
+</div>
+		<div class="col-md-7">
+<img src="http://2017.igem.org/wiki/images/4/40/MARS_Main.png" width="100%" style="margin-top:0%;"></div>
+	</div>
+</div>
+	</div>
+	<div class="main main-raised" style="margin-bottom:50px;">
+			<div class="container" style="margin-top:-100px; margin-bottom:3%;">
+			<h1 class="text-center">Welcome to the 2017 BostonU HW Project: MARS</h1>
+			<div class="text">
+				Microfluidics is often an overlooked tool in the field of synthetic biology because designing and using microfluidic chips requires specialized knowledge. Our project, MARS (Microfluidic Applications for Research in Synbio), aims to increase the accessibility of low-cost and easy to use microfluidic systems for the synthetic biology community.
+				<br>
+				<br>
+				The typical design, build and fabrication flow utilized in microfluidics requires significant intellectual investment, technical agility, a high startup cost and time investment. The 2016 iGEM Hardware Team, <a href="http://2016.igem.org/Team:BostonU_HW">Neptune</a>, in conjunction with CIDAR Lab created an alternative software workflow tackling design and manufacturing barriers. What our team focused on is the implementation stage of this workflow, ensuring that synthetic biologists are able to effectively use the tools provided to them.
+				<br>
+				<br>
+				The main goals of MARS are to:
+				<ol><br><b>
+					<li>Increase accessibility of Microfluidics</li>
+					<li>Design chips that are relevant to the day to day protocols in synthetic biology labs which can be used together to perform more complex protocols </li>
+					<li>Create and provide a standardized method of evaluating chip functionality </li>
+				</b></ol>
+				<br>
+				These three goals led to the creation of the three main branches of MARS: Microfluidics 101, the MARS Repository and Fluid Functionality. Using this end to end system, microfluidics can become a more accessible and practical tool for synthetic biologists to integrate into their labs.
+				<br>
+				<br>
+				Use the graphic and images below to navigate the three branches of MARS and get a more in-depth look at what we have created over the summer.
+			</div>
+			</div>
+		</div>
+
+			<div class="main main-raised" style="margin-top:5%" id="uF_101">
+				<div class="container">
+					<div class="text" style="margin-bottom:3%;">
+					<div class = col-md-5>
+					<h1>Giant Jamboree</h1><h2>Awards</h2>
+				We are extremely proud to have won <b>Best Hardware Project</b> at the Jamboree!
+				<br><br>
+		Our team was also awarded with a Gold Medal for our research efforts.<br>
+		<img src="http://2017.igem.org/wiki/images/thumb/d/d2/Buhwjam.jpeg/1200px-Buhwjam.jpeg" width=100% margin-bottom=150px><br><br>
+					</div>
+					<div class = col-md-7><br>
+					<img src = "http://2017.igem.org/wiki/images/thumb/5/58/SP_BU_Hardware_Team_iGEM_2017_Awards.jpg/1200px-SP_BU_Hardware_Team_iGEM_2017_Awards.jpg" width=100% margin-bottom=150px><br>
+					</div>
+					
+
+
+
+					</div>
+				</div>
+			</div>
+
+		
+
+
+
+		<div class="container">
+
+			<!-- <div class="col-md-10 col-md-offset-1" style="margin-bottom:50px"> -->
+			<div class="container" style="margin-bottom:50px">
+
+								<div id="first-slider" class="">
+					<div id="carousel-example-generic" class="carousel slide carousel-fade">
+							<!-- Wrapper for slides -->
+							<div class="carousel-inner" role="listbox">
+									<!-- Item 1 -->
+									<div class="item slide1">
+											<div class="row">
+													<!-- <div class="container"> -->
+														<div class="container">
+															<div class="col-md-4 text-right" style="margin-left:30px;">
+																	 <h3 class="">Click to Explore:</h3>
+
+																	 <h4 class="">Cell Lysis</h4>
+															</div>
+															<div class="col-md-8 text-left">
+																<a href="http://2017.igem.org/Team:BostonU_HW/Lysis">
+																	<img style="max-width: 570px;" src="http://2017.igem.org/wiki/images/0/08/MARS_Lysis_M.png" class="">
+																</a>
+															</div>
+													</div>
+											</div>
+									</div>
+									<!-- Item 2 -->
+									<div class="item slide2 active">
+											<div class="row">
+													<!-- <div class="container"> -->
+													<div class="container">
+															<div class="col-md-4 text-right" style="margin-left:30px;">
+																	 <h3 class="">Click to Explore:</h3>
+
+																	 <h4 class="">Transformation</h4>
+
+															</div>
+															<div class="col-md-8 text-left" style="padding-left:40px;">
+																<a href="http://2017.igem.org/Team:BostonU_HW/Transformation">
+																	<img style="max-width: 570px;" src="http://2017.igem.org/wiki/images/4/41/MARS_Transformation_MF.png" class="">
+																</a>
+															</div>
+													</div>
+											</div>
+									</div>
+									<!-- Item 3 -->
+									<div class="item slide3">
+											<div class="row">
+													<!-- <div class="container"> -->
+													<div class="container">
+															<div class="col-md-4 text-right" style="margin-left:30px;">
+																	 <h3 class="">Click to Explore:</h3>
+
+																	 <h4 class="">Cell Sorting</h4>
+
+															</div>
+															<div class="col-md-8 text-left" style="padding-left:40px;">
+																<a href="http://2017.igem.org/Team:BostonU_HW/Isolation">
+																	<img style="max-width: 570px;" src="http://2017.igem.org/wiki/images/thumb/7/7f/MARS_CellSorting_MF.png/800px-MARS_CellSorting_MF.png.jpeg" class="">
+																</a>
+															</div>
+													</div>
+											</div>
+									</div>
+							</div>
+							<!-- End Wrapper for slides-->
+							<a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+									<i class="material-icons" id="left">arrow_backward</i>
+							</a>
+							<a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+									<i class="material-icons" id="right">arrow_forward</i>
+							</a>
+
+							<!-- Indicators -->
+							<div class="col-md-6">
+							<ol class="carousel-indicators">
+									<li data-target="#carousel-example-generic" data-slide-to="0" class=""></li>
+									<li data-target="#carousel-example-generic" data-slide-to="1" class="active"></li>
+									<li data-target="#carousel-example-generic" data-slide-to="2" class=""></li>
+							</ol>
+							</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+
+
+
+		<div style="text-align:center;">
+			<img src="http://2017.igem.org/wiki/images/5/57/MARS_Updated_Flow.png" id="map-image" style="width:1265px; height:640px;" alt="" usemap="#map" />
+		</div>
+			<map name="map">
+			    <area href="http://2017.igem.org/Team:BostonU_HW/IntrouF" shape="circle" coords="540, 525, 87" />
+			    <area href="http://2017.igem.org/Team:BostonU_HW/Model" shape="circle" coords="741, 526, 88" />
+			    <area href="http://2017.igem.org/Team:BostonU_HW/Collaborations" shape="circle" coords="842, 116, 87" />
+			    <area href="http://2017.igem.org/Team:BostonU_HW/Demonstrate" shape="circle" coords="640, 115, 88" />
+			    <area href="http://2017.igem.org/Team:BostonU_HW/LearnMARS" shape="circle" coords="439, 114, 86" />
+			</map>
+
+		</div>
+
+		<!-- THIS IS WITH CONTACT ON BOTTOM -->
+
+		<!-- <div class="wrapper" style="background:#1c1f1f; margin-top:0px;margin-right:0px !important; margin-left:0px !important;" id="Footer">
+			<div class="container" style="text-align:center !important">
+			<img src="http://2017.igem.org/wiki/images/0/0e/MARS_SponsorsFinal.png" style="width:100%; margin-top:30px;">
+
+			<div class="col-md-3 col-md-offset-2" style="color:white; margin-bottom:30px;">
+				<h1>CONTACT US</h1>
+			</div>
+			<div style="text-align:center;">
+			<div class="col-md-2">
+				<a href="mailto:igembuhw@gmail.com">
+				<img src="http://2017.igem.org/wiki/images/7/74/MARS_WHITEEmail.png" style="width:100px;">
+				</a>
+				</div>
+				<div class="col-md-2">
+					<a href="https://www.instagram.com/buigemhardware/?hl=en">
+					<img src="http://2017.igem.org/wiki/images/9/93/MARS_Final_insta.png" style="width:100px;">
+				</a>
+					</div>
+					<div class="col-md-2">
+						<a href="https://twitter.com/igemhwbu">
+						<img src="http://2017.igem.org/wiki/images/b/b6/MARS_Twitter_White.png" style="width:100px;">
+						</a>
+						</div>
+						</div>
+					</div>
+		</div> -->
+
+		<!-- THIS IS WITH CONTACT ON SIDE -->
+
+		<!-- Image Map Generated by http://www.image-map.net/ -->
+<!-- <img src="http://2017.igem.org/wiki/images/0/0e/MARS_SponsorsFinal.png" usemap="#image-map">
+
+<map name="image-map">
+    <area target="_self" alt="LCP" title="LCP" href="https://www.programmingbiology.org/" coords="1,7,449,152" shape="rect">
+    <area target="_self" alt="Phenomyx" title="Phenomyx" href="https://labcentral.org/resident-companies/phenomyx" coords="466,29,788,127" shape="rect">
+    <area target="_self" alt="CIDAR" title="CIDAR" href="http://cidarlab.org/" coords="818,1,1190,184" shape="rect">
+    <area target="_self" alt="STEMP" title="STEMP" href="https://www.stempathways.org/" coords="1204,7,1513,179" shape="rect">
+    <area target="_self" alt="NSF" title="NSF" href="https://www.nsf.gov/" coords="4,166,229,377" shape="rect">
+    <area target="_self" alt="BU" title="BU" href="http://www.bu.edu/" coords="238,210,545,362" shape="rect">
+    <area target="_self" alt="DRAPER" title="DRAPER" href="http://www.draper.com/" coords="571,239,1096,329" shape="rect">
+    <area target="_self" alt="ALine" title="ALine" href="https://alineinc.com/" coords="1111,229,1535,337" shape="rect">
+</map> -->
+
+
+		<div class="wrapper" style="background:#1c1f1f; margin-top:0px;margin-right:0px !important; margin-left:0px !important;" id="Footer">
+			<div class="container" style="text-align:center !important">
+
+				<div class="col-md-2" style="color:white; margin-bottom:30px; margin-top:5px;">
+					<h3>CONTACT US</h3>
+				<div style="text-align:center;">
+					<a href="mailto:igembuhw@gmail.com">
+					<img src="http://2017.igem.org/wiki/images/7/74/MARS_WHITEEmail.png" style="height:60px; margin-top:20px;">
+					</a>
+						<a href="https://www.instagram.com/buigemhardware/?hl=en">
+						<img src="http://2017.igem.org/wiki/images/9/93/MARS_Final_insta.png" style="height:60px; margin-top:20px;">
+					</a>
+							<a href="https://twitter.com/igemhwbu">
+							<img src="http://2017.igem.org/wiki/images/b/b6/MARS_Twitter_White.png" style="height:60px; margin-top:20px;">
+							</a>
+					</div>
+					</div>
+					<div class="col-md-10" style="margin-bottom:30px;">
+						<img src="http://2017.igem.org/wiki/images/0/0e/MARS_SponsorsFinal.png" style="width:100%; margin-top:30px;" usemap="#image-map">
+				</div>
+		</div>
+
+		</div>
+
+</div>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-rwdImageMaps/1.6/jquery.rwdImageMaps.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(e) {
+    $('img[usemap]').rwdImageMaps();
+});</script>
+<!-- <script type="text/javascript">$('map').imageMapResize();</script> -->
+
+<script>
+(function( $ ) {
+
+    //Function to animate slider captions
+	function doAnimations( elems ) {
+		//Cache the animationend event in a variable
+		var animEndEv = 'webkitAnimationEnd animationend';
+
+		elems.each(function () {
+			var $this = $(this),
+				$animationType = $this.data('animation');
+			$this.addClass($animationType).one(animEndEv, function () {
+				$this.removeClass($animationType);
+			});
+		});
+	}
+
+	//Variables on page load
+	var $myCarousel = $('#carousel-example-generic'),
+		$firstAnimatingElems = $myCarousel.find('.item:first').find("[data-animation ^= 'animated']");
+
+	//Initialize carousel
+	$myCarousel.carousel();
+
+	//Animate captions in first slide on page load
+	doAnimations($firstAnimatingElems);
+
+	//Pause carousel
+	$myCarousel.carousel('pause');
+
+
+	//Other slides to be animated on carousel slide event
+	$myCarousel.on('slide.bs.carousel', function (e) {
+		var $animatingElems = $(e.relatedTarget).find("[data-animation ^= 'animated']");
+		doAnimations($animatingElems);
+	});
+    $('#carousel-example-generic').carousel({
+        interval:3000,
+        pause: "false"
+    });
+
+})(jQuery);
+
+</script>
+
+</body>
+
+</html>
+
+{{Team:BostonU_Hardware/Javascript}}
