@@ -10,9 +10,9 @@ channel_list = channel_list.split(' ')
 
 new_list = []
 
-for s in channel_list.split(' '):
+for s in channel_list:
     new_list.append(int(s))
-print(new_list )
+print(new_list)
 print(type(new_list[2]))
 
 
