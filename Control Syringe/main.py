@@ -2,22 +2,27 @@ import RPi.GPIO as GPIO
 import time
 
 GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
 
 channel_list = input('Enter which channels on the Raspberry Pi are going to be used for servo motors:  \n**Seperate channels with spaces**')
-channel_list = channel_list.split(' ')
-servo_instances = ['p'+ s for s in channel_list]
-print(servo_instances)
-channel_list = [int(s) for s in channel_list]
-print(channel_list)
-
+#servo_instances = ['p'+ s for s in channel_list]
+channel_list = [int(s) for s in channel_list.split(' ')]
+servo_number = len(channel_list)
+#print(channel_list)
 
 GPIO.setup(channel_list, GPIO.OUT)
 
-p1 = GPIO.PWM(14, 50)
-p2 = GPIO.PWM(4, 50)
+servo_instances = []
+for i in range(servo_number)
+    servo_instances[i] = GPIO.PWM(channel_list[i],50)
 
-p1.start(7.5)
-p2.start(7.5)
+#p1 = GPIO.PWM(14, 50)
+#p2 = GPIO.PWM(4, 50)
+
+for i in range(servo_number)
+    servo_instaces[i].start() = 7.5
+#p1.start(7.5)
+#p2.start(7.5)
 
 
 try:
