@@ -6,10 +6,14 @@ GPIO.setmode(GPIO.BCM)
 channel_list = input('Enter Which Channels are going to be used for servo motors:  \n**Seperate channels with spaces**')
 #channel_list = [int(s) for s in channel_list.split(' ')]
 
+channel_list = channel_list.split(' ')
+
+new_list = []
+
 for s in channel_list.split(' '):
-    int(s)
-print(channel_list)
-print(type(channel_list[2]))
+    new_list.append(int(s))
+print(new_list )
+print(type(new_list[2]))
 
 
 
