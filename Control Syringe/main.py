@@ -4,11 +4,12 @@ import time
 GPIO.setmode(GPIO.BCM)
 
 channel_list = input('Enter Which Channels are going to be used for servo motors:  \n**Seperate channels with spaces**')
+p_list = ['p'+ s for s in channel_list]
+print(p_list)
 channel_list = [int(s) for s in channel_list.split(' ')]
 
 
-GPIO.setup(14, GPIO.OUT)
-GPIO.setup(4, GPIO.OUT)
+GPIO.setup(channel_list, GPIO.OUT)
 
 p1 = GPIO.PWM(14, 50)
 p2 = GPIO.PWM(4, 50)
