@@ -14,7 +14,7 @@ print(servo_number)
 GPIO.setup(channel_list, GPIO.OUT)
 
 servo_instances = []
-for i in range(0,servo_number):
+for i in range(channel_list):
     servo_instances.append(GPIO.PWM(i,50))
 print(servo_instances)
 
