@@ -8,13 +8,15 @@ channel_list = input('Enter which channels on the Raspberry Pi are going to be u
 #servo_instances = ['p'+ s for s in channel_list]
 channel_list = [int(s) for s in channel_list.split(' ')]
 servo_number = len(channel_list)
-#print(channel_list)
+print(channel_list)
+print(servo_number)
 
 GPIO.setup(channel_list, GPIO.OUT)
 
-servo_instances = []
+servo_instances = []*servo_number
 for i in range(servo_number):
-    servo_instances[i] = GPIO.PWM(channel_list[i],50)
+    #servo_instances[i] = GPIO.PWM(channel_list[i],50)
+    print(i)
 
 #p1 = GPIO.PWM(14, 50)
 #p2 = GPIO.PWM(4, 50)
