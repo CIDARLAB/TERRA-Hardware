@@ -3,8 +3,11 @@ import time
 
 GPIO.setmode(GPIO.BCM)
 
-channel_number = input('Enter Number of Control Channels')
-channel_pins = input('Enter Which Channels are going to be used for servo motors')
+channel_number = input('Enter Number of Control Channels: ')
+print(type(channel_number))
+channel_pins = input('Enter Which Channels are going to be used for servo motors: ')
+
+
 
 GPIO.setup(14, GPIO.OUT)
 
@@ -20,10 +23,6 @@ try:
         p.ChangeDutyCycle(2.5)  # turn towards 0 degree
         time.sleep(1) # sleep 1 second
         p.ChangeDutyCycle(12.5) # turn towards 180 degree
-        time.sleep(1) # sleep 1 second
-        p.ChangeDutyCycle(17.5) # turn towards 180 degree
-        time.sleep(1) # sleep 1 second
-        p.ChangeDutyCycle(22.5) # turn towards 180 degree
         time.sleep(1) # sleep 1 second
 except KeyboardInterrupt:
     p.stop()
