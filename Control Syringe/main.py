@@ -20,7 +20,7 @@ for i in range(servo_number):
 #p2 = GPIO.PWM(4, 50)
 
 for i in range(servo_number):
-    servo_instaces[i].start() = 7.5
+    servo_instances[i].start() = 7.5
 #p1.start(7.5)
 #p2.start(7.5)
 
