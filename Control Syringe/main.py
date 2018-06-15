@@ -5,7 +5,11 @@ GPIO.setmode(GPIO.BCM)
 
 channel_number = input('Enter Number of Control Channels: ')
 print(type(channel_number))
+channel_number = int(channel_number)
+print(type(channel_number))
+
 channel_pins = input('Enter Which Channels are going to be used for servo motors: ')
+print(type(channel_pins))
 
 
 
