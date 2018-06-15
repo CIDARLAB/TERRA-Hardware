@@ -8,8 +8,13 @@ channel_number = int(channel_number)
 
 channel_list = [0]*channel_number
 
-channel_pins = input('Enter Which Channels are going to be used for servo motors:  \n *Seperate channels with spaces')
-print(type(channel_pins))
+channel_pins = input('Enter Which Channels are going to be used for servo motors:  \n**Seperate channels with spaces**')
+channel_pins = channel_pins.split(' ')
+for s in channel_pins
+    int(s)
+print(channel_pins)
+print(type(channel_pins[2]))
+
 
 
 
