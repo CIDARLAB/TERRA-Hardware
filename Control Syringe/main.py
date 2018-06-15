@@ -4,11 +4,11 @@ import time
 GPIO.setmode(GPIO.BCM)
 
 channel_number = input('Enter Number of Control Channels: ')
-print(type(channel_number))
 channel_number = int(channel_number)
-print(type(channel_number))
 
-channel_pins = input('Enter Which Channels are going to be used for servo motors: ')
+channel_list = [0]*channel_number
+
+channel_pins = input('Enter Which Channels are going to be used for servo motors:  \n *Seperate channels with spaces')
 print(type(channel_pins))
 
 
