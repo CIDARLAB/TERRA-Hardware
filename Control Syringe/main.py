@@ -13,13 +13,13 @@ servo_number = len(channel_list)
 GPIO.setup(channel_list, GPIO.OUT)
 
 servo_instances = []
-for i in range(servo_number)
+for i in range(servo_number):
     servo_instances[i] = GPIO.PWM(channel_list[i],50)
 
 #p1 = GPIO.PWM(14, 50)
 #p2 = GPIO.PWM(4, 50)
 
-for i in range(servo_number)
+for i in range(servo_number):
     servo_instaces[i].start() = 7.5
 #p1.start(7.5)
 #p2.start(7.5)
