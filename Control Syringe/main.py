@@ -21,7 +21,7 @@ print(servo_instances)
 
 for i in range(servo_number):
     servo_instances[i].start(50)
-print(servo_instance[0.start()])
+print(servo_instance[0].start())
 
 
 try:
