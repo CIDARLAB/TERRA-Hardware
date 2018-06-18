@@ -28,20 +28,23 @@ try:
     while True:
         servo_instances[0].ChangeDutyCycle(7.5)  # turn towards 90 degree
         time.sleep(1) # sleep 1 second
+        print('hello1')
         servo_instances[0].ChangeDutyCycle(2.5)  # turn towards 0 degree
         time.sleep(1) # sleep 1 second
+        print('hello2')
         servo_instances[0].ChangeDutyCycle(12.5) # turn towards 180 degree
         time.sleep(1) # sleep 1 second
+        print('hello3')
 
         servo_instances[1].ChangeDutyCycle(7.5)  # turn towards 90 degree
         time.sleep(1) # sleep 1 second
-        print('hello')
+        print('hello4')
         servo_instances[1].ChangeDutyCycle(2.5)  # turn towards 0 degree
         time.sleep(1) # sleep 1 second
-        print('hello')
+        print('hello5')
         servo_instances[1].ChangeDutyCycle(12.5) # turn towards 180 degree
         time.sleep(1) # sleep 1 second
-        print('hello')
+        print('hello6')
 except KeyboardInterrupt:
     servo_instances[0].stop()
     GPIO.cleanup()
