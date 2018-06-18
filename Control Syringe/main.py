@@ -24,22 +24,14 @@ for i in range(servo_number):
 
 
 
-#try:
-#    while True:
-#        p1.ChangeDutyCycle(7.5)  # turn towards 90 degree
-#        time.sleep(1) # sleep 1 second
-#        p1.ChangeDutyCycle(2.5)  # turn towards 0 degree
-#        time.sleep(1) # sleep 1 second
-#        p1.ChangeDutyCycle(12.5) # turn towards 180 degree
-#        time.sleep(1) # sleep 1 second
-#
-#        p2.ChangeDutyCycle(7.5)  # turn towards 90 degree
-#        time.sleep(1) # sleep 1 second
-#        p2.ChangeDutyCycle(2.5)  # turn towards 0 degree
-#        time.sleep(1) # sleep 1 second
-#        p2.ChangeDutyCycle(12.5) # turn towards 180 degree
-#        time.sleep(1) # sleep 1 second
+try:
+    while True:
+        servo_instances[0].ChangeDutyCycle(7.5)  # turn towards 90 degree
+        time.sleep(1) # sleep 1 second
+        servo_instances[0].ChangeDutyCycle(2.5)  # turn towards 0 degree
+        time.sleep(1) # sleep 1 second
+        servo_instances[0].ChangeDutyCycle(12.5) # turn towards 180 degree
+        time.sleep(1) # sleep 1 second
 except KeyboardInterrupt:
-    p1.stop()
-    p2.stop()
+    servo_instances[0].stop()
     GPIO.cleanup()
