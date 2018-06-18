@@ -19,31 +19,26 @@ for i in channel_list:
 print(servo_instances)
 
 
-#GPIO.PWM(channel_list[i],50)
-#p1 = GPIO.PWM(14, 50)
-#p2 = GPIO.PWM(4, 50)
-
-#for i in range(servo_number):
-#    servo_instances[i].start()
-#p1.start(7.5)
-#p2.start(7.5)
+for i in range(servo_number):
+    servo_instances[i].start(50)
 
 
-try:
-    while True:
-        p1.ChangeDutyCycle(7.5)  # turn towards 90 degree
-        time.sleep(1) # sleep 1 second
-        p1.ChangeDutyCycle(2.5)  # turn towards 0 degree
-        time.sleep(1) # sleep 1 second
-        p1.ChangeDutyCycle(12.5) # turn towards 180 degree
-        time.sleep(1) # sleep 1 second
 
-        p2.ChangeDutyCycle(7.5)  # turn towards 90 degree
-        time.sleep(1) # sleep 1 second
-        p2.ChangeDutyCycle(2.5)  # turn towards 0 degree
-        time.sleep(1) # sleep 1 second
-        p2.ChangeDutyCycle(12.5) # turn towards 180 degree
-        time.sleep(1) # sleep 1 second
+#try:
+#    while True:
+#        p1.ChangeDutyCycle(7.5)  # turn towards 90 degree
+#        time.sleep(1) # sleep 1 second
+#        p1.ChangeDutyCycle(2.5)  # turn towards 0 degree
+#        time.sleep(1) # sleep 1 second
+#        p1.ChangeDutyCycle(12.5) # turn towards 180 degree
+#        time.sleep(1) # sleep 1 second
+#
+#        p2.ChangeDutyCycle(7.5)  # turn towards 90 degree
+#        time.sleep(1) # sleep 1 second
+#        p2.ChangeDutyCycle(2.5)  # turn towards 0 degree
+#        time.sleep(1) # sleep 1 second
+#        p2.ChangeDutyCycle(12.5) # turn towards 180 degree
+#        time.sleep(1) # sleep 1 second
 except KeyboardInterrupt:
     p1.stop()
     p2.stop()
