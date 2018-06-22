@@ -60,7 +60,6 @@ void loop() {
   int k;
   int j;
   char pin_list[40];
-  char *pin_pointer[40];
   String channel_list;
   SyringeGroups groups[group_num];
 
@@ -77,16 +76,17 @@ void loop() {
 
       char *token = strtok(pin_list," ");
       while(token != NULL){
-        groups[k].pins[j] = int(token);
-        Serial.print(pin_pointer[j]);
+        groups[k].pins[j] = atoi(token);
+        Serial.print(groups[k].pins[j]);
         token = strtok (NULL, " ");
         j++;
         };
+      j = 0;
       Serial.print("\n");
     };
   };
 
-  Serial.print(groups[1].pins);
+  //Serial.print(groups[1].pins[1]);
 
   //Create SyringeGroups objects for each channel group
 
