@@ -28,17 +28,25 @@ void setServoPulse(uint8_t n, double pulse) {
 //Class to characterize the syringe groups by identifying what channels are within a group and functions to set their states
 class SyringeGroups{
   public:
+    int i;
     int pins[16];
-    void zero(){
-        setServoPulse(pins[0],0.0006);
+    void off(){
+      for (i = 0; i < 16; i++){
+        setServoPulse(pins[i],0.0008);
       };
-    void ninety(){
-        setServoPulse(pins[0],0.002);
-      };
+      i = 0;
+    };
     void oneeighty(){
-        setServoPulse(pins[0],0.0015);
+      for(i = 0; i < 16; i++){
+        setServoPulse(pins[i],0.0022);
       };
       };
+    void on(){
+      for(i = 0; i < 16; i++){
+        setServoPulse(pins[i],0.0014);
+      };
+      };
+};
 
 void setup() {
   Serial.begin(9600); //set Baud Rate
@@ -54,8 +62,7 @@ void loop() {
   Serial.print("Enter how many syringe groups you will be using for TERRA: \n **You can have groups with 1 or more syringes** \n");
   while(Serial.available() == 0){};
   group_num = Serial.read() - 48;
-  Serial.print(group_num);
-  Serial.print("\n");
+  Serial.println(group_num);
 
   int k;
   int j;
@@ -67,9 +74,8 @@ void loop() {
   if(k == 0){
     for (k = 0; k < group_num; k++){
       Serial.print("Enter which channels on the Adafruit Motor Shield are going to be used for Group");
-      Serial.print(k + 1);
-      Serial.print("\n");
-      Serial.print("** Seperate channels using a space **\n");
+      Serial.println(k + 1);
+      Serial.println("** Seperate channels using a space **");
       while(Serial.available() == 0) {};
       channel_list = Serial.readString();
       channel_list.toCharArray(pin_list,40);
@@ -77,33 +83,27 @@ void loop() {
       char *token = strtok(pin_list," ");
       while(token != NULL){
         groups[k].pins[j] = atoi(token);
-        Serial.print(groups[k].pins[j]);
+        Serial.println(groups[k].pins[j]);
         token = strtok (NULL, " ");
         j++;
         };
       j = 0;
-      Serial.print("\n");
     };
   };
 
-  //Serial.print(groups[1].pins[1]);
+  Serial.println(groups[1].pins[1]);
 
-  //Create SyringeGroups objects for each channel group
+  //Control the actuation of control syringe groups
+
+  while(1){
+
+    groups[1].on();
+    delay(5000);
+    groups[1].off();
+    delay(5000);
 
 
 
 
-
-
-
-
-
-
-  SyringeGroups Group1;
-  Group1.zero();
-  delay(500);
-  Group1.ninety();
-  delay(500);
-  Group1.oneeighty();
-  delay(500);
+}
 }
