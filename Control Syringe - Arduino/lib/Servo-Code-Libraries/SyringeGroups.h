@@ -10,6 +10,7 @@ class SyringeGroups{
   public:
     int pins[16];
     int pin_num;
+    
     void off(){
       for(int i = 0; i < pin_num; i++){
       setServoPulse(pins[i],0.0008);
