@@ -2,9 +2,10 @@
 #include <Wire.h>
 #include <Adafruit_PWMServoDriver.h>
 #include "SyringeGroups.h"
-#include "setServoPulse.h"
 
 int group_num;
+Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver();
+void setServoPulse(uint8_t n, double pulse);
 
 void setup() {
   Serial.begin(9600); //set Baud Rate
@@ -52,24 +53,19 @@ void loop() {
   //Control the actuation of control syringe groups
 
   while(1){
-
-    delay(10000);
-
-    groups[0].on();
-    delay(1000);
-    groups[1].off();
-
-    delay(60000);
-
-    groups[0].off();
-    delay(1000);
-    groups[1].on();
-
-    delay(60000);
-    groups[0].on();
-    delay(1000);
-    groups[1].off();
-
-    delay(60000);
 }
 }
+
+void setServoPulse(uint8_t n, double pulse) {
+
+  double pulselength;
+
+  pulselength = 1000000;   // 1,000,000 us per second
+  pulselength /= 60;   // 60 Hz
+  //Serial.print(pulselength); Serial.println(" us per period");
+  pulselength /= 4096;  // 12 bits of resolution
+  //Serial.print(pulselength); Serial.println(" us per bit");
+  pulse *= 1000000;  // convert to us
+  pulse /= pulselength;
+  pwm.setPWM(n, 0, pulse);
+};
