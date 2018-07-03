@@ -33,3 +33,7 @@ void SyringeGroups::oneeighty(){
     setServoPulse(pins[i],0.0022);
   };
 };
+
+void SyringeGroups::assign(){
+
+};

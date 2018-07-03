@@ -6,10 +6,13 @@ class SyringeGroups{
 public:
     int pins[16];
     int pin_num;
+
     void off();
     void oneeighty();
     void on();
     void setServoPulse(int n, double pulse);
+    void assign();
+
 };
 
 #endif
