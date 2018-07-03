@@ -5,20 +5,17 @@
 
 int group_num;
 Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver();
-void setServoPulse(uint8_t n, double pulse);
 
 void setup() {
   Serial.begin(9600); //set Baud Rate
   pwm.begin();
-
   pwm.setPWMFreq(60);  // Analog servos run at ~60 Hz updates
-
   delay(10);
 }
 void loop() {
 
   // Ask user for number of control syringes they are using
-  Serial.print("Enter how many syringe groups you will be using for TERRA: \n **You can have groups with 1 or more syringes** \n");
+  Serial.print("Enter how many out you will be using for TERRA: \n **You can have groups with 1 or more syringes** \n");
   while(Serial.available() == 0){};
   group_num = Serial.read() - 48;
   Serial.println(group_num);
@@ -55,17 +52,3 @@ void loop() {
   while(1){
 }
 }
-
-void setServoPulse(uint8_t n, double pulse) {
-
-  double pulselength;
-
-  pulselength = 1000000;   // 1,000,000 us per second
-  pulselength /= 60;   // 60 Hz
-  //Serial.print(pulselength); Serial.println(" us per period");
-  pulselength /= 4096;  // 12 bits of resolution
-  //Serial.print(pulselength); Serial.println(" us per bit");
-  pulse *= 1000000;  // convert to us
-  pulse /= pulselength;
-  pwm.setPWM(n, 0, pulse);
-};
