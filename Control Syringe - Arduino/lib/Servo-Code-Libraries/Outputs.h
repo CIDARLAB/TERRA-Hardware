@@ -18,6 +18,7 @@ class Outputs{
     void assign_open();
     void assign_close();
 
+    void origin();
     void open();
     void close();
 

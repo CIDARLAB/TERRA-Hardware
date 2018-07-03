@@ -45,6 +45,10 @@ void Outputs::assign_close(){
     };
   Close.pin_num = j;
 }
+void Outputs::origin(){
+  Open.neutral();
+  Close.neutral();
+}
 
 void Outputs::open(){
     Open.on();
