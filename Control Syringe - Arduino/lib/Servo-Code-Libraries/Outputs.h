@@ -15,7 +15,8 @@ class Outputs{
     SyringeGroups Open;
     SyringeGroups Close;
 
-    void assign(int open_pins[16],int close_pins[16]);
+    void assign_open();
+    void assign_close();
 
     void open();
     void close();

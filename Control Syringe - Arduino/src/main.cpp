@@ -2,9 +2,10 @@
 #include <Wire.h>
 #include <Adafruit_PWMServoDriver.h>
 #include "SyringeGroups.h"
+#include "Outputs.h"
 
-int group_num;
 Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver();
+int output_num;
 
 void setup() {
   Serial.begin(9600); //set Baud Rate
@@ -14,41 +15,24 @@ void setup() {
 }
 void loop() {
 
-  // Ask user for number of control syringes they are using
-  Serial.print("Enter how many out you will be using for TERRA: \n **You can have groups with 1 or more syringes** \n");
+  // Ask user for number of outputs their microfluidic chip has
+  Serial.print("Enter how many outputs your microfluidic chip contains:");
   while(Serial.available() == 0){};
-  group_num = Serial.read() - 48;
-  Serial.println(group_num);
+  output_num = Serial.read() - 48;
+  Serial.println(output_num);
 
-  int j;
-  char pin_list[40];
-  String channel_list;
-  SyringeGroups groups[group_num];
+  Outputs outputs[output_num];
 
-  //Give each syringe group object the channel list that it will control
-    for (int k = 0; k < group_num; k++){
-      Serial.print("Enter which channels on the Adafruit Motor Shield are going to be used for Group");
-      Serial.println(k + 1);
-      Serial.println("** Seperate channels using a space **");
-      while(Serial.available() == 0) {};
-      channel_list = Serial.readString();
-      channel_list.toCharArray(pin_list,40);
+//Establish pins sequence of open and closed valves for each output
+  for (int k = 0; k < output_num; k++){
+    outputs[k].assign_open();
+    outputs[k].assign_close();
+  };
 
-      char *token = strtok(pin_list," ");
-      while(token != NULL){
-        groups[k].pins[j] = atoi(token);
-        Serial.println(groups[k].pins[j]);
-        token = strtok (NULL, " ");
-        j++;
-        };
-      groups[k].pin_num = j;
-      j = 0;
-    };
-
-  Serial.println(groups[1].pins[1]);
 
   //Control the actuation of control syringe groups
 
   while(1){
+    outputs[0].open();
 }
 }
