@@ -30,7 +30,7 @@ void SyringeGroups::on(){
 
 void SyringeGroups::off(){
   for(int i = 0; i < pin_num; i++){
-    setServoPulse(pins[i],0.0007);
+    setServoPulse(pins[i],0.0006);
   };
 };
 
