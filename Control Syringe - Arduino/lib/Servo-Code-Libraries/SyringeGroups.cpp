@@ -16,7 +16,7 @@ void SyringeGroups::setServoPulse(int n, double pulse){
     pwm.setPWM(n, 0, pulse);
   };
 
-void SyringeGroups::off(){
+void SyringeGroups::neutral(){
   for(int i = 0; i < pin_num; i++){
     setServoPulse(pins[i],0.0008);
   };
@@ -28,9 +28,9 @@ void SyringeGroups::on(){
   };
 };
 
-void SyringeGroups::oneeighty(){
+void SyringeGroups::off(){
   for(int i = 0; i < pin_num; i++){
-    setServoPulse(pins[i],0.0022);
+    setServoPulse(pins[i],0.0007);
   };
 };
 
