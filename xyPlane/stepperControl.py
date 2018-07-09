@@ -8,7 +8,7 @@ import RPi.GPIO as GPIO
 
 GPIO.setmode(GPIO.BCM)
 
-#Define GPIO signals to use
+#Define GPIO signals to use (pin numbers on the rasberry pi)
 Pins 18,22,24,26
 # GPIO24,GPIO25,GPIO8,GPIO7
 StepPins = [24,25,8,7]
@@ -34,7 +34,7 @@ Seq1[1] = [0,1,0,0]
 Seq1[2] = [0,0,1,0]
 Seq1[3] = [0,0,0,1]
 
-# Define advanced sequence as shown in manufacturers datasheet
+# Define advanced sequenzce as shown in manufacturers datasheet
 
 StepCount2 = 8
 Seq2 = []
