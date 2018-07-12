@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+    <title>TERRA</title>
+  </head>
+  <body>
+    <div class="container-fluid">
+
+      <h1>TERRA</h1>
+
+      <!--Site navigation bar -->
+      <div class="row border border-dark">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <a class="navbar-brand" href="#">TERRA</a>
+        </nav>
+      </div>
+
+      <div class="row border border-dark">
+        <!-- Sidebar Protocol -->
+        <div class="col-4 border border-dark">
+          <h2 class="text-center">Protocol</h2>
+          <p class="text-muted text-center">Fill out protocol for experiment</p>
+          <hr>
+          <form method="POST" action="/send">
+            <!-- Enter Number of Outputs -->
+            <h4 class="text-center">Input Information</h4>
+            <div class="form-group row">
+              <label for="numberOutputs" class="col-8 col-form-label">Enter Number of Outputs</label>
+              <div class="col">
+                <input type="number" class="form-control" id="numberOutputs" placeholder="0" name="numberOutputs">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="selectVessel" class="col-8 col-from-label">Select Vessel</label>
+              <div class="col">
+                <select class="custom-select" name="selectVessel">
+                  <option value="24">24-well plate</option>
+                  <option value="96">96-well plate</option>
+                  <option value="384">384-well plate</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col">
+                <button class="btn btn-dark"type="submit" name="numberOutputsButton" id="numberOutputsButton">Submit</button>
+              </div>
+            </div>
+            <hr>
+            <!--Select Output to Configure-->
+            <h4 class="text-center">Output Configuration</h4>
+            <div class="form-group row">
+              <label for="selectOutput" class="col-8 col-form-label">Select Output to Configure</label>
+              <div class="col">
+                <select class="custom-select" name="selectOutput">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">3</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                </select>
+              </div>
+            </div>
+
+          <div class="form-group row">
+            <label for="syringeCombo" class="col-8 col-form-label">Enter Syringe Combination</label>
+            <div class="col">
+              <input class="form-control" type="text" name="syringeCombo" id="syringeCombo">
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="outputDuration" class="col-8 col-form-label">Enter Duration (minutes)</label>
+            <div class="col">
+              <input class="form-control" type="number" name="outputDuration" value="minutes">
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col">
+              <button class="btn btn-dark"type="submit" name="configureButton" id="configureButton">Submit</button>
+            </div>
+          </div>
+        <hr>
+        <div class="form-group row">
+          <div class="col">
+            <button class="btn btn-primary"type="submit" name="submitProtocol" id="submitProtocol">Submit Job</button>
+          </div>
+        </div>
+
+          </form>
+        </div>
+
+        <!-- Vessel Image -->
+        <div class="col border border-dark">
+          <h2 class="text-center">Output Destination</h2>
+          <p class="text-muted text-center">Select where Output should be dispensed</p>
+          <hr>
+          <table class="table table-bordered table-sm">
+            <thead>
+              <tr>
+                <th scope="col"> </th>
+                <th scope="col">1</th>
+                <th scope="col">2</th>
+                <th scope="col">3</th>
+                <th scope="col">4</th>
+                <th scope="col">5</th>
+                <th scope="col">6</th>
+                <th scope="col">7</th>
+                <th scope="col">8</th>
+                <th scope="col">9</th>
+                <th scope="col">10</th>
+                <th scope="col">11</th>
+                <th scope="col">12</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">A</th>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td> </td>
+              </tr>
+              <tr>
+                <th scope="row">B</th>
+              </tr>
+              <tr>
+                <th scope="row">C</th>
+              </tr>
+              <tr>
+                <th scope="row">D</th>
+              </tr>
+              <tr>
+                <th scope="row">E</th>
+              </tr>
+              <tr>
+                <th scope="row">F</th>
+              </tr>
+              <tr>
+                <th scope="row">G</th>
+              </tr>
+              <tr>
+                <th scope="row">H</th>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+  </body>
+</html>
