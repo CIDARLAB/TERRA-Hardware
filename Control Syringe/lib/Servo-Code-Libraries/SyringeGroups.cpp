@@ -28,13 +28,13 @@ void SyringeGroups::on(){
     delay(125);
     setServoPulse(pins[i],0.0009);
     delay(125);
-    setServoPulse(pins[i],0.00010);
+    setServoPulse(pins[i],0.0010);
     delay(125);
-    setServoPulse(pins[i],0.00011);
+    setServoPulse(pins[i],0.0011);
     delay(125);
-    setServoPulse(pins[i],0.00012);
+    setServoPulse(pins[i],0.0012);
     delay(125);
-    setServoPulse(pins[i],0.00013);
+    setServoPulse(pins[i],0.0013);
     delay(125);
     setServoPulse(pins[i],0.0014);
   };
