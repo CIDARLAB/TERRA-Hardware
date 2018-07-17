@@ -24,6 +24,18 @@ void SyringeGroups::neutral(){
 
 void SyringeGroups::on(){
   for(int i = 0; i < pin_num; i++){
+    setServoPulse(pins[i],0.0008);
+    delay(125)
+    setServoPulse(pins[i],0.0009);
+    delay(125)
+    setServoPulse(pins[i],0.00010);
+    delay(125)
+    setServoPulse(pins[i],0.00011);
+    delay(125)
+    setServoPulse(pins[i],0.00012);
+    delay(125)
+    setServoPulse(pins[i],0.00013);
+    delay(125)
     setServoPulse(pins[i],0.0014);
   };
 };

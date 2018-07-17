@@ -28,7 +28,7 @@
           <h2 class="text-center">Protocol</h2>
           <p class="text-muted text-center">Fill out protocol for experiment</p>
           <hr>
-          <form method="POST" action="/send">
+          <form method="POST" action="">
             <!-- Enter Number of Outputs -->
             <h4 class="text-center">Input Information</h4>
             <div class="form-group row">
@@ -49,7 +49,7 @@
             </div>
             <div class="form-group row">
               <div class="col">
-                <button class="btn btn-dark"type="submit" name="numberOutputsButton" id="numberOutputsButton">Submit</button>
+                <button class="btn btn-dark" type="submit" name="action" id="numberOutputsButton" value="numberOutputsButton">Submit</button>
               </div>
             </div>
             <hr>
@@ -69,34 +69,40 @@
                 </select>
               </div>
             </div>
-
-          <div class="form-group row">
-            <label for="syringeCombo" class="col-8 col-form-label">Enter Syringe Combination</label>
-            <div class="col">
-              <input class="form-control" type="text" name="syringeCombo" id="syringeCombo">
+            <hr>
+            <div class="form-group row">
+              <label for="syringeCombo" class="col-8 col-form-label">Open Syringes for Output</label>
+              <div class="col">
+                <input class="form-control" type="text" name="openSyringes" id="syringeCombo">
+              </div>
             </div>
-          </div>
-
-          <div class="form-group row">
-            <label for="outputDuration" class="col-8 col-form-label">Enter Duration (minutes)</label>
-            <div class="col">
-              <input class="form-control" type="number" name="outputDuration" value="minutes">
+            <div class="form-group row">
+              <label for="syringeCombo" class="col-8 col-form-label">Close Syringes for Output</label>
+              <div class="col">
+                <input class="form-control" type="text" name="closeSyringes" id="syringeCombo">
+              </div>
             </div>
-          </div>
-          <div class="form-group row">
-            <div class="col">
-              <button class="btn btn-dark"type="submit" name="configureButton" id="configureButton">Submit</button>
-            </div>
-          </div>
-        <hr>
-        <div class="form-group row">
-          <div class="col">
-            <button class="btn btn-primary"type="submit" name="submitProtocol" id="submitProtocol">Submit Job</button>
-          </div>
-        </div>
 
+
+            <div class="form-group row">
+              <label for="outputDuration" class="col-8 col-form-label">Enter Duration (minutes)</label>
+              <div class="col">
+                <input class="form-control" type="number" name="outputDuration" value="minutes">
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col">
+                <button class="btn btn-dark" type="submit" name="action" value="configureButton" id="configureButton">Submit</button>
+              </div>
+            </div>
+            <hr>
+            <div class="form-group row">
+              <div class="col">
+                <button class="btn btn-primary"type="submit" name="action" value="submitProtocol" id="submitProtocol">Submit Job</button>
+              </div>
+            </div>
           </form>
-        </div>
+      </div>
 
         <!-- Vessel Image -->
         <div class="col border border-dark">
