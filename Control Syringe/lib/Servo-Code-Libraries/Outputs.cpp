@@ -52,10 +52,12 @@ void Outputs::origin(){
 
 void Outputs::open(){
     Open.on();
+    delay(200);
     Close.off();
 };
 
 void Outputs::close(){
-    Open.off();
     Close.on();
+    delay(200);
+    Open.close();
 };

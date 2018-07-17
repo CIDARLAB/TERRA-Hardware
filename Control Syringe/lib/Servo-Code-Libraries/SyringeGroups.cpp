@@ -20,51 +20,17 @@ void SyringeGroups::neutral(){
   for(int i = 0; i < pin_num; i++){
     setServoPulse(pins[i],0.0008);
   };
-  state = 0;
 }
 
 void SyringeGroups::on(){
   for(int i = 0; i < pin_num; i++){
-    setServoPulse(pins[i],0.0008);
-    delay(125);
-    setServoPulse(pins[i],0.0009);
-    delay(125);
-    setServoPulse(pins[i],0.0010);
-    delay(125);
-    setServoPulse(pins[i],0.0011);
-    delay(125);
-    setServoPulse(pins[i],0.0012);
-    delay(125);
-    setServoPulse(pins[i],0.0013);
-    delay(125);
     setServoPulse(pins[i],0.0014);
   };
-  state = 1;
 };
 
 void SyringeGroups::off(){
-  if(state == 1){
     for(int i = 0; i < pin_num; i++){
-      setServoPulse(pins[i],0.0014);
-      delay(250);
-      setServoPulse(pins[i],0.0013);
-      delay(250);
-      setServoPulse(pins[i],0.0012);
-      delay(250);
-      setServoPulse(pins[i],0.0011);
-      delay(250);
-      setServoPulse(pins[i],0.0010);
-      delay(250);
-      setServoPulse(pins[i],0.0009);
-      delay(250);
-      setServoPulse(pins[i],0.0008);
-      delay(250);
       setServoPulse(pins[i],0.0007);
     };
   };
-  if(state == 0)
-    for(int i = 0; i < pin_num; i++){
-      setServoPulse(pins[i],0.0007);
-    };
-  state = -1;
 };
