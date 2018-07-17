@@ -59,5 +59,5 @@ void Outputs::open(){
 void Outputs::close(){
     Close.on();
     delay(200);
-    Open.close();
+    Open.off();
 };
