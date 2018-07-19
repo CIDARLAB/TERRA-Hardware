@@ -34,5 +34,8 @@ void loop() {
 
   while(1){
     outputs[0].open();
+    delay(30000);
+    outputs[0].close();
+    delay(30000);
 }
 }
