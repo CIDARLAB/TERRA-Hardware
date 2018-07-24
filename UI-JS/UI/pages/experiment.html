@@ -32,15 +32,15 @@
             <!-- Enter Number of Outputs -->
             <h4 class="text-center">Input Information</h4>
             <div class="form-group row">
-              <label for="numberOutputs" class="col-8 col-form-label">Enter Number of Outputs</label>
+              <label for="outputNumber" class="col-8 col-form-label">Enter Number of Outputs</label>
               <div class="col">
-                <input type="number" class="form-control" id="numberOutputs" placeholder="0" name="numberOutputs">
+                <input type="number" class="form-control" id="outputNumber" placeholder="0" name="outputNumber">
               </div>
             </div>
             <div class="form-group row">
               <label for="selectVessel" class="col-8 col-from-label">Select Vessel</label>
               <div class="col">
-                <select class="custom-select" name="selectVessel">
+                <select class="custom-select" name="selectVessel" id="selectVessel">
                   <option value="24">24-well plate</option>
                   <option value="96">96-well plate</option>
                   <option value="384">384-well plate</option>
@@ -49,7 +49,7 @@
             </div>
             <div class="form-group row">
               <div class="col">
-                <button class="btn btn-dark" type="submit" name="action" id="numberOutputsButton" value="numberOutputsButton">Submit</button>
+                <button class="btn btn-dark" type="button" name="action" id="inputButton" value="inputButton">Submit</button>
               </div>
             </div>
             <hr>
@@ -58,14 +58,7 @@
             <div class="form-group row">
               <label for="selectOutput" class="col-8 col-form-label">Select Output to Configure</label>
               <div class="col">
-                <select class="custom-select" name="selectOutput">
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">3</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
+                <select class="custom-select" name="selectOutput" id="selectOutput">
                 </select>
               </div>
             </div>
@@ -73,13 +66,13 @@
             <div class="form-group row">
               <label for="syringeCombo" class="col-8 col-form-label">Open Syringes for Output</label>
               <div class="col">
-                <input class="form-control" type="text" name="openSyringes" id="syringeCombo">
+                <input class="form-control" type="text" name="openSyringes" id="openSyringe">
               </div>
             </div>
             <div class="form-group row">
               <label for="syringeCombo" class="col-8 col-form-label">Close Syringes for Output</label>
               <div class="col">
-                <input class="form-control" type="text" name="closeSyringes" id="syringeCombo">
+                <input class="form-control" type="text" name="closeSyringes" id="closeSyringe">
               </div>
             </div>
 
@@ -87,39 +80,41 @@
             <div class="form-group row">
               <label for="outputDuration" class="col-8 col-form-label">Enter Duration (minutes)</label>
               <div class="col">
-                <input class="form-control" type="number" name="outputDuration" value="minutes">
+                <input class="form-control" type="number" name="outputDuration" value="minutes" id="duration">
               </div>
             </div>
             <div class="form-group row">
               <div class="col">
-                <button class="btn btn-dark" type="submit" name="action" value="configureButton" id="configureButton">Submit</button>
+                <button class="btn btn-dark" type="button" name="action" value="configureButton" id="configureButton">Submit</button>
               </div>
             </div>
             <hr>
             <div class="form-group row">
               <div class="col">
-                <button class="btn btn-primary"type="submit" name="action" value="submitProtocol" id="submitProtocol">Submit Job</button>
+                <button class="btn btn-primary"type="button" name="action" value="submitProtocol" id="submitProtocol">Submit Job</button>
               </div>
             </div>
           </form>
       </div>
 
         <!-- Vessel Image -->
-        <div class="col border border-dark">
-          <h2 class="text-center">Output Destination</h2>
-          <p class="text-muted text-center">Select where Output should be dispensed</p>
-          <hr>
-          <table class="table table-bordered table-sm">
-            {% block table%}
-            {% endblock%}
-          </table>
-        </div>
+      <div class="col border border-dark">
+        <h2 class="text-center">Output Destination</h2>
+        <p class="text-muted text-center">Select where Output should be dispensed</p>
+        <hr>
+        <table class="table table-bordered table-sm" id="vesselTable">
+          <thead id="thead_insert">
+          </thead>
+          <tbody id="tbody_insert">
+          </tbody>
+        </table>
+      </div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
-    <script src="../../main.js" type="text/javascript"></script>
+    <script src="../../main.js"></script>
   </body>
 </html>
