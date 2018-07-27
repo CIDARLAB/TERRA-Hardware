@@ -28,14 +28,15 @@ void loop(){
 
  for (j = 0; j < 8 ; j++){
   // Go a certain number of steps
-  for( i=0; i<100; i++){
+ /* for( i=0; i<50; i++){
     digitalWrite( pinStep, HIGH );
    // digitalWrite( pinStep_2, HIGH);
-    delay( 25 );
+    delay( 10 );
     digitalWrite( pinStep, LOW );
    // digitalWrite( pinStep_2, LOW);
-    delay( 25 );
+    delay( 10 );
   } 
+  */
   
   // Changing direction
   digitalWrite( pinDir   , HIGH);  // Direction is changed
@@ -53,11 +54,11 @@ void loop(){
 
 
   // Shifting XY-plane down one row
-  for (i=0; i<100; i++){
+  for (i=0; i<200; i++){
     digitalWrite(pinStep_2, HIGH);
-    delay (5);
+    delay (10);
     digitalWrite(pinStep_2, LOW);
-    delay (5);
+    delay (10);
   }
 }
 

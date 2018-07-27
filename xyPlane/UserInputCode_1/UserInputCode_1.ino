@@ -1,27 +1,29 @@
+#include <ArduinoSTL.h>
+#define pinEnable    4 // Enable 4
+#define pinStep      3 // Step 3
+#define pinDir       2 // Direction 2
+#define pinEnable_2  13 // Enable 13
+#define pinStep_2    9 // Step 9 
+#define pinDir_2     8 // Direction  8
 
-#include <iostream>
-#include <vector>
-#include <string>
-#include <algorithm>
-using namespace std;
 
-template <typename T>
-/*~~~~~~~~~~~~~~~~~~~Functions~~~~~~~~~~~~~~~~~~~*/
-void write_vector(const vector<T>& V){
-   cout << "The well plate locations are: " << endl;
-  for(int i=0; i < V.size(); i++)
-    cout << V[i] << " ";
-    cout << endl;
+void setup(){
+  Serial.begin(9600);
+  
+  pinMode( pinEnable,   OUTPUT );
+  pinMode( pinDir   ,   OUTPUT );
+  pinMode( pinStep  ,   OUTPUT );
+  pinMode( pinEnable_2, OUTPUT );
+  pinMode( pinDir_2   , OUTPUT );
+  pinMode( pinStep_2  , OUTPUT );
 }
 
-bool comp(const int& num1, const int& num2) {
-    return num1 > num2;
-}
+void loop(){
+  digitalWrite( pinDir   , LOW); // Direction control 
+  digitalWrite( pinStep  , LOW);  // initialize it to be not moving
+  digitalWrite( pinDir_2   ,LOW); // Direction control of motor 2
+  digitalWrite( pinStep  , LOW);  // initialize motor 2 to be not moving
 
-/*~~~~~~~~~~~~~~~~~~~Main~~~~~~~~~~~~~~~~~~~*/
-
-int main()
-{
     int input;
     vector<int> V;
 
@@ -31,24 +33,25 @@ int main()
 
 // generating array for well-plate location
 
-  cout << "This is the array for a 96 well plate:" << endl;
-  cout << "[" ;
+  Serial.println ("This is the array for a 96 well plate:");
+  Serial.print ("[") ;
 
     for (n=0; n < 8; n++) {
       for (m=0; m < 12; m++){
         wellPlate[n][m] = order;
         order++;
-        cout << wellPlate[n][m] << " ";
+        Serial.print (wellPlate[n][m]);
+        Serial.print (" ");
       }
       if (n<7)
-      cout << endl;
+      Serial.println();
     }
-    cout << "]" << endl;
+    Serial.println("]");
 
 // generating input vector - maybe add a confirmation section
 
-      cout << "Enter numbers corresponding to well plate locations (enter 'end' to finish): " << endl;
-      while ((cin >> input) && (input != 9999))
+      Serial.println("Enter numbers corresponding to well plate locations (enter 'end' to finish): ");
+      while ((Serial.available() == 0) && (input != 9999)) // FIX THIS AREA
          V.push_back(input);
 
       sort(V.begin(), V.end(), comp);
@@ -62,7 +65,7 @@ int i = 0;                              // movement iterator
     // assuming XY plane is at home, visit each location
     for (int size = 1; size < (V.size() + 1); size++){
       for (n = 0; n < 8; n++) {
-        for (m = 0; m < 12: m++){
+        for (m = 0; m < 12; m++){
            if  (V[size - 1] == wellPlate[n][m] ){
              Ynow = n - Ybefore; // calculating how much needed to move in Y
              Xnow = m - Xbefore; // calculating how much needed to move in X
@@ -107,12 +110,19 @@ int i = 0;                              // movement iterator
         }
       }
     }
+  
 
+while (true);
 
+}
 
+void write_vector(const vector<T>& V){
+   Serial.println ("The well plate locations are: ");
+  for(int i=0; i < V.size(); i++)
+    Serial.print (V[i];
+    Serial.println (" ");
+}
 
-
-
-
-
+bool comp(const int& num1, const int& num2) {
+    return num1 > num2;
 }
