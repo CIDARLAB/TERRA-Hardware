@@ -1,5 +1,19 @@
 export default class ViewManager{
   constructor(){
+    //methods
+    function ab2str(buf) {
+        return String.fromCharCode.apply(null, new Uint8Array(buf));
+    }
+
+    function str2ab(str) {
+        str = str + '\n';
+        var buf = new ArrayBuffer(str.length); // 2 bytes for each char
+        var bufView = new Uint8Array(buf);
+        for (var i = 0, strLen = str.length; i < strLen; i++) {
+            bufView[i] = str.charCodeAt(i);
+        }
+        return buf;
+    }
     //buttons
     this.inputButton = document.getElementById("inputButton");
     this.configureButton = document.getElementById("configureButton");
@@ -88,15 +102,15 @@ export default class ViewManager{
       };
     });
 
-    this.configureButton.addEventListener('click', function (event) {
-      let selectOutput = document.getElementById('selectOutput').value;
-      let openSyringe = document.getElementById('openSyringe').value;
-      let closeSyringe = document.getElementById('closeSyringe').value;
-      let duration = document.getElementById('duration').value;
-      console.log(selectOutput);
-      console.log(openSyringe);
-      console.log(closeSyringe);
-      console.log(duration);
+    this.submitProtocol.addEventListener('click', function (event) {
+      let data = document.getElementById('openSyringe').value;
+      data = str2ab(data);
+      console.log(data);
+      socket.emit("send-raw", {
+          "name": '/dev/cu.usbmodem1421',
+          "payload": data
+      })
+      console.log(data);
     });
   };
 };

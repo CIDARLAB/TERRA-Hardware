@@ -11,6 +11,7 @@ void Outputs::assign_open(){
 
   Serial.print("Enter which pins on the Adafruit Motor Shield are going to be used for the open group of this output");
   Serial.println("** Seperate channels using a space **");
+  
   while(Serial.available() == 0) {};
   channel_list = Serial.readString();
   channel_list.toCharArray(pin_list,40);

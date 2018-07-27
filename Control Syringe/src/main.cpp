@@ -9,28 +9,30 @@ char incomingData = 0;
 int outputNum = 0;
 
 void setup() {
-  Serial.begin(9600); //set Baud Rate
+  Serial.begin(1152000); //set Baud Rate
   pwm.begin();
   pwm.setPWMFreq(60);  // Analog servos run at ~60 Hz updates
+  pinMode(LED_BUILTIN, OUTPUT);
+
   delay(10);
 }
 void loop() {
 
   // Ask user for number of outputs their microfluidic chip has
-  Serial.print("Enter how many outputs your microfluidic chip contains:");
+  //Serial.print("Enter how many outputs your microfluidic chip contains:");
   while(Serial.available() == 0){};
 
   if (Serial.available() > 0) {
-      incomingData = 0;
-      while(1) {
-        incomingData = Serial.read();
-        if (incomingData == '\n') break;
-        if (incomingData == -1) continue;
-        outputNum *= 10;
-        outputNum = ((incomingData - 48) + outputNum);
-      }
+    incomingData = 0;
+    while(1) {
+      incomingData = Serial.read();
+      if (incomingData == '\n') break;
+      if (incomingData == -1) continue;
+      outputNum *= 10;
+      outputNum = ((incomingData - 48) + outputNum);
     }
-  Serial.println(outputNum);
+  }
+  //Serial.println(outputNum);
 
   Outputs outputs[outputNum];
 
@@ -44,6 +46,6 @@ void loop() {
   //Control the actuation of control syringe groups
 
   while(1){
-    outputs[0].open();
-}
+    outputs[0].origin();
+  }
 }
