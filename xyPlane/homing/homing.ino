@@ -24,25 +24,27 @@ void loop(){
 int i = 0;
 
 
-  digitalWrite( pinDir   , LOW); // Direction control
+  digitalWrite( pinDir   , HIGH); // Direction control
   digitalWrite( pinStep  , LOW);  // initialize it to be not moving
   digitalWrite( pinDir_2   , LOW); // Direction control of motor 2
   digitalWrite( pinStep  , LOW);  // initialize motor 2 to be not moving
 
   //Start homing
 
-  for (i=0; i<200; i++){
+  for (i=0; i<800; i++){
   Serial.println(i);
   digitalWrite( pinStep, HIGH);
- // digitalWrite( pinStep_2, HIGH);
+  digitalWrite( pinStep_2, HIGH);
   delay(15);
   digitalWrite(pinStep, LOW);
- // digitalWrite(pinStep_2, LOW);
+  digitalWrite(pinStep_2, LOW);
   delay(15);
   }
 
 // Stop Motion
 
-  delay(1000);
+ delay(1000);
+
+while(true);
 
 }
