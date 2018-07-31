@@ -42,6 +42,8 @@ void Outputs::assign_close(){
 
   char *token = strtok(pin_list," ");
   while(token != NULL){
+    if (token == '\n') break;
+    if (token == -1) continue;
     Close.pins[j] = atoi(token);
     Serial.println(Close.pins[j]);
     token = strtok (NULL, " ");
