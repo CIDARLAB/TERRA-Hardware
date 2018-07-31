@@ -119,10 +119,10 @@ export default class ViewManager{
         document.getElementById('tbody_insert').innerHTML = tbody_insert;
         document.getElementById('thead_insert').innerHTML = thead_insert;
       };
-      socket.emit("send-raw", {
+      /*socket.emit("send-raw", {
           "name": '/dev/cu.usbmodem1421',
           "payload": str2ab(outputNumber)
-      })
+      })*/
     });
 
     this.nextButton.addEventListener('click',function(event){
@@ -144,10 +144,10 @@ export default class ViewManager{
 
     this.closeButton.addEventListener('click',function (event){
       let data = document.getElementById('closeEnter');
-      socket.emit("send-raw", {
+      /*socket.emit("send-raw", {
           "name": '/dev/cu.usbmodem1421',
           "payload": str2ab(data)
-      });
+      });*/
     });
   };
 };
