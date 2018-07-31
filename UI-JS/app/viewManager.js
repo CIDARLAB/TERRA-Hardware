@@ -1,9 +1,19 @@
 export default class ViewManager{
   constructor(){
+    //initialize variables
+    let outputArray = []; //store outputs
+    let openArray = [];   //store open syringes per output
+    let closeArray = [];  //store close syringes per output
+    let vessel;
+    let outputNumber;
+    let vesselOptions;
+    let currentOutput = 0;
+
+
     //methods
     function ab2str(buf) {
         return String.fromCharCode.apply(null, new Uint8Array(buf));
-    }
+    };
 
     function str2ab(str) {
         str = str + '\n';
@@ -11,30 +21,37 @@ export default class ViewManager{
         var bufView = new Uint8Array(buf);
         for (var i = 0, strLen = str.length; i < strLen; i++) {
             bufView[i] = str.charCodeAt(i);
-        }
+        };
         return buf;
+    };
+
+    function str2ab_2(str){
+      var buf = new ArrayBuffer(str.length); // 2 bytes for each char
+      var bufView = new Uint8Array(buf);
+      for (var i = 0, strLen = str.length; i < strLen; i++) {
+          bufView[i] = str.charCodeAt(i);
+      };
+      return buf;
     }
+
     //buttons
     this.inputButton = document.getElementById("inputButton");
-    this.configureButton = document.getElementById("configureButton");
-    this.submitProtocol = document.getElementById("submitProtocol");
+    this.nextButton = document.getElementById("configureButton");
+    this.submitButton = document.getElementById("submitProtocol");
+    this.openButton = document.getElementById("openEnter");
+    this.closeButton = document.getElementById("closeEnter");
+    this.durationButton = document.getElementById("durationEnter");
 
     //event handlers
     this.inputButton.addEventListener('click', function (event) {
-      let vessel = document.getElementById('selectVessel').value;
-      let outputNumber = document.getElementById('outputNumber').value;
-      let vesselOptions = "";
-
-      for (var i = 1; i < outputNumber; i++) {
-        vesselOptions += "<option value='"+i+"'>"+i+"</option>";
-      };
-      vesselOptions += "<option value='"+outputNumber+"'>"+outputNumber+"</option>";
-      document.getElementById('selectOutput').innerHTML = vesselOptions;
-
-      console.log(vessel);
-      console.log(outputNumber);
+      document.getElementById('currentOutput').innerHTML = currentOutput;
+      vessel = document.getElementById('selectVessel').value;
+      outputNumber = document.getElementById('outputNumber').value;
+      openArray = [outputNumber];   //store open syringes per output
+      closeArray = [outputNumber];  //store close syringes per output
 
       //create table for output vessel image
+      //create 24-well plate
       if (vessel == 24) {
         let thead_insert = "<th scope='col'> </th>";
         for (var i = 1; i < 7; i++){
@@ -57,6 +74,7 @@ export default class ViewManager{
         document.getElementById('thead_insert').innerHTML = thead_insert;
       };
 
+      //create 96-well plate
       if (vessel == 96) {
         let thead_insert = "<th scope='col'> </th>";
         for (var i = 1; i < 13; i++){
@@ -79,6 +97,7 @@ export default class ViewManager{
         document.getElementById('thead_insert').innerHTML = thead_insert;
       };
 
+      //create 384-well plate
       if (vessel == 384) {
         let thead_insert = "<th scope='col'> </th>";
         for (var i = 1; i < 25; i++){
@@ -100,17 +119,35 @@ export default class ViewManager{
         document.getElementById('tbody_insert').innerHTML = tbody_insert;
         document.getElementById('thead_insert').innerHTML = thead_insert;
       };
-    });
-
-    this.submitProtocol.addEventListener('click', function (event) {
-      let data = document.getElementById('openSyringe').value;
-      data = str2ab(data);
-      console.log(data);
       socket.emit("send-raw", {
           "name": '/dev/cu.usbmodem1421',
-          "payload": data
+          "payload": str2ab(outputNumber)
       })
-      console.log(data);
+    });
+
+    this.nextButton.addEventListener('click',function(event){
+      if(currentOutput == 0 || currentOutput != (outputNumber - 1)) {
+        document.getElementById('currentOutput').innerHTML = currentOutput;
+        currentOutput = currentOutput + 1;
+      } else {
+        document.getElementById('currentOutput').innerHTML = currentOutput;
+      };
+    });
+
+    this.openButton.addEventListener('click', function (event) {
+      let data = document.getElementById('openEnter');
+      socket.emit("send-raw", {
+          "name": '/dev/cu.usbmodem1421',
+          "payload": str2ab(data)
+      });
+    });
+
+    this.closeButton.addEventListener('click',function (event){
+      let data = document.getElementById('closeEnter');
+      socket.emit("send-raw", {
+          "name": '/dev/cu.usbmodem1421',
+          "payload": str2ab(data)
+      });
     });
   };
 };

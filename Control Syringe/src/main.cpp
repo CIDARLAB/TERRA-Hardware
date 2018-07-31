@@ -19,7 +19,7 @@ void setup() {
 void loop() {
 
   // Ask user for number of outputs their microfluidic chip has
-  //Serial.print("Enter how many outputs your microfluidic chip contains:");
+  Serial.print("Enter how many outputs your microfluidic chip contains:");
   while(Serial.available() == 0){};
 
   if (Serial.available() > 0) {
@@ -32,7 +32,7 @@ void loop() {
       outputNum = ((incomingData - 48) + outputNum);
     }
   }
-  //Serial.println(outputNum);
+  Serial.println(outputNum);
 
   Outputs outputs[outputNum];
 
