@@ -12,13 +12,8 @@ void Outputs::assign_open(){
   Serial.print("Enter which pins on the Adafruit Motor Shield are going to be used for the open group of this output");
   Serial.println("** Seperate channels using a space **");
   while(Serial.available() == 0) {};
-  channel_list = Serial.readString();
-  
-  digitalWrite(LED_BUILTIN, LOW);
-  delay(1000);
-  digitalWrite(LED_BUILTIN, HIGH);
-  delay(1000);
 
+  channel_list = Serial.readString();
   channel_list.toCharArray(pin_list,40);
 
   char *token = strtok(pin_list," ");
@@ -39,13 +34,8 @@ void Outputs::assign_close(){
   Serial.println("Enter which pins on the Adafruit Motor Shield are going to be used for the close group of this output");
   Serial.println("** Seperate channels using a space **");
   while(Serial.available() == 0) {};
+
   channel_list = Serial.readString();
-
-  digitalWrite(LED_BUILTIN, LOW);
-  delay(1000);
-  digitalWrite(LED_BUILTIN, HIGH);
-  delay(1000);
-
   channel_list.toCharArray(pin_list,40);
 
   char *token = strtok(pin_list," ");

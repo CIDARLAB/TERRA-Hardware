@@ -15,7 +15,7 @@ export default class ViewManager{
         return String.fromCharCode.apply(null, new Uint8Array(buf));
     };
 
-    function str2ab(str) {
+    function str2ab_newline(str) {
         str = str + '\n';
         var buf = new ArrayBuffer(str.length); // 2 bytes for each char
         var bufView = new Uint8Array(buf);
@@ -25,14 +25,14 @@ export default class ViewManager{
         return buf;
     };
 
-    function str2ab_2(str){
-      var buf = new ArrayBuffer(str.length); // 2 bytes for each char
-      var bufView = new Uint8Array(buf);
-      for (var i = 0, strLen = str.length; i < strLen; i++) {
-          bufView[i] = str.charCodeAt(i);
-      };
-      return buf;
-    }
+    function str2ab(str) {
+        var buf = new ArrayBuffer(str.length); // 2 bytes for each char
+        var bufView = new Uint8Array(buf);
+        for (var i = 0, strLen = str.length; i < strLen; i++) {
+            bufView[i] = str.charCodeAt(i);
+        };
+        return buf;
+    };
 
     //buttons
     this.inputButton = document.getElementById("inputButton");
@@ -119,10 +119,10 @@ export default class ViewManager{
         document.getElementById('tbody_insert').innerHTML = tbody_insert;
         document.getElementById('thead_insert').innerHTML = thead_insert;
       };
-      /*socket.emit("send-raw", {
+      socket.emit("send-raw", {
           "name": '/dev/cu.usbmodem1421',
-          "payload": str2ab(outputNumber)
-      })*/
+          "payload": str2ab_newline(outputNumber)
+      })
     });
 
     this.nextButton.addEventListener('click',function(event){
@@ -135,19 +135,19 @@ export default class ViewManager{
     });
 
     this.openButton.addEventListener('click', function (event) {
-      let data = document.getElementById('openEnter');
+      let data = document.getElementById('openSyringe').value;
       socket.emit("send-raw", {
           "name": '/dev/cu.usbmodem1421',
           "payload": str2ab(data)
-      });
+      })
     });
 
     this.closeButton.addEventListener('click',function (event){
-      let data = document.getElementById('closeEnter');
-      /*socket.emit("send-raw", {
+      let data = document.getElementById('closeSyringe').value;
+      socket.emit("send-raw", {
           "name": '/dev/cu.usbmodem1421',
           "payload": str2ab(data)
-      });*/
+      })
     });
   };
 };
