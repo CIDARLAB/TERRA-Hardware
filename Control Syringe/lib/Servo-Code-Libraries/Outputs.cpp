@@ -47,6 +47,29 @@ void Outputs::assign_close(){
     };
   Close.pin_num = j;
 }
+
+void Outputs::assign_coordinates(){
+  int j = 0;
+  String input_string;
+  char char_data[278];
+
+  Serial.println("Enter coordinates for this output");
+  Serial.println("** Seperate channels using a space **");
+  while(Serial.available() == 0) {};
+
+  input_string = Serial.readString();
+  input_string.toCharArray(data_list,278);
+
+  char *token = strtok(pin_list," ");
+  while(token != NULL){
+    coordinates[j] = atoi(token);
+    //Serial.println(Close.pins[j]);
+    token = strtok (NULL, " ");
+    j++;
+    };
+    coordinate_num = j;
+};
+
 void Outputs::origin(){
   Open.neutral();
   Close.neutral();

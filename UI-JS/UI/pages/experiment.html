@@ -134,11 +134,13 @@
     <script src="../../main.js"></script>
     <script>
         const socket = io('http://localhost:3000');
-        // socket.emit('rename-connection', {
-        //     "old": "foo",
-        //     "new": "bar"
-        // });
         console.log("Sending Hello World ");
+    </script>
+    <script>
+    let xy = [];
+    function appendXY(button) {
+      xy.push(button.value);
+    };
     </script>
   </body>
 </html>

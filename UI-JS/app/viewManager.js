@@ -2,13 +2,10 @@ export default class ViewManager{
   constructor(){
     //initialize variables
     let outputArray = []; //store outputs
-    let openArray = [];   //store open syringes per output
-    let closeArray = [];  //store close syringes per output
     let vessel;
     let outputNumber;
     let vesselOptions;
     let currentOutput = 0;
-
 
     //methods
     function ab2str(buf) {
@@ -34,6 +31,11 @@ export default class ViewManager{
         return buf;
     };
 
+    function appendXY(button) {
+      xy.push(button.value);
+      console.log(xy);
+    };
+
     //buttons
     this.inputButton = document.getElementById("inputButton");
     this.nextButton = document.getElementById("configureButton");
@@ -47,8 +49,6 @@ export default class ViewManager{
       document.getElementById('currentOutput').innerHTML = currentOutput;
       vessel = document.getElementById('selectVessel').value;
       outputNumber = document.getElementById('outputNumber').value;
-      openArray = [outputNumber];   //store open syringes per output
-      closeArray = [outputNumber];  //store close syringes per output
 
       //create table for output vessel image
       //create 24-well plate
@@ -66,7 +66,7 @@ export default class ViewManager{
           tbody_insert += "<th scope='row'>"+letters[i]+"</th>";
             for (var j = 1; j < 7; j++) {
               let coordinate = letters[i]+j;
-              tbody_insert += "<td><button type='button' data-toggle='button' class='btn btn-primary btn-sm' name='"+coordinate+"' value='"+coordinate+"' id='"+coordinate+"'>"+coordinate+"</button></td>";
+              tbody_insert += "<td><button type='button' data-toggle='button' class='btn btn-primary btn-sm' onclick='appendXY(this)' value='"+j+"' id='"+coordinate+"'>"+coordinate+"</button></td>";
             };
           tbody_insert += "</tr>";
         };
@@ -89,7 +89,7 @@ export default class ViewManager{
           tbody_insert += "<th scope='row'>"+letters[i]+"</th>";
             for (var j = 1; j < 13; j++) {
               let coordinate = letters[i]+j;
-              tbody_insert += "<td><button type='button' data-toggle='button' class='btn btn-primary btn-sm' name='"+coordinate+"' value='"+coordinate+"' id='"+coordinate+"'>"+coordinate+"</button></td>";
+              tbody_insert += "<td><button type='button' data-toggle='button' class='btn btn-primary btn-sm' onclick='appendXY(this)' value='"+j+"' id='"+coordinate+"'>"+coordinate+"</button></td>";
             };
           tbody_insert += "</tr>";
         };
@@ -112,7 +112,7 @@ export default class ViewManager{
           tbody_insert += "<th scope='row'>"+letters[i]+"</th>";
             for (var j = 1; j < 25; j++) {
               let coordinate = letters[i]+j;
-              tbody_insert += "<td><button type='button' data-toggle='button' class='btn btn-primary btn-sm' name='"+coordinate+"' value='"+coordinate+"' id='"+coordinate+"'>"+coordinate+"</button></td>";
+              tbody_insert += "<td><button type='button' data-toggle='button' class='btn btn-primary btn-sm' onclick='appendXY(this)' value='"+j+"' id='"+coordinate+"'>"+coordinate+"</button></td>";
             };
           tbody_insert += "</tr>";
         };
@@ -132,6 +132,7 @@ export default class ViewManager{
       } else {
         document.getElementById('currentOutput').innerHTML = currentOutput;
       };
+      console.log(xy);
     });
 
     this.openButton.addEventListener('click', function (event) {

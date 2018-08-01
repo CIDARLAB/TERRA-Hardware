@@ -10,13 +10,15 @@ needed to control for various outputs*/
 
 class Outputs{
   public:
-    int duration;
+    int coordinates[96];
+    int coordinate_num;
 
     SyringeGroups Open;
     SyringeGroups Close;
 
     void assign_open();
     void assign_close();
+    void assign_coordinates();
 
     void origin();
     void open();
