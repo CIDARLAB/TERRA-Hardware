@@ -20,7 +20,7 @@ int outputNum = 0;
 // XY plane variables
 //int     outputNumber = 0; // probably/definitely useless 
 String  input;
-char    input_list[100]; 
+//char    input_list[100]; 
 
 void setup(){
   Serial.begin(9600); // set baud rate for communication 
@@ -81,7 +81,7 @@ void loop(){
 
  // ~~~ VARIABLES FOR XY-PLANE ~~~ // 
   
-    std::vector<int> V;
+   // std::vector<int> V;
     int wellPlate [8][12];
     int n,m = 0;
     int order = 1;
@@ -90,7 +90,7 @@ void loop(){
 
   // ~~~ HOMING SEQUENCE ~~~ //
 
-  int ivy = 0;
+ /* int ivy = 0;
 
 
   digitalWrite( pinDir_2   , HIGH); // Direction control
@@ -107,6 +107,12 @@ void loop(){
   digitalWrite(pinStep_2, LOW);
   delay(15);
   }
+  */
+
+
+
+
+/*
     
 // generating array for well-plate location
 
@@ -147,8 +153,43 @@ void loop(){
       
       std::sort(V.begin(), V.end(), comp);
 
-      write_vector(V);
+      // output[k].coordinates = V
+
+      write_vector(V); // for each output 
+
+*/
+
+
+
 // check against the input vector
+
+
+// TRANSLATION loop starts here // 
+
+
+for (int outputIterator = 0; outputIterator < outputNum; outputIterator++){
+
+
+  // ~~~ HOMING SEQUENCE ~~~ // 
+  int ivy = 0;
+
+
+  digitalWrite( pinDir_2   , HIGH); // Direction control
+  digitalWrite( pinStep_2  , LOW);  // initialize it to be not moving
+  digitalWrite( pinDir   , LOW); // Direction control of motor 2
+  digitalWrite( pinStep  , LOW);  // initialize motor 2 to be not moving
+
+  for (ivy=0; ivy<800; ivy++){
+  Serial.println(ivy);
+  digitalWrite( pinStep, HIGH);
+  digitalWrite( pinStep_2, HIGH);
+  delay(15);
+  digitalWrite(pinStep, LOW);
+  digitalWrite(pinStep_2, LOW);
+  delay(15);
+  }
+ 
+
 
 int Xbefore = 0;
 int Ybefore = 0;
@@ -157,10 +198,10 @@ int Ynow = 0;
 int i = 0.00;                              // movement iterator
 
     // assuming XY plane is at home, visit each location
-    for (int size = 1; size < (V.size() + 1); size++){
+    for (int size = 1; size < (outputs[outputIterator].coordinates.size() + 1); size++){
       for (n = 0; n < 8; n++) {
         for (m = 0; m < 12; m++){
-           if  (V[size - 1] == wellPlate[n][m] ){
+           if  (outputs[outputIterator].coordinates[size - 1] == wellPlate[n][m] ){
             
             
             Serial.print ("The m and n values are ");
@@ -241,12 +282,13 @@ int i = 0.00;                              // movement iterator
         }
       }
     }
+  }
   
 
 while (true);
 
 }
-
+/*
 void write_vector(const std::vector<int>& V){
    Serial.println ("The well plate locations are: ");
   for(int i=0; i < V.size(); i++)
@@ -258,3 +300,4 @@ void write_vector(const std::vector<int>& V){
 bool comp(const int& num1, const int& num2) {
     return num1 < num2;
 }
+*/
