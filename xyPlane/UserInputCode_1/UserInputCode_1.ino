@@ -4,25 +4,26 @@
 #include <Adafruit_PWMServoDriver.h>
 #include "SyringeGroups.h"
 #include "Outputs.h"
-#define pinEnable    4 // Enable 4
-#define pinStep      3 // Step 3
-#define pinDir       2 // Direction 2
+#define pinEnable    4  // Enable 4
+#define pinStep      3  // Step 3
+#define pinDir       2  // Direction 2
 #define pinEnable_2  13 // Enable 13
-#define pinStep_2    9 // Step 9 
-#define pinDir_2     8 // Direction  8
+#define pinStep_2    9  // Step 9 
+#define pinDir_2     8  // Direction  8
 
-//Ezira code
+// Ezira code - Syringe Variables
 Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver();
 char incomingData = 0;
 int outputNum = 0;
-//Ezira code
+// Ezira code
 
-int    outputNumber = 0;
-String input;
-char input_list[100];
+// XY plane variables
+//int     outputNumber = 0; // probably/definitely useless 
+String  input;
+char    input_list[100]; 
 
 void setup(){
-  Serial.begin(9600);
+  Serial.begin(9600); // set baud rate for communication 
   //Ezira code
   pwm.begin();
   pwm.setPWMFreq(60);  // Analog servos run at ~60 Hz updates
@@ -42,8 +43,8 @@ void setup(){
 }
 
 void loop(){
-  //Ezira code
-// Ask user for number of outputs their microfluidic chip has
+  //  Ezira code
+  //  Ask user for number of outputs their microfluidic chip has
   Serial.print("Enter how many outputs your microfluidic chip contains:");
   while(Serial.available() == 0){};
 
@@ -61,10 +62,11 @@ void loop(){
 
   Outputs outputs[outputNum];
 
-//Establish pins sequence of open and closed valves for each output
+//  Establish pins sequence of open and closed valves for each output
   for (int k = 0; k < outputNum; k++){
     outputs[k].assign_open();
     outputs[k].assign_close();
+    outputs[k].assign_coordinates();
   };
 
 
@@ -76,7 +78,17 @@ void loop(){
   //Ezira code
 
 
-  // homing sequence
+
+ // ~~~ VARIABLES FOR XY-PLANE ~~~ // 
+  
+    std::vector<int> V;
+    int wellPlate [8][12];
+    int n,m = 0;
+    int order = 1;
+
+
+
+  // ~~~ HOMING SEQUENCE ~~~ //
 
   int ivy = 0;
 
@@ -85,8 +97,6 @@ void loop(){
   digitalWrite( pinStep_2  , LOW);  // initialize it to be not moving
   digitalWrite( pinDir   , LOW); // Direction control of motor 2
   digitalWrite( pinStep  , LOW);  // initialize motor 2 to be not moving
-
-  //Start homing
 
   for (ivy=0; ivy<800; ivy++){
   Serial.println(ivy);
@@ -97,18 +107,7 @@ void loop(){
   digitalWrite(pinStep_2, LOW);
   delay(15);
   }
-
-
-  
-
-    std::vector<int> V;
-
-    int wellPlate [8][12];
-    int n,m = 0;
-    int order = 1;
-
     
-
 // generating array for well-plate location
 
   Serial.println ("This is the array for a 96 well plate:");
@@ -126,14 +125,15 @@ void loop(){
     }
     Serial.println("]");
 
-// generating input vector - maybe add a confirmation section
+// generating input vector for LOCATIONS - (can add a confirmation section) 
 
-      Serial.println("Enter numbers corresponding to well plate locations (enter 'end' to finish): ");
+      Serial.println("Enter numbers corresponding to well plate locations seperated by spaces, press enter once done: ");
       while(Serial.available() == 0){};
 
-      input = Serial.readString();
-      input.toCharArray(input_list, 100);
+      input = Serial.readString();                        // read the input locations as a string
+      input.toCharArray(input_list, 100);                 // take input string and store in a character array
 
+// parse through character array and 
       char * token = strtok (input_list," ");
       while (token != NULL) {
         V.push_back(atoi(token));
@@ -143,26 +143,6 @@ void loop(){
         Serial.print ("this is token after strtok: ");
         Serial.println (token);
       }
-
-      /*
-
-      if (Serial.available() > 0) {
-        input = 0;
-      while (1){
-        input = Serial.read();
-        //Serial.println (input);
-        if (input == '\n') break;
-        if (input == -1) continue;
-        outputNum *= 10;
-        outputNum = ((input - 48) + outputNum);
-       // V.push_back(outputNum);
-       Serial.println (outputNum);
-        }
-      }
-      
-      V.push_back(outputNum);
-
-      */
 
       
       std::sort(V.begin(), V.end(), comp);
@@ -246,6 +226,8 @@ int i = 0.00;                              // movement iterator
             
             
             delay(10000); // dispense time (can be dictated by flowrate)
+
+            
 
             // close valves, all fluids go to waste
 
