@@ -1,4 +1,9 @@
 #include <ArduinoSTL.h>
+#include <Arduino.h>
+#include <Wire.h>
+#include <Adafruit_PWMServoDriver.h>
+#include "SyringeGroups.h"
+#include "Outputs.h"
 #define pinEnable    4 // Enable 4
 #define pinStep      3 // Step 3
 #define pinDir       2 // Direction 2
@@ -6,12 +11,25 @@
 #define pinStep_2    9 // Step 9 
 #define pinDir_2     8 // Direction  8
 
-int    outputNum = 0;
+//Ezira code
+Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver();
+char incomingData = 0;
+int outputNum = 0;
+//Ezira code
+
+int    outputNumber = 0;
 String input;
 char input_list[100];
 
 void setup(){
   Serial.begin(9600);
+  //Ezira code
+  pwm.begin();
+  pwm.setPWMFreq(60);  // Analog servos run at ~60 Hz updates
+  pinMode(LED_BUILTIN, OUTPUT);
+  //Ezira code
+
+  delay(10);
   
   pinMode( pinEnable,   OUTPUT );
   pinMode( pinDir   ,   OUTPUT );
@@ -19,11 +37,43 @@ void setup(){
   pinMode( pinEnable_2, OUTPUT );
   pinMode( pinDir_2   , OUTPUT );
   pinMode( pinStep_2  , OUTPUT );
+
     
 }
 
 void loop(){
+  //Ezira code
+// Ask user for number of outputs their microfluidic chip has
+  Serial.print("Enter how many outputs your microfluidic chip contains:");
+  while(Serial.available() == 0){};
 
+  if (Serial.available() > 0) {
+    incomingData = 0;
+    while(1) {
+      incomingData = Serial.read();
+      if (incomingData == '\n') break;
+      if (incomingData == -1) continue;
+      outputNum *= 10;
+      outputNum = ((incomingData - 48) + outputNum);
+    }
+  }
+  Serial.println(outputNum);
+
+  Outputs outputs[outputNum];
+
+//Establish pins sequence of open and closed valves for each output
+  for (int k = 0; k < outputNum; k++){
+    outputs[k].assign_open();
+    outputs[k].assign_close();
+  };
+
+
+  //Control the actuation of control syringe groups
+
+ /* while(1){
+    outputs[0].origin();
+  }*/
+  //Ezira code
 
 
   // homing sequence
@@ -187,8 +237,17 @@ int i = 0.00;                              // movement iterator
             Serial.print (Ynow);
             Serial.print (".");
             Serial.println ();
+
+            delay (1000);
+
+            // open syringes - output is released
+            outputs[0].open();
+
+            
             
             delay(10000); // dispense time (can be dictated by flowrate)
+
+            // close valves, all fluids go to waste
 
             // add feature for syringe pump actuatuon here to stop output
 
