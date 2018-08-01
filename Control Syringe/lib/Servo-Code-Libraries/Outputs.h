@@ -2,6 +2,7 @@
 #define Outputs_H
 
 #include "SyringeGroups.h"
+#include <ArduinoSTL>
 
 //Characterize output class to describe which control syringes are required for each output on a microfluidic chip
 
@@ -10,7 +11,7 @@ needed to control for various outputs*/
 
 class Outputs{
   public:
-    int coordinates[96];
+    std::vector<int> coordinates;
     int coordinate_num;
 
     SyringeGroups Open;
@@ -19,6 +20,9 @@ class Outputs{
     void assign_open();
     void assign_close();
     void assign_coordinates();
+
+    void write_vector();
+    bool comp();
 
     void origin();
     void open();
