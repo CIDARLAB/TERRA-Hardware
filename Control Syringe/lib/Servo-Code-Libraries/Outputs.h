@@ -2,7 +2,7 @@
 #define Outputs_H
 
 #include "SyringeGroups.h"
-#include <ArduinoSTL>
+#include <ArduinoSTL.h>
 
 //Characterize output class to describe which control syringes are required for each output on a microfluidic chip
 

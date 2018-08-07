@@ -51,6 +51,7 @@ void Outputs::assign_close(){
 
 void Outputs::assign_coordinates(){
   // generating input vector for LOCATIONS - (can add a confirmation section)
+      
 
        Serial.println("Enter numbers corresponding to well plate locations seperated by spaces, press enter once done: ");
        while(Serial.available() == 0){};

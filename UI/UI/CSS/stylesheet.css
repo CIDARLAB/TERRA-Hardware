@@ -1,0 +1,30 @@
+.text-block {
+    position: absolute;
+    top: 40%;
+    bottom: 50%;
+    left: 10%;
+    right: 10%;
+    color: white;
+}
+
+.home-btn {
+  position: relative;
+  top: 60%;
+  bottom: 20%;
+  left: 43%;
+  margin-top: 3%;
+}
+
+.cc-btn{
+  background-color: #06334a;
+}
+
+.home-text{
+  font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+  letter-spacing: .2rem;
+}
+
+.navbar-text{
+  font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+  letter-spacing: .1rem;
+}
