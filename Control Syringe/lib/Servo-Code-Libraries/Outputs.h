@@ -21,8 +21,8 @@ class Outputs{
     void assign_close();
     void assign_coordinates();
 
-    void write_vector();
-    bool comp();
+    void write_vector(const std::vector<int>& V);
+    static bool comp(const int& num1, const int& num2);
 
     void origin();
     void open();

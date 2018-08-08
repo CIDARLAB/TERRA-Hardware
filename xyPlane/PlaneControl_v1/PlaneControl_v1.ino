@@ -65,8 +65,11 @@ void loop(){
 //  Establish pins sequence of open and closed valves for each output
   for (int k = 0; k < outputNum; k++){
     outputs[k].assign_open();
+    digitalWrite(LED_BUILTIN, HIGH);
     outputs[k].assign_close();
+    digitalWrite(LED_BUILTIN, LOW);
     outputs[k].assign_coordinates();
+    digitalWrite(LED_BUILTIN, HIGH);
   };
 
 
@@ -241,7 +244,7 @@ for (int size = 1; size < (outputs[outputIterator].coordinates.size() + 1); size
             // open syringes - output is released
             outputs[outputIterator].open();
             
-            delay(7500); // dispense time (can be dictated by flowrate)
+            delay(10000); // dispense time (can be dictated by flowrate)
 
             // close valves, all fluids go to waste
             outputs[outputIterator].close();

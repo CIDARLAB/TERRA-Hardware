@@ -51,7 +51,9 @@ void Outputs::assign_close(){
 
 void Outputs::assign_coordinates(){
   // generating input vector for LOCATIONS - (can add a confirmation section)
-      
+
+       String input;
+       char input_list[100];
 
        Serial.println("Enter numbers corresponding to well plate locations seperated by spaces, press enter once done: ");
        while(Serial.available() == 0){};
@@ -62,19 +64,20 @@ void Outputs::assign_coordinates(){
   // parse through character array and
        char * token = strtok (input_list," ");
        while (token != NULL) {
-         coordinate.push_back(atoi(token));
+         coordinates.push_back(atoi(token));
          Serial.print ("this is token: ");
          Serial.println (token);
          token = strtok (NULL, " ");
          Serial.print ("this is token after strtok: ");
          Serial.println (token);
        }
+
        std::sort(coordinates.begin(), coordinates.end(), comp);
        write_vector(coordinates); // for each output
 };
 
 
-void write_vector(const std::vector<int>& V){
+void Outputs::write_vector(const std::vector<int> & V){
   Serial.println ("The well plate locations are: ");
  for(int i=0; i < V.size(); i++)
    Serial.print (V[i]);
@@ -82,7 +85,7 @@ void write_vector(const std::vector<int>& V){
    Serial.println (V.size());
 }
 
-bool comp(const int& num1, const int& num2) {
+bool Outputs::comp(const int& num1, const int& num2) {
    return num1 < num2;
 }
 
