@@ -85,7 +85,34 @@ void loop(){
     int wellPlate [8][12];
     int n,m = 0;
     int order = 1;
-    
+
+
+
+  // ~~~ HOMING SEQUENCE ~~~ //
+
+ /* int ivy = 0;
+
+
+  digitalWrite( pinDir_2   , HIGH); // Direction control
+  digitalWrite( pinStep_2  , LOW);  // initialize it to be not moving
+  digitalWrite( pinDir   , LOW); // Direction control of motor 2
+  digitalWrite( pinStep  , LOW);  // initialize motor 2 to be not moving
+
+  for (ivy=0; ivy<800; ivy++){
+  Serial.println(ivy);
+  digitalWrite( pinStep, HIGH);
+  digitalWrite( pinStep_2, HIGH);
+  delay(15);
+  digitalWrite(pinStep, LOW);
+  digitalWrite(pinStep_2, LOW);
+  delay(15);
+  }
+  */
+
+
+
+
+/*
 
 // generating array for well-plate location
 
@@ -103,8 +130,6 @@ void loop(){
       Serial.println();
     }
     Serial.println("]");
-
-/*
 
 // generating input vector for LOCATIONS - (can add a confirmation section)
 
@@ -134,6 +159,9 @@ void loop(){
 
 */
 
+
+
+// check against the input vector
 
 
 // TRANSLATION loop starts here //
@@ -172,10 +200,13 @@ int i = 0;  // movement iterator
     // assuming XY plane is at home, visit each location
 for (int size = 1; size < (outputs[outputIterator].coordinates.size() + 1); size++){
 
-      for (n = 0; n < 8; n++) { // n 
-        for (m = 0; m < 12; m++){ // m 
- 
+ Serial.println (outputIterator);
+ Serial.println (outputs[outputIterator].coordinates.size());
+
+      for (n = 0; n < 8; n++) {
+        for (m = 0; m < 12; m++){
            if  (outputs[outputIterator].coordinates[size - 1] == wellPlate[n][m] ){
+
 
             Serial.print ("The m and n values are ");
             Serial.print (m);
@@ -211,14 +242,14 @@ for (int size = 1; size < (outputs[outputIterator].coordinates.size() + 1); size
              digitalWrite(pinDir_2,LOW);
            }
 
-            for (i = 0; i < (51*Xnow); i++){
+            for (i = 0; i < (47*Xnow); i++){
               digitalWrite (pinStep, HIGH);
               delay(10);
               digitalWrite (pinStep,LOW);
               delay(10);
             }
 
-            for (i = 0; i < (51*Ynow); i++){
+            for (i = 0; i < (50*Ynow); i++){
               digitalWrite (pinStep_2, HIGH);
               delay(10);
               digitalWrite (pinStep_2,LOW);
@@ -274,4 +305,3 @@ bool comp(const int& num1, const int& num2) {
     return num1 < num2;
 }
 */
-

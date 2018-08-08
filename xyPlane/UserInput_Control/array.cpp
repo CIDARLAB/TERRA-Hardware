@@ -5,6 +5,13 @@
 #include <algorithm>
 using namespace std;
 
+const byte numChars = 32;
+char recieveChars [numchars];
+
+boolean newData = false;
+
+
+
 template <typename T>
 /*~~~~~~~~~~~~~~~~~~~Functions~~~~~~~~~~~~~~~~~~~*/
 void write_vector(const vector<T>& V){
@@ -107,6 +114,26 @@ int i = 0;                              // movement iterator
         }
       }
     }
+
+
+
+
+     int j = 0;
+     String channel_list;
+     char pin_list[40];
+
+     while(Serial.available() == 0) {};
+     channel_list = Serial.readString();
+     channel_list.toCharArray(pin_list,40);
+
+     char *token = strtok(pin_list,” “);
+     while(token != NULL){
+       Open.pins[j] = atoi(token);
+       Serial.println(Open.pins[j]);
+       token = strtok (NULL, ” “);
+       j++;
+       };
+       Open.pin_num = j;
 
 
 

@@ -143,6 +143,8 @@ for (int outputIterator = 0; outputIterator < outputNum; outputIterator++){
 
 
   // ~~~ HOMING SEQUENCE ~~~ //
+
+  
   int ivy = 0;
 
 
@@ -161,6 +163,23 @@ for (int outputIterator = 0; outputIterator < outputNum; outputIterator++){
   delay(15);
   }
 
+            /*
+            Serial.print ("The m and n values are ");
+            Serial.print (m);
+            Serial.print (" ");
+            Serial.print (n);
+            Serial.print (".");
+            Serial.println ();
+
+
+            Serial.print ("The Xbefore and Ybefore values are ");
+            Serial.print (Xbefore);
+            Serial.print (" ");
+            Serial.print (Ybefore);
+            Serial.print (".");
+            Serial.println ();
+            */
+
 
 
 int Xbefore = 0;
@@ -176,21 +195,6 @@ for (int size = 1; size < (outputs[outputIterator].coordinates.size() + 1); size
         for (m = 0; m < 12; m++){ // m 
  
            if  (outputs[outputIterator].coordinates[size - 1] == wellPlate[n][m] ){
-
-            Serial.print ("The m and n values are ");
-            Serial.print (m);
-            Serial.print (" ");
-            Serial.print (n);
-            Serial.print (".");
-            Serial.println ();
-
-
-            Serial.print ("The Xbefore and Ybefore values are ");
-            Serial.print (Xbefore);
-            Serial.print (" ");
-            Serial.print (Ybefore);
-            Serial.print (".");
-            Serial.println ();
 
              Ynow = n - Ybefore; // calculating how much needed to move in Y
              Xnow = m - Xbefore; // calculating how much needed to move in X
@@ -232,20 +236,16 @@ for (int size = 1; size < (outputs[outputIterator].coordinates.size() + 1); size
             Serial.print (".");
             Serial.println ();
 
-            delay (1000);
+            delay (2500);
 
             // open syringes - output is released
-            outputs[0].open();
-
-
-
-            delay(10000); // dispense time (can be dictated by flowrate)
-
-
+            outputs[outputIterator].open();
+            
+            delay(7500); // dispense time (can be dictated by flowrate)
 
             // close valves, all fluids go to waste
-
-            // add feature for syringe pump actuatuon here to stop output
+            outputs[outputIterator].close();
+            delay (2500);
 
             // setting the locations to current location
             Ybefore = n;

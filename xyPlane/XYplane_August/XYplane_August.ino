@@ -87,6 +87,34 @@ void loop(){
     int order = 1;
     
 
+
+
+  // ~~~ HOMING SEQUENCE ~~~ //
+
+ /* int ivy = 0;
+
+
+  digitalWrite( pinDir_2   , HIGH); // Direction control
+  digitalWrite( pinStep_2  , LOW);  // initialize it to be not moving
+  digitalWrite( pinDir   , LOW); // Direction control of motor 2
+  digitalWrite( pinStep  , LOW);  // initialize motor 2 to be not moving
+
+  for (ivy=0; ivy<800; ivy++){
+  Serial.println(ivy);
+  digitalWrite( pinStep, HIGH);
+  digitalWrite( pinStep_2, HIGH);
+  delay(15);
+  digitalWrite(pinStep, LOW);
+  digitalWrite(pinStep_2, LOW);
+  delay(15);
+  }
+  */
+
+
+
+
+
+
 // generating array for well-plate location
 
   Serial.println ("This is the array for a 96 well plate:");
@@ -134,6 +162,9 @@ void loop(){
 
 */
 
+
+
+// check against the input vector
 
 
 // TRANSLATION loop starts here //
