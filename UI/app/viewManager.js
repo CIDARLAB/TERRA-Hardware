@@ -120,7 +120,7 @@ export default class ViewManager{
         document.getElementById('thead_insert').innerHTML = thead_insert;
       };
       socket.emit("send-raw", {
-          "name": '/dev/cu.usbmodem1421',
+          "name": '/dev/cu.usbmodem1411',
           "payload": str2ab_newline(outputNumber)
       })
     });
@@ -134,7 +134,7 @@ export default class ViewManager{
       };
       console.log(xy);
       socket.emit("send-raw", {
-          "name": '/dev/cu.usbmodem1421',
+          "name": '/dev/cu.usbmodem1411',
           "payload": str2ab(xy)
       })
     });
@@ -142,7 +142,7 @@ export default class ViewManager{
     this.openButton.addEventListener('click', function (event) {
       let data = document.getElementById('openSyringe').value;
       socket.emit("send-raw", {
-          "name": '/dev/cu.usbmodem1421',
+          "name": '/dev/cu.usbmodem1411',
           "payload": str2ab(data)
       })
     });
@@ -150,7 +150,7 @@ export default class ViewManager{
     this.closeButton.addEventListener('click',function (event){
       let data = document.getElementById('closeSyringe').value;
       socket.emit("send-raw", {
-          "name": '/dev/cu.usbmodem1421',
+          "name": '/dev/cu.usbmodem1411',
           "payload": str2ab(data)
       })
     });
