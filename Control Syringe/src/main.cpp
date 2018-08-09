@@ -9,7 +9,7 @@ char incomingData = 0;
 int outputNum = 0;
 
 void setup() {
-  Serial.begin(1152000); //set Baud Rate
+  Serial.begin(9600); //set Baud Rate
   pwm.begin();
   pwm.setPWMFreq(60);  // Analog servos run at ~60 Hz updates
   pinMode(LED_BUILTIN, OUTPUT);
@@ -32,7 +32,10 @@ void loop() {
       outputNum = ((incomingData - 48) + outputNum);
     }
   }
+
   Serial.println(outputNum);
+  digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
+  delay(1000);
 
   Outputs outputs[outputNum];
 
@@ -42,10 +45,11 @@ void loop() {
     outputs[k].assign_close();
   };
 
-
+  digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
+  delay(1000);
   //Control the actuation of control syringe groups
 
   while(1){
-    outputs[0].origin();
+    outputs[0].close();
   }
 }

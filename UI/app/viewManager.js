@@ -6,6 +6,16 @@ export default class ViewManager{
     let outputNumber;
     let vesselOptions;
     let currentOutput = 0;
+    let check = "";
+    let re = /\d*\w/;
+    let well = [];
+    let counter = 0;
+    let letters = ["A","B","C","D","E","F","G","H"];
+
+    well[0] = 1;
+    for (var i = 1; i < 96; i++) {
+      well[i] = i+1;
+    };
 
     //methods
     function ab2str(buf) {
@@ -84,7 +94,8 @@ export default class ViewManager{
 
         let tbody_insert = "";
         let letters = ["A","B","C","D","E","F","G","H"];
-        for (var i = 0;i < 7; i++){
+
+        for (var i = 0; i < 8; i++){
           tbody_insert += "<tr>";
           tbody_insert += "<th scope='row'>"+letters[i]+"</th>";
             for (var j = 1; j < 13; j++) {
@@ -95,6 +106,14 @@ export default class ViewManager{
         };
         document.getElementById('tbody_insert').innerHTML = tbody_insert;
         document.getElementById('thead_insert').innerHTML = thead_insert;
+
+        for (var i = 0; i < 7; i++) {
+          for(var j = 1; j < 13; j++){
+            let identifier = letters[i]+j;
+            document.getElementById(identifier).value = well[counter];
+            counter = counter + 1;
+          }
+        }
       };
 
       //create 384-well plate
@@ -112,7 +131,7 @@ export default class ViewManager{
           tbody_insert += "<th scope='row'>"+letters[i]+"</th>";
             for (var j = 1; j < 25; j++) {
               let coordinate = letters[i]+j;
-              tbody_insert += "<td><button type='button' data-toggle='button' class='btn btn-primary btn-sm' onclick='appendXY(this)' value='"+j+"' id='"+coordinate+"'>"+coordinate+"</button></td>";
+              tbody_insert += "<td><button type='button' data-toggle='button' class='btn btn-primary btn-sm' onclick='appendXY(this)' value='"+coordinate+"' id='"+coordinate+"'>"+coordinate+"</button></td>";
             };
           tbody_insert += "</tr>";
         };
@@ -132,7 +151,9 @@ export default class ViewManager{
       } else {
         document.getElementById('currentOutput').innerHTML = currentOutput;
       };
-      console.log(xy);
+
+      //console.log(xy);
+
       socket.emit("send-raw", {
           "name": '/dev/cu.usbmodem1411',
           "payload": str2ab(xy)
@@ -141,6 +162,7 @@ export default class ViewManager{
 
     this.openButton.addEventListener('click', function (event) {
       let data = document.getElementById('openSyringe').value;
+      console.log(re.test(data));
       socket.emit("send-raw", {
           "name": '/dev/cu.usbmodem1411',
           "payload": str2ab(data)
