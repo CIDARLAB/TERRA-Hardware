@@ -5,17 +5,29 @@ export default class ViewManager{
     let vessel;
     let outputNumber;
     let vesselOptions;
-    let currentOutput = 0;
+    let currentOutput = 1;
     let check = "";
     let re = /\d*\w/;
-    let well = [];
+    let well_24 = [];
+    let well_96 = [];
+    let well_384 = [];
     let counter = 0;
     let letters = ["A","B","C","D","E","F","G","H"];
 
-    well[0] = 1;
-    for (var i = 1; i < 96; i++) {
-      well[i] = i+1;
+    well_24[0] = 1
+    for (var i = 1; i < 384 ; i++) {
+      well_24[i] = i+1;
     };
+
+    well_96[0] = 1;
+    for (var i = 1; i < 96; i++) {
+      well_96[i] = i+1;
+    };
+
+    well_384[0] = 1;
+    for (var i = 1; i < 384; i++) {
+      well_384[i] = i+1;
+    }
 
     //methods
     function ab2str(buf) {
@@ -82,6 +94,14 @@ export default class ViewManager{
         };
         document.getElementById('tbody_insert').innerHTML = tbody_insert;
         document.getElementById('thead_insert').innerHTML = thead_insert;
+        counter = 0;
+        for (var i = 0; i < 4; i++) {
+          for(var j = 1; j < 7; j++){
+            let identifier = letters[i]+j;
+            document.getElementById(identifier).value = well_24[counter];
+            counter = counter + 1;
+          }
+        }
       };
 
       //create 96-well plate
@@ -106,11 +126,11 @@ export default class ViewManager{
         };
         document.getElementById('tbody_insert').innerHTML = tbody_insert;
         document.getElementById('thead_insert').innerHTML = thead_insert;
-
+        counter = 0;
         for (var i = 0; i < 7; i++) {
           for(var j = 1; j < 13; j++){
             let identifier = letters[i]+j;
-            document.getElementById(identifier).value = well[counter];
+            document.getElementById(identifier).value = well_96[counter];
             counter = counter + 1;
           }
         }
@@ -145,15 +165,15 @@ export default class ViewManager{
     });
 
     this.nextButton.addEventListener('click',function(event){
-      if(currentOutput == 0 || currentOutput != (outputNumber - 1)) {
-        document.getElementById('currentOutput').innerHTML = currentOutput;
+      if (currentOutput < outputNumber) {
         currentOutput = currentOutput + 1;
-      } else {
+        document.getElementById('currentOutput').innerHTML = currentOutput;
+      } else if (currentOutput == (outputNumber - 1)) {
+        currentOutput = outputNumber;
         document.getElementById('currentOutput').innerHTML = currentOutput;
       };
 
-      //console.log(xy);
-
+      console.log(xy.slice(0,-1))
       socket.emit("send-raw", {
           "name": '/dev/cu.usbmodem1411',
           "payload": str2ab(xy)

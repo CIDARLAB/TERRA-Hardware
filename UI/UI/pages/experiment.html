@@ -22,8 +22,9 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav" style="font-size: 18px">
+        <div class="navbar-nav">
           <a class="nav-item nav-link active text-white navbar-text" href="./index.html">Home<span class="sr-only">(current)</span></a>
+          <a class="nav-item nav-link active text-white navbar-text" href="#">Demo</a>
           <a class="nav-item nav-link active text-white navbar-text" href="#">Experiment</a>
           <a class="nav-item nav-link active text-white navbar-text" href="#">LiveView</a>
           <a class="nav-item nav-link active text-white navbar-text" href="#">Wiki</a>
@@ -41,7 +42,7 @@
           <hr>
           <form method="POST" action="">
             <!-- Enter Number of Outputs -->
-            <h4 class="text-center">Input Information</h4>
+            <h4 class="text-center">1) Input Information</h4>
             <div class="form-group row">
               <label for="outputNumber" class="col-8 col-form-label">Enter Number of Outputs</label>
               <div class="col">
@@ -71,7 +72,7 @@
             </div>
             <hr>
             <!--Select Output to Configure-->
-            <h4 class="text-center">Output Configuration</h4>
+            <h4 class="text-center">2) Output Configuration</h4>
             <div class="form-group row">
               <label for="currentOutput" class="col-8 col-form-label">Current Output</label>
               <div class="col">
@@ -116,7 +117,7 @@
             <hr>
             <div class="form-group row">
               <div class="col">
-                <button class="btn btn-info"type="button" name="action" value="submitProtocol" id="submitProtocol">Submit Job</button>
+                <button class="btn btn-info" type="button" name="action" value="submitProtocol" id="submitProtocol">Submit Job</button>
               </div>
             </div>
           </form>
@@ -124,7 +125,7 @@
 
         <!-- Vessel Image -->
       <div class="col border">
-        <h2 class="text-center">Output Destination</h2>
+        <h2 class="text-center">3) Output Destination</h2>
         <p class="text-muted text-center">Select where Output should be dispensed</p>
         <hr>
         <table class="table table-bordered table-sm" id="vesselTable">
@@ -148,8 +149,9 @@
     <script>
     let xy = "";
     function appendXY(button) {
-      xy = xy + " ";
       xy = xy + button.value;
+      xy = xy + " ";
+      document.getElementById(button.id).style.backgroundColor = "green";
     };
     </script>
   </body>
