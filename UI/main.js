@@ -109,7 +109,7 @@ var ViewManager = function ViewManager() {
         tbody_insert += "<th scope='row'>" + _letters[i] + "</th>";
         for (var j = 1; j < 7; j++) {
           var coordinate = _letters[i] + j;
-          tbody_insert += "<td><button type='button' data-toggle='button' class='btn btn-primary btn-sm' onclick='appendXY(this)' value='" + j + "' id='" + coordinate + "'>" + coordinate + "</button></td>";
+          tbody_insert += "<td><button type='button' class='btn btn-primary btn-sm' onclick='appendXY(this)' value='" + j + "' id='" + coordinate + "'>" + coordinate + "</button></td>";
         };
         tbody_insert += "</tr>";
       };
@@ -141,7 +141,7 @@ var ViewManager = function ViewManager() {
         _tbody_insert += "<th scope='row'>" + _letters2[i] + "</th>";
         for (var j = 1; j < 13; j++) {
           var _coordinate = _letters2[i] + j;
-          _tbody_insert += "<td><button type='button' data-toggle='button' class='btn btn-primary btn-sm' onclick='appendXY(this)' value='" + _coordinate + "' id='" + _coordinate + "'>" + _coordinate + "</button></td>";
+          _tbody_insert += "<td><button type='button' class='btn btn-primary btn-sm' onclick='appendXY(this)' value='" + _coordinate + "' id='" + _coordinate + "'>" + _coordinate + "</button></td>";
         };
         _tbody_insert += "</tr>";
       };
@@ -172,7 +172,7 @@ var ViewManager = function ViewManager() {
         _tbody_insert2 += "<th scope='row'>" + _letters3[i] + "</th>";
         for (var j = 1; j < 25; j++) {
           var _coordinate2 = _letters3[i] + j;
-          _tbody_insert2 += "<td><button type='button' data-toggle='button' class='btn btn-primary btn-sm' onclick='appendXY(this)' value='" + _coordinate2 + "' id='" + _coordinate2 + "'>" + _coordinate2 + "</button></td>";
+          _tbody_insert2 += "<td><button type='button' class='btn btn-primary btn-sm' onclick='appendXY(this)' value='" + _coordinate2 + "' id='" + _coordinate2 + "'>" + _coordinate2 + "</button></td>";
         };
         _tbody_insert2 += "</tr>";
       };

@@ -88,7 +88,7 @@ export default class ViewManager{
           tbody_insert += "<th scope='row'>"+letters[i]+"</th>";
             for (var j = 1; j < 7; j++) {
               let coordinate = letters[i]+j;
-              tbody_insert += "<td><button type='button' data-toggle='button' class='btn btn-primary btn-sm' onclick='appendXY(this)' value='"+j+"' id='"+coordinate+"'>"+coordinate+"</button></td>";
+              tbody_insert += "<td><button type='button' class='btn btn-primary btn-sm' onclick='appendXY(this)' value='"+j+"' id='"+coordinate+"'>"+coordinate+"</button></td>";
             };
           tbody_insert += "</tr>";
         };
@@ -120,7 +120,7 @@ export default class ViewManager{
           tbody_insert += "<th scope='row'>"+letters[i]+"</th>";
             for (var j = 1; j < 13; j++) {
               let coordinate = letters[i]+j;
-              tbody_insert += "<td><button type='button' data-toggle='button' class='btn btn-primary btn-sm' onclick='appendXY(this)' value='"+coordinate+"' id='"+coordinate+"'>"+coordinate+"</button></td>";
+              tbody_insert += "<td><button type='button' class='btn btn-primary btn-sm' onclick='appendXY(this)' value='"+coordinate+"' id='"+coordinate+"'>"+coordinate+"</button></td>";
             };
           tbody_insert += "</tr>";
         };
@@ -151,7 +151,7 @@ export default class ViewManager{
           tbody_insert += "<th scope='row'>"+letters[i]+"</th>";
             for (var j = 1; j < 25; j++) {
               let coordinate = letters[i]+j;
-              tbody_insert += "<td><button type='button' data-toggle='button' class='btn btn-primary btn-sm' onclick='appendXY(this)' value='"+coordinate+"' id='"+coordinate+"'>"+coordinate+"</button></td>";
+              tbody_insert += "<td><button type='button' class='btn btn-primary btn-sm' onclick='appendXY(this)' value='"+coordinate+"' id='"+coordinate+"'>"+coordinate+"</button></td>";
             };
           tbody_insert += "</tr>";
         };

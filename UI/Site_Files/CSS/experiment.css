@@ -1,0 +1,19 @@
+.cc-btn{
+  background-color: #06334a;
+}
+
+button {
+  border-radius: 0 !important;
+}
+
+.navbar-text{
+  font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+  letter-spacing: .1rem;
+  font-size: 0.9rem;
+
+}
+
+body {
+  font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif!important;
+  padding-top: 6.5%;
+}
