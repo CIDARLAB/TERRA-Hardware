@@ -28,24 +28,71 @@
           <a class="nav-item nav-link active text-white navbar-text" href="#">Get Started</a>
           <a class="nav-item nav-link active text-white navbar-text" href="./experiment.html">Experiment</a>
           <a class="nav-item nav-link active text-white navbar-text" href="#">LiveView</a>
-          <a class="nav-item nav-link active text-white navbar-text" href="#">Wiki</a>
+          <a class="nav-item nav-link active text-white navbar-text" href="http://2018.igem.org/Team:BostonU_HW/home# "target="_blank">Wiki</a>
           <a class="nav-item nav-link active text-white navbar-text" href="#">Docs</a>
         </div>
       </div>
     </nav>
 
     <!--Table of Contents -->
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-3">
-          <img class="img-fluid" src="../images/terra_logo2.png" alt="">
+    <div id="getStarted" class="carousel slide" data-ride="carousel">
+      <ol class="carousel-indicators">
+        <li data-target="#getStarted" data-slide-to="0" class="active"></li>
+        <li data-target="#getStarted" data-slide-to="1"></li>
+        <li data-target="#getStarted" data-slide-to="2"></li>
+        <li data-target="#getStarted" data-slide-to="3"></li>
+      </ol>
+
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <br>
+          <br>
+          <h1>Step 1</h1>
+          <h3>Gather Parts and Assemble TERRA</h3>
+          <p>Follow our step-by-step instruction manual to setup TERRA. All relevant CAD files, software dependencies, and setup instructions can be found in our documentation here.</p>
+          <br>
         </div>
-        <div class="col">
-          <h1 class=>TERRA</h1>
-          <h3 class="text-muted">The Bridge Between Benchtop Biology and Microfluidics</h3>
+        <div class="carousel-item">
+          <br>
+          <br>
+          <h1>Step 2</h1>
+          <h3>Design your Microfluidic Chip Experiment</h3>
+          <p>Once TERRA is assembled, identify the chip you would like to use based on your experiment. Either check out a repository of pre-designed chips here or you can also design your own here using 3DuF. Decide on your final vessel for your microfluidic chip outputs</p>
+          <br>
+        </div>
+        <div class="carousel-item">
+          <br>
+          <br>
+          <h1>Step 3</h1>
+          <h3>Input Protocol and Run</h3>
+          <p>Head over to Experiment, an easy to use interface that enables you to use TERRA and configure your experiment. Enter the number of outputs being unloaded, along with actuation information for each, and click on their destination. A detailed guide on how to input necessary information can be found here. </p>
+          <br>
+        </div>
+        <div class="carousel-item">
+          <br>
+          <br>
+          <h1>Step 4</h1>
+          <h3>Run Analysis</h3>
+          <p>All Done! You can now run an analysis of your microfluidic experiment with your favorite in-lab equipment, such as a plate reader or flow cytometer.</p>
+          <br>
         </div>
       </div>
+
+      <a class="carousel-control-prev" href="#getStarted" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#getStarted" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
     </div>
 
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+    <script src="../../main.js"></script>
   </body>
 </html>

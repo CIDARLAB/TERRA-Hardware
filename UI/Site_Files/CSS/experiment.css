@@ -10,10 +10,14 @@ button {
   font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
   letter-spacing: .1rem;
   font-size: 0.9rem;
-
+S
 }
 
 body {
   font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif!important;
-  padding-top: 6.5%;
+  padding-top: 6%;
+}
+
+.container-fluid{
+  background-color: WhiteSmoke;
 }
