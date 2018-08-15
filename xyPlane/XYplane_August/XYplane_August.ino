@@ -177,8 +177,8 @@ for (int outputIterator = 0; outputIterator < outputNum; outputIterator++){
   int ivy = 0;
 
 
-  digitalWrite( pinDir_2   , HIGH); // Direction control
-  digitalWrite( pinStep_2  , LOW);  // initialize it to be not moving
+  digitalWrite( pinDir_2   ,HIGH); // Direction control
+  digitalWrite( pinStep_2  ,LOW);  // initialize it to be not moving
   digitalWrite( pinDir   , LOW); // Direction control of motor 2
   digitalWrite( pinStep  , LOW);  // initialize motor 2 to be not moving
 
@@ -186,10 +186,10 @@ for (int outputIterator = 0; outputIterator < outputNum; outputIterator++){
   Serial.println(ivy);
   digitalWrite( pinStep, HIGH);
   digitalWrite( pinStep_2, HIGH);
-  delay(15);
+  delay(10);
   digitalWrite(pinStep, LOW);
   digitalWrite(pinStep_2, LOW);
-  delay(15);
+  delay(10);
   }
 
 
@@ -242,14 +242,14 @@ for (int size = 1; size < (outputs[outputIterator].coordinates.size() + 1); size
              digitalWrite(pinDir_2,LOW);
            }
 
-            for (i = 0; i < (51*Xnow); i++){
+            for (i = 0; i < (48*Xnow); i++){
               digitalWrite (pinStep, HIGH);
               delay(10);
               digitalWrite (pinStep,LOW);
               delay(10);
             }
 
-            for (i = 0; i < (51*Ynow); i++){
+            for (i = 0; i < (48*Ynow); i++){
               digitalWrite (pinStep_2, HIGH);
               delay(10);
               digitalWrite (pinStep_2,LOW);
@@ -262,21 +262,17 @@ for (int size = 1; size < (outputs[outputIterator].coordinates.size() + 1); size
             Serial.print (Ynow);
             Serial.print (".");
             Serial.println ();
-
-            delay (1000);
+            
+            delay (2500);
 
             // open syringes - output is released
-            outputs[0].open();
-
-
-
+            outputs[outputIterator].open();
+            
             delay(10000); // dispense time (can be dictated by flowrate)
 
-
-
             // close valves, all fluids go to waste
-
-            // add feature for syringe pump actuatuon here to stop output
+            outputs[outputIterator].close();
+            delay (2500);
 
             // setting the locations to current location
             Ybefore = n;

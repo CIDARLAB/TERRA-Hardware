@@ -11,16 +11,18 @@
 #define pinStep_2    9  // Step 9
 #define pinDir_2     8  // Direction  8
 
-// Ezira code - Syringe Variables
+// Syringe Variables
 Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver();
 char incomingData = 0;
 int outputNum = 0;
-// Ezira code
 
-// XY plane variables
-//int     outputNumber = 0; // probably/definitely useless
-//String  input;
-//char    input_list[100];
+// Microstepping code
+
+/* const int stepsPerRev = 200;
+const int microSteps = 16
+*/
+
+
 
 void setup(){
   Serial.begin(9600); // set baud rate for communication

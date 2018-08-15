@@ -24,9 +24,9 @@ void loop(){
 int ivy = 0;
 
 
-  digitalWrite( pinDir   , LOW); // Direction control
+  digitalWrite( pinDir   , HIGH); // Direction control
   digitalWrite( pinStep  , LOW);  // initialize it to be not moving
-  digitalWrite( pinDir_2   , HIGH); // Direction control of motor 2
+  digitalWrite( pinDir_2   , LOW); // Direction control of motor 2
   digitalWrite( pinStep  , LOW);  // initialize motor 2 to be not moving
 
   //Start homing
@@ -43,5 +43,6 @@ int ivy = 0;
 
 // Stop Motion
 
+while (1) ;
 
 }
