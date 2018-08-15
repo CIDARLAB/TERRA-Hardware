@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <!-- CSS Style Sheet Link-->
-    <link rel="stylesheet" type="text/css" href="../CSS/stylesheet.css">
+    <link rel="stylesheet" type="text/css" href="../CSS/experiment.css">
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -14,7 +14,7 @@
 
     <title>TERRA</title>
   </head>
-  <body style="padding-top:6.5%">
+  <body>
     <!--Site navigation bar -->
     <nav class="navbar navbar-expand-sm bg-info fixed-top shadow">
       <img src="../images/terra_logo2.png" style="width: 5%; height: 5%;" class="d-inline-block align-top text-white"></a>
@@ -22,12 +22,16 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav" style="font-size: 18px">
+        <div class="navbar-nav">
           <a class="nav-item nav-link active text-white navbar-text" href="./index.html">Home<span class="sr-only">(current)</span></a>
+          <a class="nav-item nav-link active text-white navbar-text" href="./get_started.html">Get Started</a>
           <a class="nav-item nav-link active text-white navbar-text" href="#">Experiment</a>
           <a class="nav-item nav-link active text-white navbar-text" href="#">LiveView</a>
-          <a class="nav-item nav-link active text-white navbar-text" href="#">Wiki</a>
           <a class="nav-item nav-link active text-white navbar-text" href="#">Docs</a>
+        </div>
+        <div class="navbar-nav ml-auto">
+          <a class="nav-item nav-link active text-white navbar-text" href="#">Calibrate</a>
+          <a class="nav-item nav-link active text-white navbar-text" href="http://2018.igem.org/Team:BostonU_HW/home#" target="_blank">Wiki</a>
         </div>
       </div>
     </nav>
@@ -41,7 +45,7 @@
           <hr>
           <form method="POST" action="">
             <!-- Enter Number of Outputs -->
-            <h4 class="text-center">Input Information</h4>
+            <h4 class="text-center">1) Input Information</h4>
             <div class="form-group row">
               <label for="outputNumber" class="col-8 col-form-label">Enter Number of Outputs</label>
               <div class="col">
@@ -59,13 +63,19 @@
               </div>
             </div>
             <div class="form-group row">
+              <label for="inputFlow" class="col-8 col-form-label">Total Flow Rate</label>
+              <div class="col">
+                <input type="number" class="form-control" id="inputFlow" placeholder="0" required pattern="\d*\w">
+              </div>
+            </div>
+            <div class="form-group row">
               <div class="col">
                 <button class="btn cc-btn text-white" type="button" name="action" id="inputButton" value="inputButton">Submit</button>
               </div>
             </div>
             <hr>
             <!--Select Output to Configure-->
-            <h4 class="text-center">Output Configuration</h4>
+            <h4 class="text-center">2) Output Configuration</h4>
             <div class="form-group row">
               <label for="currentOutput" class="col-8 col-form-label">Current Output</label>
               <div class="col">
@@ -74,18 +84,18 @@
             </div>
             <hr>
             <div class="form-group row">
-              <label for="syringeCombo" class="col-4 col-form-label">Open Syringes</label>
-              <div class="col">
-                <input class="form-control" type="text" name="openSyringe" id="openSyringe">
+              <label for="syringeCombo" class="col-5 col-form-label">Open Syringes</label>
+              <div class="col-4">
+                <input title="Seperate syringes using a space" class="form-control" type="text" name="openSyringe" id="openSyringe">
               </div>
               <div class="col">
                 <button class="btn cc-btn text-white" type="button" name="action" id="openEnter">Enter</button>
               </div>
             </div>
             <div class="form-group row">
-              <label for="syringeCombo" class="col-4 col-form-label">Close Syringes</label>
-              <div class="col">
-                <input class="form-control" type="text" name="closeSyringe" id="closeSyringe">
+              <label for="syringeCombo" class="col-5 col-form-label">Waste Syringes</label>
+              <div class="col-4">
+                <input title="Seperate syringes using a space" class="form-control" type="text" name="closeSyringe" id="closeSyringe">
               </div>
               <div class="col">
                 <button class="btn cc-btn text-white" type="button" name="action" id="closeEnter">Enter</button>
@@ -94,9 +104,9 @@
 
 
             <div class="form-group row">
-              <label for="outputDuration" class="col-4 col-form-label">Enter Volume (mL)</label>
-              <div class="col">
-                <input class="form-control" type="number" name="outputDuration" value="minutes" id="duration">
+              <label for="outputDuration" class="col-5 col-form-label">Enter Volume (mL)</label>
+              <div class="col-4">
+                <input title="Volume that you want dispensed in each well" class="form-control" type="number" name="outputDuration" value="0" id="duration">
               </div>
               <div class="col">
                 <button class="btn cc-btn text-white" type="button" name="action" id="openEnter">Enter</button>
@@ -110,7 +120,7 @@
             <hr>
             <div class="form-group row">
               <div class="col">
-                <button class="btn btn-info"type="button" name="action" value="submitProtocol" id="submitProtocol">Submit Job</button>
+                <button class="btn btn-info" type="button" name="action" value="submitProtocol" id="submitProtocol">Submit Job</button>
               </div>
             </div>
           </form>
@@ -118,7 +128,7 @@
 
         <!-- Vessel Image -->
       <div class="col border">
-        <h2 class="text-center">Output Destination</h2>
+        <h2 class="text-center">3) Output Destination</h2>
         <p class="text-muted text-center">Select where Output should be dispensed</p>
         <hr>
         <table class="table table-bordered table-sm" id="vesselTable">
@@ -142,8 +152,16 @@
     <script>
     let xy = "";
     function appendXY(button) {
-      xy = xy + " ";
       xy = xy + button.value;
+      xy = xy + " ";
+      document.getElementById(button.id).style.backgroundColor = "green";
+      document.getElementById(button.id).style.border = "green";
+      let elem = document.getElementById(button.id);
+      let color = window.getComputedStyle(elem).getPropertyValue("background-color");
+      if (color == "rgb(0, 128, 0)") {
+        document.getElementById(button.id).style.backgroundColor = "rgb(0, 101, 209)";
+        document.getElementById(button.id).style.border = "rgb(0, 101, 209)";
+      }
     };
     </script>
   </body>

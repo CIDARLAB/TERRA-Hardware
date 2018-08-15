@@ -1,11 +1,31 @@
 export default class ViewManager{
   constructor(){
     //initialize variables
-    let outputArray = []; //store outputs
     let vessel;
     let outputNumber;
     let vesselOptions;
-    let currentOutput = 0;
+    let currentOutput = 1;
+    let check = "";
+    let well_24 = [];
+    let well_96 = [];
+    let well_384 = [];
+    let counter = 0;
+    let letters = ["A","B","C","D","E","F","G","H"];
+
+    well_24[0] = 1
+    for (var i = 1; i < 384 ; i++) {
+      well_24[i] = i+1;
+    };
+
+    well_96[0] = 1;
+    for (var i = 1; i < 96; i++) {
+      well_96[i] = i+1;
+    };
+
+    well_384[0] = 1;
+    for (var i = 1; i < 384; i++) {
+      well_384[i] = i+1;
+    }
 
     //methods
     function ab2str(buf) {
@@ -31,9 +51,28 @@ export default class ViewManager{
         return buf;
     };
 
-    function appendXY(button) {
-      xy.push(button.value);
-      console.log(xy);
+    function checkString(str){
+      var regex_1 = /\d+\s/;
+      let regex_2 = /\d+/;
+      if (str.search(regex_1,str) == 0){
+        str = str.replace(regex_1,"");
+        while (str.search(regex_1,str) == 0) {
+          str = str.replace(regex_1,"");
+        };
+        if (str.search(regex_2,str) == 0) {
+          document.getElementById("openSyringe").style.borderColor = "green";
+          document.getElementById("openSyringe").style.borderWidth = "0.15rem";
+          return true;
+        } else {
+          document.getElementById("openSyringe").style.borderColor = "red";
+          document.getElementById("openSyringe").style.borderWidth = "0.15rem";
+          return false;
+        }
+      } else {
+        document.getElementById("openSyringe").style.borderColor = "red";
+        document.getElementById("openSyringe").style.borderWidth = "0.15rem";
+        return false;
+      };
     };
 
     //buttons
@@ -66,12 +105,20 @@ export default class ViewManager{
           tbody_insert += "<th scope='row'>"+letters[i]+"</th>";
             for (var j = 1; j < 7; j++) {
               let coordinate = letters[i]+j;
-              tbody_insert += "<td><button type='button' data-toggle='button' class='btn btn-primary btn-sm' onclick='appendXY(this)' value='"+j+"' id='"+coordinate+"'>"+coordinate+"</button></td>";
+              tbody_insert += "<td><button type='button' class='btn btn-primary btn-sm' onclick='appendXY(this)' value='"+j+"' id='"+coordinate+"'>"+coordinate+"</button></td>";
             };
           tbody_insert += "</tr>";
         };
         document.getElementById('tbody_insert').innerHTML = tbody_insert;
         document.getElementById('thead_insert').innerHTML = thead_insert;
+        counter = 0;
+        for (var i = 0; i < 4; i++) {
+          for(var j = 1; j < 7; j++){
+            let identifier = letters[i]+j;
+            document.getElementById(identifier).value = well_24[counter];
+            counter = counter + 1;
+          }
+        }
       };
 
       //create 96-well plate
@@ -84,17 +131,26 @@ export default class ViewManager{
 
         let tbody_insert = "";
         let letters = ["A","B","C","D","E","F","G","H"];
-        for (var i = 0;i < 7; i++){
+
+        for (var i = 0; i < 8; i++){
           tbody_insert += "<tr>";
           tbody_insert += "<th scope='row'>"+letters[i]+"</th>";
             for (var j = 1; j < 13; j++) {
               let coordinate = letters[i]+j;
-              tbody_insert += "<td><button type='button' data-toggle='button' class='btn btn-primary btn-sm' onclick='appendXY(this)' value='"+coordinate+"' id='"+coordinate+"'>"+coordinate+"</button></td>";
+              tbody_insert += "<td><button type='button' class='btn btn-primary btn-sm' onclick='appendXY(this)' value='"+coordinate+"' id='"+coordinate+"'>"+coordinate+"</button></td>";
             };
           tbody_insert += "</tr>";
         };
         document.getElementById('tbody_insert').innerHTML = tbody_insert;
         document.getElementById('thead_insert').innerHTML = thead_insert;
+        counter = 0;
+        for (var i = 0; i < 7; i++) {
+          for(var j = 1; j < 13; j++){
+            let identifier = letters[i]+j;
+            document.getElementById(identifier).value = well_96[counter];
+            counter = counter + 1;
+          }
+        }
       };
 
       //create 384-well plate
@@ -112,7 +168,7 @@ export default class ViewManager{
           tbody_insert += "<th scope='row'>"+letters[i]+"</th>";
             for (var j = 1; j < 25; j++) {
               let coordinate = letters[i]+j;
-              tbody_insert += "<td><button type='button' data-toggle='button' class='btn btn-primary btn-sm' onclick='appendXY(this)' value='"+j+"' id='"+coordinate+"'>"+coordinate+"</button></td>";
+              tbody_insert += "<td><button type='button' class='btn btn-primary btn-sm' onclick='appendXY(this)' value='"+coordinate+"' id='"+coordinate+"'>"+coordinate+"</button></td>";
             };
           tbody_insert += "</tr>";
         };
@@ -126,10 +182,11 @@ export default class ViewManager{
     });
 
     this.nextButton.addEventListener('click',function(event){
-      if(currentOutput == 0 || currentOutput != (outputNumber - 1)) {
-        document.getElementById('currentOutput').innerHTML = currentOutput;
+      if (currentOutput < outputNumber) {
         currentOutput = currentOutput + 1;
-      } else {
+        document.getElementById('currentOutput').innerHTML = currentOutput;
+      } else if (currentOutput == (outputNumber - 1)) {
+        currentOutput = outputNumber;
         document.getElementById('currentOutput').innerHTML = currentOutput;
       };
       console.log(xy);
@@ -141,18 +198,27 @@ export default class ViewManager{
 
     this.openButton.addEventListener('click', function (event) {
       let data = document.getElementById('openSyringe').value;
-      socket.emit("send-raw", {
-          "name": '/dev/cu.usbmodem1411',
-          "payload": str2ab(data)
-      })
+      if (checkString(data)) {
+        socket.emit("send-raw", {
+            "name": '/dev/cu.usbmodem1411',
+            "payload": str2ab(data)
+        })
+      } else {
+        console.log("Try again");
+      }
     });
 
     this.closeButton.addEventListener('click',function (event){
       let data = document.getElementById('closeSyringe').value;
-      socket.emit("send-raw", {
-          "name": '/dev/cu.usbmodem1411',
-          "payload": str2ab(data)
-      })
+      checkString(data);
+      if (checkString(data)) {
+        socket.emit("send-raw", {
+            "name": '/dev/cu.usbmodem1411',
+            "payload": str2ab(data)
+        });
+      } else {
+        console.log("Try again");
+      }
     });
   };
 };

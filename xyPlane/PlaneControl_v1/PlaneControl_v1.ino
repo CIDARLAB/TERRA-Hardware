@@ -25,7 +25,7 @@ const int microSteps = 16
 
 
 void setup(){
-  Serial.begin(9600); // set baud rate for communication
+  Serial.begin(1152000); // set baud rate for communication
   //Ezira code
   pwm.begin();
   pwm.setPWMFreq(60);  // Analog servos run at ~60 Hz updates
@@ -61,17 +61,19 @@ void loop(){
     }
   }
   Serial.println(outputNum);
+  digitalWrite(LED_BUILTIN, HIGH);
+
 
   Outputs outputs[outputNum];
 
 //  Establish pins sequence of open and closed valves for each output
   for (int k = 0; k < outputNum; k++){
     outputs[k].assign_open();
-    digitalWrite(LED_BUILTIN, HIGH);
-    outputs[k].assign_close();
     digitalWrite(LED_BUILTIN, LOW);
-    outputs[k].assign_coordinates();
+    outputs[k].assign_close();
     digitalWrite(LED_BUILTIN, HIGH);
+    outputs[k].assign_coordinates();
+    digitalWrite(LED_BUILTIN, LOW);
   };
 
 
@@ -279,4 +281,5 @@ bool comp(const int& num1, const int& num2) {
     return num1 < num2;
 }
 */
+
 
