@@ -10,14 +10,19 @@
 .home-btn {
   position: relative;
   top: 60%;
-  bottom: 20%;
-  left: 43%;
-  margin-top: 3%;
-  font-size: 0.75rem;
+  margin-top: 1%;
+  margin-left: 0.25%;
+  margin-right: 0.25%;
+  left: 29%;
+  font-size: 1rem!important;
 }
 
 .cc-btn{
   background-color: #06334a;
+}
+
+a {
+  border-radius: 0!important;
 }
 
 .home-text{
@@ -28,4 +33,5 @@
 .navbar-text{
   font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
   letter-spacing: .1rem;
+  font-size: 0.9rem;
 }

@@ -1,13 +1,11 @@
 export default class ViewManager{
   constructor(){
     //initialize variables
-    let outputArray = []; //store outputs
     let vessel;
     let outputNumber;
     let vesselOptions;
     let currentOutput = 1;
     let check = "";
-    let re = /\d*\w/;
     let well_24 = [];
     let well_96 = [];
     let well_384 = [];
@@ -53,9 +51,28 @@ export default class ViewManager{
         return buf;
     };
 
-    function appendXY(button) {
-      xy.push(button.value);
-      console.log(xy);
+    function checkString(str){
+      var regex_1 = /\d+\s/;
+      let regex_2 = /\d+/;
+      if (str.search(regex_1,str) == 0){
+        str = str.replace(regex_1,"");
+        while (str.search(regex_1,str) == 0) {
+          str = str.replace(regex_1,"");
+        };
+        if (str.search(regex_2,str) == 0) {
+          document.getElementById("openSyringe").style.borderColor = "green";
+          document.getElementById("openSyringe").style.borderWidth = "0.15rem";
+          return true;
+        } else {
+          document.getElementById("openSyringe").style.borderColor = "red";
+          document.getElementById("openSyringe").style.borderWidth = "0.15rem";
+          return false;
+        }
+      } else {
+        document.getElementById("openSyringe").style.borderColor = "red";
+        document.getElementById("openSyringe").style.borderWidth = "0.15rem";
+        return false;
+      };
     };
 
     //buttons
@@ -88,7 +105,7 @@ export default class ViewManager{
           tbody_insert += "<th scope='row'>"+letters[i]+"</th>";
             for (var j = 1; j < 7; j++) {
               let coordinate = letters[i]+j;
-              tbody_insert += "<td><button type='button' data-toggle='button' class='btn btn-primary btn-sm' onclick='appendXY(this)' value='"+j+"' id='"+coordinate+"'>"+coordinate+"</button></td>";
+              tbody_insert += "<td><button type='button' class='btn btn-primary btn-sm' onclick='appendXY(this)' value='"+j+"' id='"+coordinate+"'>"+coordinate+"</button></td>";
             };
           tbody_insert += "</tr>";
         };
@@ -120,7 +137,7 @@ export default class ViewManager{
           tbody_insert += "<th scope='row'>"+letters[i]+"</th>";
             for (var j = 1; j < 13; j++) {
               let coordinate = letters[i]+j;
-              tbody_insert += "<td><button type='button' data-toggle='button' class='btn btn-primary btn-sm' onclick='appendXY(this)' value='"+coordinate+"' id='"+coordinate+"'>"+coordinate+"</button></td>";
+              tbody_insert += "<td><button type='button' class='btn btn-primary btn-sm' onclick='appendXY(this)' value='"+coordinate+"' id='"+coordinate+"'>"+coordinate+"</button></td>";
             };
           tbody_insert += "</tr>";
         };
@@ -151,7 +168,7 @@ export default class ViewManager{
           tbody_insert += "<th scope='row'>"+letters[i]+"</th>";
             for (var j = 1; j < 25; j++) {
               let coordinate = letters[i]+j;
-              tbody_insert += "<td><button type='button' data-toggle='button' class='btn btn-primary btn-sm' onclick='appendXY(this)' value='"+coordinate+"' id='"+coordinate+"'>"+coordinate+"</button></td>";
+              tbody_insert += "<td><button type='button' class='btn btn-primary btn-sm' onclick='appendXY(this)' value='"+coordinate+"' id='"+coordinate+"'>"+coordinate+"</button></td>";
             };
           tbody_insert += "</tr>";
         };
@@ -172,8 +189,7 @@ export default class ViewManager{
         currentOutput = outputNumber;
         document.getElementById('currentOutput').innerHTML = currentOutput;
       };
-
-      console.log(xy.slice(0,-1))
+      console.log(xy);
       socket.emit("send-raw", {
           "name": '/dev/cu.usbmodem1411',
           "payload": str2ab(xy)
@@ -182,19 +198,27 @@ export default class ViewManager{
 
     this.openButton.addEventListener('click', function (event) {
       let data = document.getElementById('openSyringe').value;
-      console.log(re.test(data));
-      socket.emit("send-raw", {
-          "name": '/dev/cu.usbmodem1411',
-          "payload": str2ab(data)
-      })
+      if (checkString(data)) {
+        socket.emit("send-raw", {
+            "name": '/dev/cu.usbmodem1411',
+            "payload": str2ab(data)
+        })
+      } else {
+        console.log("Try again");
+      }
     });
 
     this.closeButton.addEventListener('click',function (event){
       let data = document.getElementById('closeSyringe').value;
-      socket.emit("send-raw", {
-          "name": '/dev/cu.usbmodem1411',
-          "payload": str2ab(data)
-      })
+      checkString(data);
+      if (checkString(data)) {
+        socket.emit("send-raw", {
+            "name": '/dev/cu.usbmodem1411',
+            "payload": str2ab(data)
+        });
+      } else {
+        console.log("Try again");
+      }
     });
   };
 };
