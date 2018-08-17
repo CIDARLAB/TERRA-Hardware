@@ -4,23 +4,26 @@
 #include <Adafruit_PWMServoDriver.h>
 #include "SyringeGroups.h"
 #include "Outputs.h"
-#define pinEnable    4  // Enable 4
+
+
+// Important Definitions
+#define pinEnable    4  // PWM or Enable pins
 #define pinStep      3  // Step 3
 #define pinDir       2  // Direction 2
-#define pinEnable_2  13 // Enable 13
-#define pinStep_2    9  // Step 9
+#define pinEnable_2  13 // PWM or enable pins
+#define pinStep_2    9  // Step 92
 #define pinDir_2     8  // Direction  8
 
-// Ezira code - Syringe Variables
+//~~~~~~~~~~ Microstepping Features ~~~~~~~~~~//
+#define microStep1  5   // mode select for microstepping
+#define microStep2  10  // mode select for microstepping
+
+
+//Syringe Variables
 Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver();
 char incomingData = 0;
 int outputNum = 0;
-// Ezira code
 
-// XY plane variables
-//int     outputNumber = 0; // probably/definitely useless
-//String  input;
-//char    input_list[100];
 
 void setup(){
   Serial.begin(9600); // set baud rate for communication
@@ -32,12 +35,22 @@ void setup(){
 
   delay(10);
 
+  // OUTPUT declarations for Stepper 1
   pinMode( pinEnable,   OUTPUT );
   pinMode( pinDir   ,   OUTPUT );
   pinMode( pinStep  ,   OUTPUT );
+
+  // OUTPUT declarations for Stepper 2
   pinMode( pinEnable_2, OUTPUT );
   pinMode( pinDir_2   , OUTPUT );
   pinMode( pinStep_2  , OUTPUT );
+
+  //Microstepping Output
+
+  pinMode (microStep1, OUTPUT);
+  pinMode (microStep2, OUTPUT);
+  digitalWrite (microStep1, HIGH);
+  digitalWrite (microStep2, HIGH);
 
 
 }
@@ -85,35 +98,6 @@ void loop(){
     int wellPlate [8][12];
     int n,m = 0;
     int order = 1;
-    
-
-
-
-  // ~~~ HOMING SEQUENCE ~~~ //
-
- /* int ivy = 0;
-
-
-  digitalWrite( pinDir_2   , HIGH); // Direction control
-  digitalWrite( pinStep_2  , LOW);  // initialize it to be not moving
-  digitalWrite( pinDir   , LOW); // Direction control of motor 2
-  digitalWrite( pinStep  , LOW);  // initialize motor 2 to be not moving
-
-  for (ivy=0; ivy<800; ivy++){
-  Serial.println(ivy);
-  digitalWrite( pinStep, HIGH);
-  digitalWrite( pinStep_2, HIGH);
-  delay(15);
-  digitalWrite(pinStep, LOW);
-  digitalWrite(pinStep_2, LOW);
-  delay(15);
-  }
-  */
-
-
-
-
-
 
 // generating array for well-plate location
 
@@ -132,44 +116,11 @@ void loop(){
     }
     Serial.println("]");
 
-/*
-
-// generating input vector for LOCATIONS - (can add a confirmation section)
-
-      Serial.println("Enter numbers corresponding to well plate locations seperated by spaces, press enter once done: ");
-      while(Serial.available() == 0){};
-
-      input = Serial.readString();                        // read the input locations as a string
-      input.toCharArray(input_list, 100);                 // take input string and store in a character array
-
-// parse through character array and
-      char * token = strtok (input_list," ");
-      while (token != NULL) {
-        V.push_back(atoi(token));
-        Serial.print ("this is token: ");
-        Serial.println (token);
-        token = strtok (NULL, " ");
-        Serial.print ("this is token after strtok: ");
-        Serial.println (token);
-      }
-
-
-      std::sort(V.begin(), V.end(), comp);
-
-      // output[k].coordinates = V
-
-      write_vector(V); // for each output
-
-*/
-
-
-
-// check against the input vector
-
 
 // TRANSLATION loop starts here //
 
 
+// for loop that goes through how many outputs you have
 for (int outputIterator = 0; outputIterator < outputNum; outputIterator++){
 
 
@@ -182,14 +133,14 @@ for (int outputIterator = 0; outputIterator < outputNum; outputIterator++){
   digitalWrite( pinDir   , LOW); // Direction control of motor 2
   digitalWrite( pinStep  , LOW);  // initialize motor 2 to be not moving
 
-  for (ivy=0; ivy<800; ivy++){
+  for (ivy=0; ivy<(800*4); ivy++){
   Serial.println(ivy);
   digitalWrite( pinStep, HIGH);
   digitalWrite( pinStep_2, HIGH);
-  delay(10);
+  delay(1);
   digitalWrite(pinStep, LOW);
   digitalWrite(pinStep_2, LOW);
-  delay(10);
+  delay(1);
   }
 
 
@@ -207,6 +158,10 @@ for (int size = 1; size < (outputs[outputIterator].coordinates.size() + 1); size
         for (m = 0; m < 12; m++){ // m 
  
            if  (outputs[outputIterator].coordinates[size - 1] == wellPlate[n][m] ){
+
+            
+            digitalWrite (microStep1, HIGH);
+            digitalWrite (microStep2, HIGH);
 
             Serial.print ("The m and n values are ");
             Serial.print (m);
@@ -242,14 +197,14 @@ for (int size = 1; size < (outputs[outputIterator].coordinates.size() + 1); size
              digitalWrite(pinDir_2,LOW);
            }
 
-            for (i = 0; i < (48*Xnow); i++){
+            for (i = 0; i < ((48.5*4)*Xnow); i++){
               digitalWrite (pinStep, HIGH);
               delay(10);
               digitalWrite (pinStep,LOW);
               delay(10);
             }
 
-            for (i = 0; i < (48*Ynow); i++){
+            for (i = 0; i < ((48.5*4)*Ynow); i++){
               digitalWrite (pinStep_2, HIGH);
               delay(10);
               digitalWrite (pinStep_2,LOW);
