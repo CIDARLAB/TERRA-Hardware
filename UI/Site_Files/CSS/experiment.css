@@ -1,3 +1,7 @@
+html{
+  height: 100%;
+}
+
 .cc-btn{
   background-color: #06334a;
 }
@@ -10,14 +14,20 @@ button {
   font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
   letter-spacing: .1rem;
   font-size: 0.9rem;
-S
 }
 
 body {
   font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif!important;
   padding-top: 6%;
+  height: 100%;
+  background-color: WhiteSmoke!important;
 }
 
 .container-fluid{
   background-color: WhiteSmoke;
+  height: 100%;
+}
+
+.full{
+  height: 100%;
 }
