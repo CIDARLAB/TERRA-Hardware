@@ -21,6 +21,7 @@ export default class ViewManager{
     for (var i = 1; i < 96; i++) {
       well_96[i] = i+1;
     };
+    console.log(well_96);
 
     well_384[0] = 1;
     for (var i = 1; i < 384; i++) {
