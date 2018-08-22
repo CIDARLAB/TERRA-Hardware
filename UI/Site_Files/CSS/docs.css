@@ -1,0 +1,24 @@
+body {
+  font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif!important;
+  padding-top: 6%;
+  height: 100%;
+  background-color: WhiteSmoke!important;
+}
+
+html{
+  height: 100;
+}
+
+.full-screen{
+  height: 100%;
+}
+
+.navbar-text{
+  font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
+  letter-spacing: .1rem;
+  font-size: 0.9rem;
+}
+
+.push-right{
+  margin-left: 55%;
+}
