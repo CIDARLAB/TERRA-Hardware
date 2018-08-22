@@ -18,24 +18,42 @@
 
 <body>
   <!--Site navigation bar -->
-  <nav class="navbar navbar-expand-sm bg-info fixed-top shadow">
+  <nav class="navbar navbar-expand-sm fixed-top border">
     <img src="../images/terra_logo2.png" style="width: 5%; height: 5%;" class="d-inline-block align-top text-white"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
-      </button>
+    </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-item nav-link active text-white navbar-text" href="./index.html">Home<span class="sr-only">(current)</span></a>
-        <a class="nav-item nav-link active text-white navbar-text" href="./get_started.html">Get Started</a>
-        <a class="nav-item nav-link active text-white navbar-text" href="#">Experiment</a>
-        <a class="nav-item nav-link active text-white navbar-text" href="#">LiveView</a>
-        <a class="nav-item nav-link active text-white navbar-text" href="#">Docs</a>
-      </div>
-      <div class="navbar-nav ml-auto">
-        <a class="nav-item nav-link active text-white navbar-text" href="http://0.0.0.0:3000/" target="_blank">Calibrate</a>
-        <a href="http://2018.igem.org/Team:BostonU_HW/home#" target="_blank">
-          <img src="../images/igem.png" alt="Wiki" style="width: 10%; height: 10%;">
-        </a>
+        <ul class="navbar-nav flex-row">
+          <li class="nav-item">
+            <a class="nav-link active text-dark navbar-text" href="./index.html">Home<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active text-dark navbar-text" href="./get_started.html">Setup</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active text-dark navbar-text" href="#">Experiment</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active text-dark navbar-text" href="#">LiveView</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active text-dark navbar-text" href="#">Docs</a>
+          </li>
+        </ul>
+      <div class="navbar-nav push-right">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="http://2018.igem.org/Team:BostonU_HW" target="_blank" style="width: 3.5rem;">
+              <img class="navbar-nav-svg" src="../Images/igem.png" style="width:100%; height:100%;"alt="Wiki">
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="http://0.0.0.0:3000" target="_blank" style="width: 3.5rem;">
+              <img class="navbar-nav-svg" src="../Images/Settings-icon.png" style="width:100%; height:100%;" alt="Calibrate">
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
   </nav>

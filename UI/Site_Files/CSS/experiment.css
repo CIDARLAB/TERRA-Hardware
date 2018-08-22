@@ -31,3 +31,10 @@ body {
 .full{
   height: 100%;
 }
+
+.push-right{
+  margin-left: 55%;
+}
+.navbar {
+   background-color: WhiteSmoke;
+}
