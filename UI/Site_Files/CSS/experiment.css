@@ -38,3 +38,8 @@ body {
 .navbar {
    background-color: WhiteSmoke;
 }
+
+.grid-button{
+  background-color: #06334a;
+  width: 100%;
+}

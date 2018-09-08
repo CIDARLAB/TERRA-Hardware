@@ -70,7 +70,7 @@
           <br>
           <hr>
           <div class="form-group row">
-            <label for="outputNumber" class="col-8 col-form-label">Enter Number of Outputs</label>
+            <label for="outputNumber" class="col-8 col-form-label">Number of Outputs</label>
             <div class="col">
               <input type="number" class="form-control" id="outputNumber" placeholder="0" name="outputNumber">
             </div>
@@ -86,21 +86,24 @@
                 </select>
             </div>
           </div>
-          <br>
           <div class="form-group row">
             <label for="inputFlow" class="col-8 col-form-label">Total Flow Rate</label>
             <div class="col">
               <input type="number" class="form-control" id="inputFlow" placeholder="0">
             </div>
           </div>
-          <br>
           <div class="form-group row">
-            <label for="inputVolume" class="col-8 col-form-label">Enter Volume (mL)</label>
+            <label for="inputVolume" class="col-8 col-form-label">Enter Volume (uL)</label>
             <div class="col">
               <input type="number" class="form-control" id="inputVolume" placeholder="0" name="inputVolume">
             </div>
           </div>
-          <br>
+          <div class="form-group row">
+            <label for="inputDensity" class="col-8 col-form-label">Density</label>
+            <div class="col">
+              <input type="number" class="form-control" id="inputDensity" placeholder="0" name="inputDensity">
+            </div>
+          </div>
           <div class="form-group row">
             <div class="col">
               <button class="btn cc-btn text-white" type="button" name="action" id="inputButton" value="inputButton">Submit</button>
@@ -145,10 +148,12 @@
       let elem = document.getElementById(button.id);
       let color = window.getComputedStyle(elem).getPropertyValue("background-color");
       if (color == "rgb(0, 128, 0)") {
-        document.getElementById(button.id).style.backgroundColor = "rgb(0, 101, 209)";
-        document.getElementById(button.id).style.border = "rgb(0, 101, 209)";
+        document.getElementById(button.id).style.backgroundColor = "#06334a";
+        document.getElementById(button.id).style.border = "#06334a;";
       }
+      console.log(xy);
     };
+
   </script>
 </body>
 

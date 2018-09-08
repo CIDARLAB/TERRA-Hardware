@@ -35,3 +35,13 @@ body {
 .navbar {
    background-color: WhiteSmoke;
 }
+
+.chip{
+  background-color: white;
+  width: 30%;
+}
+
+.DuF-logo{
+  width: 30%;
+  margin-left: 8%;
+}

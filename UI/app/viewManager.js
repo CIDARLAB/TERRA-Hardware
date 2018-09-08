@@ -51,37 +51,13 @@ export default class ViewManager {
       return buf;
     };
 
-    function checkString(str) {
-      var regex_1 = /\d+\s/;
-      let regex_2 = /\d+/;
-      if (str.search(regex_1, str) == 0) {
-        str = str.replace(regex_1, "");
-        while (str.search(regex_1, str) == 0) {
-          str = str.replace(regex_1, "");
-        };
-        if (str.search(regex_2, str) == 0) {
-          document.getElementById("openSyringe").style.borderColor = "green";
-          document.getElementById("openSyringe").style.borderWidth = "0.15rem";
-          return true;
-        } else {
-          document.getElementById("openSyringe").style.borderColor = "red";
-          document.getElementById("openSyringe").style.borderWidth = "0.15rem";
-          return false;
-        }
-      } else {
-        document.getElementById("openSyringe").style.borderColor = "red";
-        document.getElementById("openSyringe").style.borderWidth = "0.15rem";
-        return false;
-      };
-    };
+    function dps(flow) {
+
+    }
 
     //buttons
     this.inputButton = document.getElementById("inputButton");
-    this.nextButton = document.getElementById("configureButton");
-    this.submitButton = document.getElementById("submitProtocol");
-    this.openButton = document.getElementById("openEnter");
-    this.closeButton = document.getElementById("closeEnter");
-    this.durationButton = document.getElementById("durationEnter");
+
 
     //event handlers
     this.inputButton.addEventListener('click', function(event) {
@@ -98,6 +74,8 @@ export default class ViewManager {
       let tbody_array = [];
       for (let k = 0; k < outputNumber; k++) {
         let output_insert = "Output" + (k + 1);
+        let output_btn_ID = "Submit" + (k + 1);
+        let output_btn_text = "Submit Output " + (k + 1);
         let navID = output_insert + "tab";
         let href_insert = "#" + output_insert;
 
@@ -107,8 +85,8 @@ export default class ViewManager {
 
         thead_array.push(thead_ID)
         tbody_array.push(tbody_ID);
-        nav += "<a class='nav-item nav-link' id='" + navID + "' data-toggle='tab' href='" + href_insert + "' role='tab' aria-controls='" + output_insert + "' aria-selected='false'>" + (k + 1) + "</a>";
-        nav_content += "<div class='tab-pane fade' id='" + output_insert + "' role='tabpanel' aria-labelledby='" + navID + "'><table class='table table-bordered table-sm' id='" + vessel_ID + "'><thead id='" + thead_ID + "'></thead><tbody id='" + tbody_ID + "'></tbody></table></div>";
+        nav += "<a class='nav-item nav-link text-dark' id='" + navID + "' data-toggle='tab' href='" + href_insert + "' role='tab' aria-controls='" + output_insert + "' aria-selected='false'>" + (k + 1) + "</a>";
+        nav_content += "<div class='tab-pane fade' id='" + output_insert + "' role='tabpanel' aria-labelledby='" + navID + "'><table class='table table-bordered table-sm' id='" + vessel_ID + "'><thead id='" + thead_ID + "'></thead><tbody id='" + tbody_ID + "'></tbody></table><button class='btn btn-success' id='"+output_btn_ID+"'>"+output_btn_text+"</button></div>";
       };
 
       console.log(tbody_array[0]);
@@ -132,7 +110,8 @@ export default class ViewManager {
             tbody_insert += "<th scope='row'>" + letters[i] + "</th>";
             for (let j = 1; j < 7; j++) {
               let coordinate = letters[i] + j;
-              tbody_insert += "<td><button type='button' class='btn btn-primary btn-sm' onclick='appendXY(this)' value='" + j + "' id='" + coordinate + "'>" + coordinate + "</button></td>";
+              let btnID = coordinate + k;
+              tbody_insert += "<td><button type='button' class='grid-button btn btn-sm text-white' onclick='appendXY(this)' value='" + j + "' id='" + btnID + "'>" + coordinate + "</button></td>";
             };
             tbody_insert += "</tr>";
           };
@@ -140,16 +119,18 @@ export default class ViewManager {
           document.getElementById(tbody_array[k]).innerHTML = tbody_insert;
           document.getElementById(thead_array[k]).innerHTML = thead_insert;
         };
+
         counter = 0;
-        for (let i = 0; i < 4; i++) {
-          for (let j = 1; j < 7; j++) {
-            let identifier = letters[i] + j;
-            document.getElementById(identifier).value = well_24[counter];
-            counter = counter + 1;
+        for (var k = 0; k < outputNumber; k++){
+          for (let i = 0; i < 4; i++) {
+            for (let j = 1; j < 7; j++) {
+              let identifier = letters[i] + j + k;
+              document.getElementById(identifier).value = well_24[counter];
+              counter = counter + 1;
+            }
           }
         }
       };
-
 
       //create 96-well plate
       if (vessel == 96) {
@@ -168,21 +149,25 @@ export default class ViewManager {
             tbody_insert += "<th scope='row'>" + letters[i] + "</th>";
             for (var j = 1; j < 13; j++) {
               let coordinate = letters[i] + j;
-              tbody_insert += "<td><button type='button' class='btn btn-primary btn-sm' onclick='appendXY(this)' value='" + coordinate + "' id='" + coordinate + "'>" + coordinate + "</button></td>";
+              let btnID = coordinate + k;
+              tbody_insert += "<td><button type='button' class='grid-button btn btn-sm text-white' onclick='appendXY(this)' value='" + coordinate + "' id='" + btnID + "'>" + coordinate + "</button></td>";
             };
             tbody_insert += "</tr>";
           };
 
           document.getElementById(tbody_array[k]).innerHTML = tbody_insert;
           document.getElementById(thead_array[k]).innerHTML = thead_insert;
-          counter = 0;
+        };
+
+        counter = 0;
+        for (let k = 0; k < outputNumber; k++){
           for (var i = 0; i < 7; i++) {
             for (var j = 1; j < 13; j++) {
               let identifier = letters[i] + j;
               document.getElementById(identifier).value = well_96[counter];
               counter = counter + 1;
-            }
-          }
+            };
+          };
         };
       };
 
@@ -202,7 +187,7 @@ export default class ViewManager {
             tbody_insert += "<th scope='row'>" + letters[i] + "</th>";
             for (var j = 1; j < 25; j++) {
               let coordinate = letters[i] + j;
-              tbody_insert += "<td><button type='button' class='btn btn-primary btn-sm' onclick='appendXY(this)' value='" + coordinate + "' id='" + coordinate + "'>" + coordinate + "</button></td>";
+              tbody_insert += "<td><button type='button' class='grid-button btn btn-sm text-white' onclick='appendXY(this)' value='" + coordinate + "' id='" + coordinate + "'>" + coordinate + "</button></td>";
             };
             tbody_insert += "</tr>";
           };
@@ -210,6 +195,22 @@ export default class ViewManager {
           document.getElementById(thead_array[k]).innerHTML = thead_insert;
         };
       };
+
+      //Dispense Time Modeling
+      let surface_tension = 0.0415;
+      let diameter = 0.0032;
+      let density = 1000;
+      let gravity = 9.8;
+      let pi = 3.14;
+
+      let volume = (surface_tension*diameter*pi)/(density*gravity);
+      volume = volume * Math.pow(10,9);
+      volume = volume/1000;
+      console.log(volume); 
+
+      let flow_inverse = 3600/9;
+      let dispense_time = volume*flow_inverse;
+      console.log(dispense_time);
 
       socket.emit("send-raw", {
         "name": '/dev/cu.usbmodem1411',

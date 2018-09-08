@@ -7,11 +7,10 @@
     "babelify": ">=6.1.2",
     "istanbul": ">=0.3.17",
     "mocha": ">=2.2.5",
-    
     "require-directory": ">=2.1.1",
     "should": ">=7.0.2",
     "sinon": ">=1.15.4",
-    "watchify": ">=3.2.2"
+    "watchify": "^3.11.0"
   },
   "browserify": {
     "transform": [
@@ -26,6 +25,7 @@
     ]
   },
   "dependencies": {
+    "is-extglob": "^2.1.1",
     "socket.io": "^2.1.1"
   },
   "version": "",
