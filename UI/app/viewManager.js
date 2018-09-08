@@ -55,6 +55,18 @@ export default class ViewManager {
 
     }
 
+    function checkString(str) {
+      if (str > 0) {
+        document.getElementById("openSyringe").style.borderColor = "green";
+        document.getElementById("openSyringe").style.borderWidth = "0.15rem";
+        return true;
+      } else {
+        document.getElementById("openSyringe").style.borderColor = "red";
+        document.getElementById("openSyringe").style.borderWidth = "0.15rem";
+        return false;
+      }
+    };
+
     //buttons
     this.inputButton = document.getElementById("inputButton");
 
@@ -86,7 +98,7 @@ export default class ViewManager {
         thead_array.push(thead_ID)
         tbody_array.push(tbody_ID);
         nav += "<a class='nav-item nav-link text-dark' id='" + navID + "' data-toggle='tab' href='" + href_insert + "' role='tab' aria-controls='" + output_insert + "' aria-selected='false'>" + (k + 1) + "</a>";
-        nav_content += "<div class='tab-pane fade' id='" + output_insert + "' role='tabpanel' aria-labelledby='" + navID + "'><table class='table table-bordered table-sm' id='" + vessel_ID + "'><thead id='" + thead_ID + "'></thead><tbody id='" + tbody_ID + "'></tbody></table><button class='btn btn-success' id='"+output_btn_ID+"'>"+output_btn_text+"</button></div>";
+        nav_content += "<div class='tab-pane fade' id='" + output_insert + "' role='tabpanel' aria-labelledby='" + navID + "'><table class='table table-bordered table-sm' id='" + vessel_ID + "'><thead id='" + thead_ID + "'></thead><tbody id='" + tbody_ID + "'></tbody></table><button class='btn btn-success' id='" + output_btn_ID + "'>" + output_btn_text + "</button></div>";
       };
 
       console.log(tbody_array[0]);
@@ -121,7 +133,7 @@ export default class ViewManager {
         };
 
         counter = 0;
-        for (var k = 0; k < outputNumber; k++){
+        for (var k = 0; k < outputNumber; k++) {
           for (let i = 0; i < 4; i++) {
             for (let j = 1; j < 7; j++) {
               let identifier = letters[i] + j + k;
@@ -160,7 +172,7 @@ export default class ViewManager {
         };
 
         counter = 0;
-        for (let k = 0; k < outputNumber; k++){
+        for (let k = 0; k < outputNumber; k++) {
           for (var i = 0; i < 7; i++) {
             for (var j = 1; j < 13; j++) {
               let identifier = letters[i] + j;
@@ -203,14 +215,15 @@ export default class ViewManager {
       let gravity = 9.8;
       let pi = 3.14;
 
-      let volume = (surface_tension*diameter*pi)/(density*gravity);
-      volume = volume * Math.pow(10,9);
-      volume = volume/1000;
-      console.log(volume); 
+      let volume = (surface_tension * diameter * pi) / (density * gravity);
+      volume = volume * Math.pow(10, 9);
+      volume = volume / 1000;
+      console.log(volume);
 
-      let flow_inverse = 3600/9;
-      let dispense_time = volume*flow_inverse;
+      let flow_inverse = 3600 / 9;
+      let dispense_time = volume * flow_inverse;
       console.log(dispense_time);
+
 
       socket.emit("send-raw", {
         "name": '/dev/cu.usbmodem1411',
