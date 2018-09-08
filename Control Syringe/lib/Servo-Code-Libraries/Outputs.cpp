@@ -5,48 +5,12 @@
 #include <ArduinoSTL.h>
 
 
-void Outputs::assign_open(){
-  int j = 0;
-  String channel_list;
-  char pin_list[40];
-
-  Serial.print("Enter which pins on the Adafruit Motor Shield are going to be used for the open group of this output");
-  Serial.println("** Seperate channels using a space **");
-  while(Serial.available() == 0) {};
-
-  channel_list = Serial.readString();
-  channel_list.toCharArray(pin_list,40);
-
-  char *token = strtok(pin_list," ");
-  while(token != NULL){
-    Open.pins[j] = atoi(token);
-    Serial.println(Open.pins[j]);
-    token = strtok (NULL, " ");
-    j++;
-    };
-    Open.pin_num = j;
+void Outputs::assign_open(connection) {
+  Open.pins[j] = connection;
   };
 
-void Outputs::assign_close(){
-  int j = 0;
-  String channel_list;
-  char pin_list[40];
-
-  Serial.println("Enter which pins on the Adafruit Motor Shield are going to be used for the close group of this output");
-  Serial.println("** Seperate channels using a space **");
-  while(Serial.available() == 0) {};
-
-  channel_list = Serial.readString();
-  channel_list.toCharArray(pin_list,40);
-
-  char *token = strtok(pin_list," ");
-  while(token != NULL){
-    Close.pins[j] = atoi(token);
-    Serial.println(Close.pins[j]);
-    token = strtok (NULL, " ");
-    j++;
-    };
-  Close.pin_num = j;
+void Outputs::assign_close(connection){
+  Close.pins[j] = connection;
 }
 
 void Outputs::assign_coordinates(){

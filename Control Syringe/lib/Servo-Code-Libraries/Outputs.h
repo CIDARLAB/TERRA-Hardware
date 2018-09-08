@@ -17,8 +17,8 @@ class Outputs{
     SyringeGroups Open;
     SyringeGroups Close;
 
-    void assign_open();
-    void assign_close();
+    void assign_open(connection);
+    void assign_close(connection);
     void assign_coordinates();
 
     void write_vector(const std::vector<int>& V);

@@ -11,6 +11,9 @@ export default class ViewManager {
     let well_384 = [];
     let counter = 0;
     let letters = ["A", "B", "C", "D", "E", "F", "G", "H"];
+    let flowRate = 0;
+    let volume = 0;
+    let density = 0;
 
     well_24[0] = 1
     for (var i = 1; i < 384; i++) {
@@ -55,16 +58,19 @@ export default class ViewManager {
 
     }
 
-    function checkString(str) {
-      if (str > 0) {
-        document.getElementById("openSyringe").style.borderColor = "green";
-        document.getElementById("openSyringe").style.borderWidth = "0.15rem";
+    function checkString(str,id) {
+      let str_num = parseInt(str,10);
+      if (str_num > 0) {
+        document.getElementById(id).style.borderColor = "green";
+        document.getElementById(id).style.borderWidth = "0.15rem";
         return true;
       } else {
-        document.getElementById("openSyringe").style.borderColor = "red";
-        document.getElementById("openSyringe").style.borderWidth = "0.15rem";
+        document.getElementById(id).style.borderColor = "red";
+        document.getElementById(id).style.borderWidth = "0.15rem";
         return false;
       }
+
+
     };
 
     //buttons
@@ -75,6 +81,9 @@ export default class ViewManager {
     this.inputButton.addEventListener('click', function(event) {
       vessel = document.getElementById('selectVessel').value;
       outputNumber = document.getElementById('outputNumber').value;
+      flowRate = document.getElementById('inputFlow').value;
+      volume = document.getElementById('inputVolume').value;
+      density = document.getElementById('inputDensity').value;
 
       //create output tabs
       let nav = "";
@@ -208,27 +217,46 @@ export default class ViewManager {
         };
       };
 
-      //Dispense Time Modeling
-      let surface_tension = 0.0415;
-      let diameter = 0.0032;
-      let density = 1000;
-      let gravity = 9.8;
-      let pi = 3.14;
+      if (checkString(outputNumber,"outputNumber")) {
+        socket.emit("send-raw", {
+          "name": '/dev/cu.usbmodem1411',
+          "payload": str2ab_newline(outputNumber)
+        });
+        console.log("Good");
+      } else {
+        console.log("Not working");
+      };
 
-      let volume = (surface_tension * diameter * pi) / (density * gravity);
-      volume = volume * Math.pow(10, 9);
-      volume = volume / 1000;
-      console.log(volume);
+      if (checkString(flowRate,"inputFlow")) {
+        socket.emit("send-raw", {
+          "name": '/dev/cu.usbmodem1411',
+          "payload": str2ab_newline(flowRate)
+        });
+        console.log("Good");
+      } else {
+        console.log("Not Working");
+      };
 
-      let flow_inverse = 3600 / 9;
-      let dispense_time = volume * flow_inverse;
-      console.log(dispense_time);
+      if (checkString(volume,"inputVolume")) {
+        socket.emit("send-raw", {
+          "name": '/dev/cu.usbmodem1411',
+          "payload": str2ab_newline(volume)
+        });
+        console.log("Good");
+      } else {
+        console.log("Not Working");
+      };
 
+      if (checkString(density,"inputDensity")) {
+        socket.emit("send-raw", {
+          "name": '/dev/cu.usbmodem1411',
+          "payload": str2ab_newline(density)
+        });
+        console.log("Good");
+      } else {
+        console.log("Not Working");
+      };
 
-      socket.emit("send-raw", {
-        "name": '/dev/cu.usbmodem1411',
-        "payload": str2ab_newline(outputNumber)
-      })
     });
   };
 };
