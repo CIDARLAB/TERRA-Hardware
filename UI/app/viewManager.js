@@ -54,9 +54,6 @@ export default class ViewManager {
       return buf;
     };
 
-    function dps(flow) {
-
-    }
 
     function checkString(str,id) {
       let str_num = parseInt(str,10);
@@ -84,6 +81,27 @@ export default class ViewManager {
       flowRate = document.getElementById('inputFlow').value;
       volume = document.getElementById('inputVolume').value;
       density = document.getElementById('inputDensity').value;
+
+      //Check that input values are valid
+      checkString(outputNumber,"outputNumber");
+      checkString(flowRate,"inputFlow");
+      checkString(volume,"inputVolume");
+      checkString(density,"inputDensity");
+
+      //Send data to Arduino after confirming validity of input information
+      if (checkString(outputNumber,"outputNumber") && checkString(flowRate,"inputFlow") && checkString(volume,"inputVolume") && checkString(density,"inputDensity")){
+        //Model
+        let data = outputNumber; //add + dispense time
+        socket.emit("send-raw", {
+          "name": '/dev/cu.usbmodem1411',
+          "payload": str2ab_newline(data)
+        });
+        console.log("Data Good");
+      } else {
+        console.log("Data bad");
+      };
+
+
 
       //create output tabs
       let nav = "";
@@ -116,7 +134,7 @@ export default class ViewManager {
 
       //create table for output vessel image
       //create 24-well plate
-      if (vessel == 24) {
+      if ((vessel == 24) && checkString(outputNumber,"outputNumber") && checkString(flowRate,"inputFlow") && checkString(volume,"inputVolume") && checkString(density,"inputDensity") ) {
         for (var k = 0; k < outputNumber; k++) {
           let thead_insert = "<th scope='col'> </th>";
           for (var i = 1; i < 7; i++) {
@@ -132,7 +150,7 @@ export default class ViewManager {
             for (let j = 1; j < 7; j++) {
               let coordinate = letters[i] + j;
               let btnID = coordinate + k;
-              tbody_insert += "<td><button type='button' class='grid-button btn btn-sm text-white' onclick='appendXY(this)' value='" + j + "' id='" + btnID + "'>" + coordinate + "</button></td>";
+              tbody_insert += "<td><button type='button' name='"+k+"' class='grid-button btn btn-sm text-white' onclick='appendXY(this)' value='" + j + "' id='" + btnID + "'>" + coordinate + "</button></td>";
             };
             tbody_insert += "</tr>";
           };
@@ -143,6 +161,7 @@ export default class ViewManager {
 
         counter = 0;
         for (var k = 0; k < outputNumber; k++) {
+          counter = 0;
           for (let i = 0; i < 4; i++) {
             for (let j = 1; j < 7; j++) {
               let identifier = letters[i] + j + k;
@@ -154,7 +173,7 @@ export default class ViewManager {
       };
 
       //create 96-well plate
-      if (vessel == 96) {
+      if ((vessel == 96) && checkString(outputNumber,"outputNumber") && checkString(flowRate,"inputFlow") && checkString(volume,"inputVolume") && checkString(density,"inputDensity")) {
         for (var k = 0; k < outputNumber; k++) {
           let thead_insert = "<th scope='col'> </th>";
           for (var i = 1; i < 13; i++) {
@@ -171,7 +190,7 @@ export default class ViewManager {
             for (var j = 1; j < 13; j++) {
               let coordinate = letters[i] + j;
               let btnID = coordinate + k;
-              tbody_insert += "<td><button type='button' class='grid-button btn btn-sm text-white' onclick='appendXY(this)' value='" + coordinate + "' id='" + btnID + "'>" + coordinate + "</button></td>";
+              tbody_insert += "<td><button type='button' name='"+k+"' class='grid-button btn btn-sm text-white' onclick='appendXY(this)' value='" + coordinate + "' id='" + btnID + "'>" + coordinate + "</button></td>";
             };
             tbody_insert += "</tr>";
           };
@@ -182,9 +201,10 @@ export default class ViewManager {
 
         counter = 0;
         for (let k = 0; k < outputNumber; k++) {
-          for (var i = 0; i < 7; i++) {
+          counter = 0;
+          for (var i = 0; i < 8; i++) {
             for (var j = 1; j < 13; j++) {
-              let identifier = letters[i] + j;
+              let identifier = letters[i] + j + k;
               document.getElementById(identifier).value = well_96[counter];
               counter = counter + 1;
             };
@@ -193,7 +213,7 @@ export default class ViewManager {
       };
 
       //create 384-well plate
-      if (vessel == 384) {
+      if ((vessel == 384) && checkString(outputNumber,"outputNumber") && checkString(flowRate,"inputFlow") && checkString(volume,"inputVolume") && checkString(density,"inputDensity")) {
         for (var k = 0; k < outputNumber; k++) {
           let thead_insert = "<th scope='col'> </th>";
           for (var i = 1; i < 25; i++) {
@@ -216,47 +236,6 @@ export default class ViewManager {
           document.getElementById(thead_array[k]).innerHTML = thead_insert;
         };
       };
-
-      if (checkString(outputNumber,"outputNumber")) {
-        socket.emit("send-raw", {
-          "name": '/dev/cu.usbmodem1411',
-          "payload": str2ab_newline(outputNumber)
-        });
-        console.log("Good");
-      } else {
-        console.log("Not working");
-      };
-
-      if (checkString(flowRate,"inputFlow")) {
-        socket.emit("send-raw", {
-          "name": '/dev/cu.usbmodem1411',
-          "payload": str2ab_newline(flowRate)
-        });
-        console.log("Good");
-      } else {
-        console.log("Not Working");
-      };
-
-      if (checkString(volume,"inputVolume")) {
-        socket.emit("send-raw", {
-          "name": '/dev/cu.usbmodem1411',
-          "payload": str2ab_newline(volume)
-        });
-        console.log("Good");
-      } else {
-        console.log("Not Working");
-      };
-
-      if (checkString(density,"inputDensity")) {
-        socket.emit("send-raw", {
-          "name": '/dev/cu.usbmodem1411',
-          "payload": str2ab_newline(density)
-        });
-        console.log("Good");
-      } else {
-        console.log("Not Working");
-      };
-
     });
   };
 };

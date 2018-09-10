@@ -13,12 +13,14 @@ class Outputs{
   public:
     std::vector<int> coordinates;
     int coordinate_num;
+    int counter_open = 0;
+    int counter_close = 0;
 
     SyringeGroups Open;
     SyringeGroups Close;
 
-    void assign_open(connection);
-    void assign_close(connection);
+    void assign_open(int connection);
+    void assign_close(int connection);
     void assign_coordinates();
 
     void write_vector(const std::vector<int>& V);

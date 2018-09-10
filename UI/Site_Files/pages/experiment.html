@@ -106,7 +106,7 @@
           </div>
           <div class="form-group row">
             <div class="col">
-              <button class="btn cc-btn text-white" type="button" name="action" id="inputButton" value="inputButton">Submit</button>
+              <button onclick="getOutputs()" class="btn cc-btn text-white" type="button" name="action" id="inputButton" value="inputButton">Submit</button>
             </div>
           </div>
         </form>
@@ -138,11 +138,22 @@
     console.log("Sending Hello World ");
   </script>
   <script>
-    let xy = "";
+    let outputNumber;
+    function getOutputs(){
+      outputNumber = document.getElementById("outputNumber").value;
+      console.log(outputNumber);
+    };
+
+    let xy = new Array(outputNumber);
+    for (var i = 0; i < outputNumber; i++) {
+      xy[i] = new Array("");
+    };
+    console.log(xy[0]);
 
     function appendXY(button) {
-      xy = xy + button.value;
-      xy = xy + " ";
+      xy[button.name] += button.value;
+      xy[button.name] += " ";
+
       document.getElementById(button.id).style.backgroundColor = "green";
       document.getElementById(button.id).style.border = "green";
       let elem = document.getElementById(button.id);
@@ -150,8 +161,10 @@
       if (color == "rgb(0, 128, 0)") {
         document.getElementById(button.id).style.backgroundColor = "#06334a";
         document.getElementById(button.id).style.border = "#06334a;";
-      }
-      console.log(xy);
+
+      };
+      console.log(xy[0]);
+      //console.log(xy[1]);
     };
 
   </script>

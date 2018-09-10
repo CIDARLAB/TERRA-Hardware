@@ -5,13 +5,16 @@
 #include <ArduinoSTL.h>
 
 
-void Outputs::assign_open(connection) {
-  Open.pins[j] = connection;
+void Outputs::assign_open(int connection) {
+
+  Open.pins[counter_open] = connection;
+  counter_open = counter_open++;
   };
 
-void Outputs::assign_close(connection){
-  Close.pins[j] = connection;
-}
+void Outputs::assign_close(int connection){
+  Close.pins[counter_close] = connection;
+  counter_close = counter_close++;
+};
 
 void Outputs::assign_coordinates(){
   // generating input vector for LOCATIONS - (can add a confirmation section)
