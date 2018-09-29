@@ -13,6 +13,7 @@
 #define pinEnable_2  13 // PWM or enable pins
 #define pinStep_2    9  // Step 92
 #define pinDir_2     8  // Direction  8
+#define limSwitch_1  7  // first Limit Switch
 
 //~~~~~~~~~~ Microstepping Features ~~~~~~~~~~//
 #define microStep1  5   // mode select for microstepping
@@ -51,6 +52,10 @@ void setup(){
   pinMode (microStep2, OUTPUT);
   digitalWrite (microStep1, HIGH);
   digitalWrite (microStep2, HIGH);
+
+  // Limit Switch initialization
+
+  digitalWrite (limSwitch_1, HIGH);
 
 
 }
@@ -134,13 +139,16 @@ for (int outputIterator = 0; outputIterator < outputNum; outputIterator++){
   digitalWrite( pinStep  , LOW);  // initialize motor 2 to be not moving
 
   for (ivy=0; ivy<(800*4); ivy++){
-  Serial.println(ivy);
-  digitalWrite( pinStep, HIGH);
-  digitalWrite( pinStep_2, HIGH);
-  delay(1);
-  digitalWrite(pinStep, LOW);
-  digitalWrite(pinStep_2, LOW);
-  delay(1);
+      if ( digitalRead(7) == LOW){
+        break;
+      }
+          Serial.println(ivy);
+          digitalWrite( pinStep, HIGH);
+          digitalWrite( pinStep_2, HIGH);
+          delay(1);
+          digitalWrite(pinStep, LOW);
+          digitalWrite(pinStep_2, LOW);
+          delay(1);
   }
 
 
@@ -256,4 +264,3 @@ bool comp(const int& num1, const int& num2) {
     return num1 < num2;
 }
 */
-
