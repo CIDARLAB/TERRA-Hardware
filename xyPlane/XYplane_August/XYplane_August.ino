@@ -75,14 +75,20 @@ void loop(){
 
   Outputs outputs[outputNum];
 
-  openPins = ['0','2','4','6','8','10','12','14'];
-  closePins = ['1','3','5','7','9','11','13','15'];
+  const int openPins[] = {0,2,4,6,8,10,12,14};
+  const int closePins[] = {1,3,5,7,9,11,13,15};
 //  Establish pins sequence of open and closed valves for each output
   for (int k = 0; k < outputNum; k++){
     outputs[k].assign_open(openPins[k]);
     outputs[k].assign_close(closePins[k]);
     outputs[k].assign_coordinates();
   };
+
+  Serial.println("Pins");
+  Serial.print(outputs[0].Open.pins[0]);
+  Serial.print(outputs[1].Close.pins[0]);
+
+
 
 
   //Control the actuation of control syringe groups

@@ -125,7 +125,7 @@ export default class ViewManager {
         thead_array.push(thead_ID)
         tbody_array.push(tbody_ID);
         nav += "<a class='nav-item nav-link text-dark' id='" + navID + "' data-toggle='tab' href='" + href_insert + "' role='tab' aria-controls='" + output_insert + "' aria-selected='false'>" + (k + 1) + "</a>";
-        nav_content += "<div class='tab-pane fade' id='" + output_insert + "' role='tabpanel' aria-labelledby='" + navID + "'><table class='table table-bordered table-sm' id='" + vessel_ID + "'><thead id='" + thead_ID + "'></thead><tbody id='" + tbody_ID + "'></tbody></table><button class='btn btn-success' id='" + output_btn_ID + "'>" + output_btn_text + "</button></div>";
+        nav_content += "<div class='tab-pane fade' id='" + output_insert + "' role='tabpanel' aria-labelledby='" + navID + "'><table class='table table-bordered table-sm' id='" + vessel_ID + "'><thead id='" + thead_ID + "'></thead><tbody id='" + tbody_ID + "'></tbody></table><button onclick = 'submitXY(this)' class='btn btn-success' name = '"+k+"'id='" + output_btn_ID + "'>" + output_btn_text + "</button></div>";
       };
 
       console.log(tbody_array[0]);

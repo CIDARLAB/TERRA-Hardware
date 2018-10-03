@@ -12,7 +12,7 @@ TERRA is an application & microfluidic agnostic device that aims to bride the ga
 TERRA is made up of 5 major components:  
   1. [Microfluidic Chip](#microfluidic-chip)    
   2. [TERRA Adapter](#terra-adapter)  
-  3. [Active XY Plane]
+  3. Active XY Plane
   4. Automated Control Syringes
   5. User Interface  
 

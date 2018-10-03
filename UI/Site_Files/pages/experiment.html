@@ -141,30 +141,57 @@
     let outputNumber;
     function getOutputs(){
       outputNumber = document.getElementById("outputNumber").value;
-      console.log(outputNumber);
+      //console.log(outputNumber);
     };
 
-    let xy = new Array(outputNumber);
+    let xy = [outputNumber];
     for (var i = 0; i < outputNumber; i++) {
-      xy[i] = new Array("");
+      xy[i] = "1";
     };
-    console.log(xy[0]);
 
     function appendXY(button) {
-      xy[button.name] += button.value;
-      xy[button.name] += " ";
-
-      document.getElementById(button.id).style.backgroundColor = "green";
-      document.getElementById(button.id).style.border = "green";
       let elem = document.getElementById(button.id);
       let color = window.getComputedStyle(elem).getPropertyValue("background-color");
-      if (color == "rgb(0, 128, 0)") {
-        document.getElementById(button.id).style.backgroundColor = "#06334a";
-        document.getElementById(button.id).style.border = "#06334a;";
 
+      if (color == "rgb(6, 51, 74)") {
+        xy[button.name] += button.value;
+        xy[button.name] += " ";
+        document.getElementById(button.id).style.backgroundColor = "green";
+        document.getElementById(button.id).style.border = "green";
+
+        let undefe = xy[button.name].replace("undefined","");
+        xy[button.name] = undefe;
       };
-      console.log(xy[0]);
-      //console.log(xy[1]);
+
+      if (color == "rgb(0, 128, 0)") {
+        document.getElementById(button.id).style.backgroundColor = "rgb(6, 51, 74)";
+        document.getElementById(button.id).style.border = "rgb(6, 51, 74);";
+
+        let old = button.value + " ";
+        let newXY = xy[button.name].replace(old,"");
+        xy[button.name] = newXY;
+
+        let undefe = xy[button.name].replace("undefined","");
+        xy[button.name] = undefe;
+      };
+      console.log(xy[1]);
+    };
+
+    function submitXY(button){
+      function str2ab_newline(str) {
+        str = str + '\n';
+        var buf = new ArrayBuffer(str.length); // 2 bytes for each char
+        var bufView = new Uint8Array(buf);
+        for (var i = 0, strLen = str.length; i < strLen; i++) {
+          bufView[i] = str.charCodeAt(i);
+        };
+        return buf;
+      };
+      let submitOutput = parseInt(button.name,10);
+      socket.emit("send-raw", {
+        "name": '/dev/cu.usbmodem1411',
+        "payload": str2ab_newline(xy[submitOutput])
+      });
     };
 
   </script>
