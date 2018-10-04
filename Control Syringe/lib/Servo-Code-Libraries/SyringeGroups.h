@@ -4,8 +4,7 @@
 //Class to characterize the syringe groups by identifying what channels are within a group and functions to set their states
 class SyringeGroups{
 public:
-    int pins[16];
-    int pin_num;
+    int pins;
     //State used to store position of servo motor to properly change states
     //state of 0 = origin
     //state of 1 = open

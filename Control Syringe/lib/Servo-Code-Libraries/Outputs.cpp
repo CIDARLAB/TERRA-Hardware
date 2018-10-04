@@ -6,14 +6,11 @@
 
 
 void Outputs::assign_open(int connection) {
-
-  Open.pins[counter_open] = connection;
-  counter_open = counter_open++;
+  Open.pins = connection;
   };
 
 void Outputs::assign_close(int connection){
-  Close.pins[counter_close] = connection;
-  counter_close = counter_close++;
+  Close.pins = connection;
 };
 
 void Outputs::assign_coordinates(){
@@ -63,12 +60,10 @@ void Outputs::origin(){
 
 void Outputs::open(){
     Open.on();
-    //delay(2000);
     Close.off();
 };
 
 void Outputs::close(){
     Close.on();
-    //delay(2000);
     Open.off();
 };

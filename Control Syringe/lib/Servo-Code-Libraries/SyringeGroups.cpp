@@ -17,19 +17,13 @@ void SyringeGroups::setServoPulse(int n, double pulse){
   };
 
 void SyringeGroups::neutral(){
-  for(int i = 0; i < pin_num; i++){
-    setServoPulse(pins[i],0.0008);
-  };
+    setServoPulse(pins,0.0008);
 }
 
 void SyringeGroups::on(){
-  for(int i = 0; i < pin_num; i++){
-    setServoPulse(pins[i],0.0014);
-  };
+    setServoPulse(pins,0.0014);
 };
 
 void SyringeGroups::off(){
-    for(int i = 0; i < pin_num; i++){
-      setServoPulse(pins[i],0.0007);
-    };
+      setServoPulse(pins,0.0007);
   };
