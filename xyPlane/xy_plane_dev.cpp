@@ -6,7 +6,7 @@
 #include "Outputs.h"
 
 
-// Important Definitions
+//~~~~~~~~~~ Variable Definitions ~~~~~~~~~~//
 #define pinEnable    4  // PWM or Enable pins
 #define pinStep      3  // Step 3
 #define pinDir       2  // Direction 2
@@ -14,7 +14,7 @@
 #define pinStep_2    9  // Step 92
 #define pinDir_2     8  // Direction  8
 #define limSwitch_1  7  // first Limit Switch
-
+#define limSwitch_2  6  // second Limit Switch
 //~~~~~~~~~~ Microstepping Features ~~~~~~~~~~//
 #define microStep1  5   // mode select for microstepping
 #define microStep2  10  // mode select for microstepping
@@ -88,18 +88,9 @@ void loop(){
   };
 
 
-  //Control the actuation of control syringe groups
-
- /* while(1){
-    outputs[0].origin();
-  }*/
-  //Ezira code
+// ~~~ VARIABLES FOR XY-PLANE ~~~ //
 
 
-
- // ~~~ VARIABLES FOR XY-PLANE ~~~ //
-
-   // std::vector<int> V;
     int wellPlate [8][12];
     int n,m = 0;
     int order = 1;
@@ -122,10 +113,9 @@ void loop(){
     Serial.println("]");
 
 
-// TRANSLATION loop starts here //
 
 
-// for loop that goes through how many outputs you have
+// ~~~~~~~~~~~~~~~~~~~ Translation Loop ~~~~~~~~~~~~~~~~~~~ //
 for (int outputIterator = 0; outputIterator < outputNum; outputIterator++){
 
 
@@ -139,7 +129,7 @@ for (int outputIterator = 0; outputIterator < outputNum; outputIterator++){
   digitalWrite( pinStep  , LOW);  // initialize motor 2 to be not moving
 
   for (ivy=0; ivy<(800*4); ivy++){
-      if ( digitalRead(7) == LOW){
+      if ( (digitalRead(7) == LOW) && (digitalRead(6) == LOW){
         break;
       }
           Serial.println(ivy);
@@ -153,21 +143,22 @@ for (int outputIterator = 0; outputIterator < outputNum; outputIterator++){
 
 
 
+// Establishing Variables for movement
 int Xbefore = 0;
 int Ybefore = 0;
 int Xnow = 0;
 int Ynow = 0;
 int i = 0;  // movement iterator
 
-    // assuming XY plane is at home, visit each location
+// assuming XY plane is at home, visit each location
 for (int size = 1; size < (outputs[outputIterator].coordinates.size() + 1); size++){
 
-      for (n = 0; n < 8; n++) { // n 
-        for (m = 0; m < 12; m++){ // m 
- 
+      for (n = 0; n < 8; n++) { // n
+        for (m = 0; m < 12; m++){ // m
+
            if  (outputs[outputIterator].coordinates[size - 1] == wellPlate[n][m] ){
 
-            
+
             digitalWrite (microStep1, HIGH);
             digitalWrite (microStep2, HIGH);
 
@@ -225,7 +216,7 @@ for (int size = 1; size < (outputs[outputIterator].coordinates.size() + 1); size
             Serial.print (Ynow);
             Serial.print (".");
             Serial.println ();
-            
+
             delay (2500);
 
             // open syringes - output is released
@@ -251,16 +242,3 @@ for (int size = 1; size < (outputs[outputIterator].coordinates.size() + 1); size
 while (true);
 
 }
-/*
-void write_vector(const std::vector<int>& V){
-   Serial.println ("The well plate locations are: ");
-  for(int i=0; i < V.size(); i++)
-    Serial.print (V[i]);
-    Serial.println (" ");
-    Serial.println (V.size());
-}
-
-bool comp(const int& num1, const int& num2) {
-    return num1 < num2;
-}
-*/
