@@ -67,17 +67,21 @@
           <br>
           <h2 class="text-center">1) Input Information</h2>
           <p class="text-muted text-center">Enter protocol information</p>
-          <br>
+          <div class="form-group row">
+            <div class="col text-center">
+              <button class="btn btn-warning" type="button" name="action" id="resetButton">Reset TERRA</button>
+            </div>
+          </div>
           <hr>
           <div class="form-group row">
-            <label for="outputNumber" class="col-8 col-form-label">Number of Outputs</label>
+            <label for="outputNumber" class="col-9 col-form-label">Number of Outputs</label>
             <div class="col">
               <input type="number" class="form-control" id="outputNumber" placeholder="0" name="outputNumber">
             </div>
           </div>
           <br>
           <div class="form-group row">
-            <label for="selectVessel" class="col-8 col-from-label">Select Vessel</label>
+            <label for="selectVessel" class="col-9 col-from-label">Select Vessel</label>
             <div class="col">
               <select class="custom-select" name="selectVessel" id="selectVessel">
                   <option value="24">24-well plate</option>
@@ -87,26 +91,26 @@
             </div>
           </div>
           <div class="form-group row">
-            <label for="inputFlow" class="col-8 col-form-label">Total Flow Rate</label>
+            <label for="inputFlow" class="col-9 col-form-label">Total Flow Rate in TERRA Adapter (mL/hr)</label>
             <div class="col">
               <input type="number" class="form-control" id="inputFlow" placeholder="0">
             </div>
           </div>
           <div class="form-group row">
-            <label for="inputVolume" class="col-8 col-form-label">Enter Volume (uL)</label>
+            <label for="inputVolume" class="col-9 col-form-label">Enter Sample Volume (mL)</label>
             <div class="col">
-              <input type="number" class="form-control" id="inputVolume" placeholder="0" name="inputVolume">
+              <input type="number" step="any" class="form-control" id="inputVolume" placeholder="0" name="inputVolume">
             </div>
           </div>
           <div class="form-group row">
-            <label for="inputDensity" class="col-8 col-form-label">Density</label>
+            <label for="inputDensity" class="col-9 col-form-label">Sample Density (kg/m^3)</label>
             <div class="col">
               <input type="number" class="form-control" id="inputDensity" placeholder="0" name="inputDensity">
             </div>
           </div>
           <div class="form-group row">
             <div class="col">
-              <button onclick="getOutputs()" class="btn cc-btn text-white" type="button" name="action" id="inputButton" value="inputButton">Submit</button>
+              <button onclick="getOutputs()" class="btn cc-btn text-white" type="button" name="action" id="inputButton" value="inputButton">Initialize TERRA</button>
             </div>
           </div>
         </form>
@@ -122,6 +126,12 @@
           </div>
         </nav>
         <div class="tab-content" id="navContent">
+        </div>
+        <br>
+        <div class="form-group row">
+          <div class="col">
+            <button class="btn btn-success text-white" type="button" name="action" id="startButton" style="visibility: hidden;">Start TERRA</button>
+          </div>
         </div>
       </div>
     </div>
@@ -139,9 +149,19 @@
   </script>
   <script>
     let outputNumber;
+
+    function str2ab_newline(str) {
+      str = str + '\n';
+      var buf = new ArrayBuffer(str.length); // 2 bytes for each char
+      var bufView = new Uint8Array(buf);
+      for (var i = 0, strLen = str.length; i < strLen; i++) {
+        bufView[i] = str.charCodeAt(i);
+      };
+      return buf;
+    };
+
     function getOutputs(){
       outputNumber = document.getElementById("outputNumber").value;
-      //console.log(outputNumber);
     };
 
     let xy = [outputNumber];
@@ -177,7 +197,9 @@
       console.log(xy[1]);
     };
 
+    let start_counter = 0;
     function submitXY(button){
+      start_counter++;
       function str2ab_newline(str) {
         str = str + '\n';
         var buf = new ArrayBuffer(str.length); // 2 bytes for each char
@@ -188,6 +210,9 @@
         return buf;
       };
       let submitOutput = parseInt(button.name,10);
+      if ((start_counter) == outputNumber) {
+        document.getElementById('startButton').style.visibility = 'visible';
+      };
       socket.emit("send-raw", {
         "name": '/dev/cu.usbmodem1411',
         "payload": str2ab_newline(xy[submitOutput])

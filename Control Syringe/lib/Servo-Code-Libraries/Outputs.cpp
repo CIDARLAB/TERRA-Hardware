@@ -18,8 +18,6 @@ void Outputs::assign_coordinates(){
 
        String input;
        char input_list[100];
-
-       Serial.println("Enter numbers corresponding to well plate locations seperated by spaces, press enter once done: ");
        while(Serial.available() == 0){};
 
        input = Serial.readString();                        // read the input locations as a string
@@ -29,11 +27,7 @@ void Outputs::assign_coordinates(){
        char * token = strtok (input_list," ");
        while (token != NULL) {
          coordinates.push_back(atoi(token));
-         Serial.print ("this is token: ");
-         Serial.println (token);
          token = strtok (NULL, " ");
-         Serial.print ("this is token after strtok: ");
-         Serial.println (token);
        }
 
        std::sort(coordinates.begin(), coordinates.end(), comp);

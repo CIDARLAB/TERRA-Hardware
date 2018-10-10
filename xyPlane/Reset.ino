@@ -23,8 +23,13 @@
 //Syringe Variables
 Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver();
 char incomingData = 0;
+char incomingData_r = 0;
 int outputNum = 0;
 int reset = 0;
+int dispense_time = 0;
+int flush = 0;
+int disp_flush[2] = {0,0};
+int disp_flush_counter = 0;
 
 
 void setup(){
@@ -64,20 +69,34 @@ void setup(){
 void loop(){
   //  Ezira code
   //  Ask user for number of outputs their microfluidic chip has
-  Serial.print("Enter how many outputs your microfluidic chip contains:");
   while(Serial.available() == 0){};
 
   if (Serial.available() > 0) {
     incomingData = 0;
     while(1) {
       incomingData = Serial.read();
-      if (incomingData == '\n') break;
-      if (incomingData == -1) continue;
-      outputNum *= 10;
-      outputNum = ((incomingData - 48) + outputNum);
-    }
-  }
-  Serial.println(outputNum);
+
+      if (incomingData == 'r'){
+        reset = 1;
+        while(Serial.available() == 0){};
+        if (Serial.available() > 0) {
+          incomingData_r = 0;
+          while(1) {
+            incomingData_r = Serial.read();
+            if (incomingData_r == '\n') break;
+            if (incomingData_r == -1) continue;
+            outputNum *= 10;
+            outputNum = ((incomingData_r - 48) + outputNum);
+          };
+        };
+      } else {
+          if (incomingData == '\n') break;
+          if (incomingData == -1) continue;
+          outputNum *= 10;
+          outputNum = ((incomingData - 48) + outputNum);
+      };
+    };
+  };
 
   Outputs outputs[outputNum];
   const int openPins[] = {0,2,4,6,8,10,12,14};
@@ -95,16 +114,31 @@ void loop(){
 
   for (int k = 0; k < outputNum; k++){
     outputs[k].close();
+  };
+
+  while(Serial.available() == 0){};
+  if (Serial.available() > 0) {
+    String dispenseFR;
+    char dispenseFR_list[100];
+    while(Serial.available() == 0){};
+    dispenseFR = Serial.readString();
+    dispenseFR.toCharArray(dispenseFR_list, 100);
+
+    char *token = strtok (dispenseFR_list," ");
+    while (token != NULL) {
+      disp_flush[disp_flush_counter] = atoi(token);
+      disp_flush_counter++;
+      token = strtok (NULL, " ");
     };
+  };
+
+  dispense_time = disp_flush[0];
+  flush = disp_flush[1];
 
 
 
-  //Control the actuation of control syringe groups
 
- /* while(1){
-    outputs[0].origin();
-  }*/
-  //Ezira code
+
 
 
 
@@ -160,8 +194,9 @@ for (int outputIterator = 0; outputIterator < outputNum; outputIterator++){
           digitalWrite(pinStep, LOW);
           digitalWrite(pinStep_2, LOW);
           delay(1);
-  }
+  };
 
+  delay(flush*1000);
 
 
 int Xbefore = 0;
@@ -242,7 +277,7 @@ for (int size = 1; size < (outputs[outputIterator].coordinates.size() + 1); size
             // open syringes - output is released
             outputs[outputIterator].open();
 
-            delay(60000); // dispense time (can be dictated by flowrate)
+            delay(dispense_time*1000); // dispense time (can be dictated by flowrate)
 
             // close valves, all fluids go to waste
             outputs[outputIterator].close();

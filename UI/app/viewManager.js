@@ -14,6 +14,8 @@ export default class ViewManager {
     let flowRate = 0;
     let volume = 0;
     let density = 0;
+    let dispense_time = 0;
+    let start = 0;
 
     well_24[0] = 1
     for (var i = 1; i < 384; i++) {
@@ -72,10 +74,13 @@ export default class ViewManager {
 
     //buttons
     this.inputButton = document.getElementById("inputButton");
+    this.newButton = document.getElementById("resetButton");
+    this.startButton = document.getElementById("startButton");
 
 
     //event handlers
     this.inputButton.addEventListener('click', function(event) {
+      start = 1;
       vessel = document.getElementById('selectVessel').value;
       outputNumber = document.getElementById('outputNumber').value;
       flowRate = document.getElementById('inputFlow').value;
@@ -88,6 +93,19 @@ export default class ViewManager {
       checkString(volume,"inputVolume");
       checkString(density,"inputDensity");
 
+      //Calculate dispense time using model
+      let sigma = 0.0415; // N*m
+      let gravity = 9.8;  // m/(s^2)
+      let diameter = 0.003175; // m
+      let pi = 3.14;
+      let model_volume = ((sigma*diameter*pi)/(density*gravity)) * 1000000;
+      //console.log(model_volume);
+      let droplet_time = model_volume * (3600/flowRate);
+      //console.log(droplet_time);
+      //console.log(Math.ceil(volume/model_volume));
+      dispense_time = droplet_time * Math.ceil(volume/model_volume);
+      //console.log(dispense_time);
+
       //Send data to Arduino after confirming validity of input information
       if (checkString(outputNumber,"outputNumber") && checkString(flowRate,"inputFlow") && checkString(volume,"inputVolume") && checkString(density,"inputDensity")){
         //Model
@@ -96,9 +114,6 @@ export default class ViewManager {
           "name": '/dev/cu.usbmodem1411',
           "payload": str2ab_newline(data)
         });
-        console.log("Data Good");
-      } else {
-        console.log("Data bad");
       };
 
 
@@ -114,7 +129,7 @@ export default class ViewManager {
       for (let k = 0; k < outputNumber; k++) {
         let output_insert = "Output" + (k + 1);
         let output_btn_ID = "Submit" + (k + 1);
-        let output_btn_text = "Submit Output " + (k + 1);
+        let output_btn_text = "Program Output " + (k + 1);
         let navID = output_insert + "tab";
         let href_insert = "#" + output_insert;
 
@@ -128,7 +143,6 @@ export default class ViewManager {
         nav_content += "<div class='tab-pane fade' id='" + output_insert + "' role='tabpanel' aria-labelledby='" + navID + "'><table class='table table-bordered table-sm' id='" + vessel_ID + "'><thead id='" + thead_ID + "'></thead><tbody id='" + tbody_ID + "'></tbody></table><button onclick = 'submitXY(this)' class='btn btn-success' name = '"+k+"'id='" + output_btn_ID + "'>" + output_btn_text + "</button></div>";
       };
 
-      console.log(tbody_array[0]);
       document.getElementById('navTabs').innerHTML = nav;
       document.getElementById('navContent').innerHTML = nav_content;
 
@@ -237,5 +251,29 @@ export default class ViewManager {
         };
       };
     });
+
+    this.newButton.addEventListener('click', function(event) {
+      let resetData = 'r';
+      socket.emit("send-raw", {
+        "name": '/dev/cu.usbmodem1411',
+        "payload": str2ab_newline(resetData)
+      });
+    });
+
+    this.startButton.addEventListener('click', function(event){
+      let pi = 3.14;
+      let nozzle_volume = (0.0008^2)*pi*0.18;
+      let adapter_volume = (0.0008^2)*pi*0.24;
+      let total_volume = nozzle_volume + adapter_volume;
+      let flush_time = Math.ceil(((3600/flowRate)*total_volume)+180); //seconds
+      let sendData = dispense_time.toString() + " " + flush_time.toString();
+      if(start == 1){
+        socket.emit("send-raw", {
+          "name": '/dev/cu.usbmodem1411',
+          "payload": str2ab_newline(sendData)
+        });
+      };
+    });
+
   };
 };

@@ -85,8 +85,8 @@
               </ul>
             </li>
             <li class="nav-item active">
-              <a href="#assembly-sub" data-toggle="collapse" aria-expanded="false" class=" text-white dropdown-toggle nav-link">Assembly</a>
-              <ul class="collapse list-unstyled sub-menu border" id="assembly-sub">
+              <a href="#hardware-assembly-sub" data-toggle="collapse" aria-expanded="false" class=" text-white dropdown-toggle nav-link">Hardware Assembly</a>
+              <ul class="collapse list-unstyled sub-menu border" id="hardware-assembly-sub">
                 <li>
                   <a class="nav-link text-muted" href="#microfluidics">Active XY Plane</a>
                 </li>
@@ -95,6 +95,7 @@
                 </li>
               </ul>
             </li>
+            <li class="nav-item"><a class="nav-link text-white" href="#software-setup">Software Setup</a></li>
             <li class="nav-item"><a class="nav-link text-white" href="#experiment-setup">Experiment Setup</a></li>
             <li class="nav-item"><a class="nav-link text-white" href="#use-terra">Use TERRA</a></li>
             <li class="nav-item"><a class="nav-link text-white" href="#faqs">FAQs</a></li>
@@ -249,10 +250,14 @@
           <p style="margin-top: 2%;">Congratulations! You've constructed a control syringe unit. These units can be connected in parallel depending on how many you need for your experiment. Just move base connectors so that they are connecting adjacent control syringe units at all connecting junctions. You can also use other pieces that have screw holes, such as syringe holders, to connect control syringe units. Connect additional units to the Arduino using the other servo pins on the shield. Below is an example of a 4 control syringe units connected together.</p>
           <img style="margin-left: 20%; width: 50%; margin-top: 2%;" class="d-inline-block" src="../Images/Control Syringe/IMG_4236.JPG" alt="">
         </ol>
-        <h2 id="experiment-setup">Experiment Setup</h2>
+        <h2 id="software-setup">Software Setup</h2>
         <hr>
-        <p>Before setting up your run on TERRA, ensure that TERRA has been assembled properly. </p>
-
+        <p>Once you have assembled the hardware components and circuitry for TERRA, the next step is to upload the necessary files onto the Arduino. There are two main files that are required; the libraries and main script. Download the lib folder found in the in TERRA's GitHub repository. After downloading, transfer these files into the Libraries folder found in your Arduino directory. Lastly, download the main.ino file found src folder in TERRA's GitHub repository. Upload the main.ino file via the Arduino IDE. If the Arduino is reuploaded with other code then you must reupload the Arduino with the main.ino file.</p>
+        <hr>
+        <p></p>
+        <h2 id="experiment-setup">Microfluidic Setup</h2>
+        <hr>
+        <p>To use unload the outputs from you microfluidic chip, a TERRA Adapter is required. The number of inputs for TERRA Adapter must equal the number of outputs of your microfluidic chip. For this reason if you do not already have a TERRA Adapter that already fills this constraint you are required to make one. Using <a href="3duf.org">3DuF</a>, a web-based application for designing and creating microfluidic devices using <a href="http://cidarlab.org/microfluidics/">Makerfluidics</a>, create a TERRA Adapter chip for your run using the TERRA Adapter feature. A TERRA Adapter feature is needed for every output coming off your microfluidic chip. Visit the <a href="http://2017.igem.org/Team:BostonU_HW/IntrouF">2017 BostonU HW Mars</a> team's wiki for more information regarding the construction of microfluidic chips using Makerfluidics.</p>
         <h2 id="use-terra">Use TERRA</h2>
         <hr>
         <h2 id="faqs">FAQs</h2>

@@ -13,8 +13,6 @@ class Outputs{
   public:
     std::vector<int> coordinates;
     int coordinate_num;
-    int counter_open = 0;
-    int counter_close = 0;
 
     SyringeGroups Open;
     SyringeGroups Close;
