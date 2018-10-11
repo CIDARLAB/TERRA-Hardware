@@ -98,13 +98,9 @@ export default class ViewManager {
       let gravity = 9.8;  // m/(s^2)
       let diameter = 0.003175; // m
       let pi = 3.14;
-      let model_volume = ((sigma*diameter*pi)/(density*gravity)) * 1000000;
-      //console.log(model_volume);
+      let model_volume = ((sigma*diameter*pi)/(density*gravity)) * 1000000 * 1.1331;
       let droplet_time = model_volume * (3600/flowRate);
-      //console.log(droplet_time);
-      //console.log(Math.ceil(volume/model_volume));
       dispense_time = droplet_time * Math.ceil(volume/model_volume);
-      //console.log(dispense_time);
 
       //Send data to Arduino after confirming validity of input information
       if (checkString(outputNumber,"outputNumber") && checkString(flowRate,"inputFlow") && checkString(volume,"inputVolume") && checkString(density,"inputDensity")){
