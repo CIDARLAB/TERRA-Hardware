@@ -207,14 +207,14 @@ for (int size = 1; size < (outputs[outputIterator].coordinates.size() + 1); size
              digitalWrite(pinDir_2,HIGH);
            }
 
-            for (i = 0; i < ((45*4)*Xnow); i++){
+            for (i = 0; i < ((22.5*4)*Xnow); i++){
               digitalWrite (pinStep, HIGH);
               delay(10);
               digitalWrite (pinStep,LOW);
               delay(10);
             }
 
-            for (i = 0; i < ((45*4)*Ynow); i++){
+            for (i = 0; i < ((22.5*4)*Ynow); i++){
               digitalWrite (pinStep_2, HIGH);
               delay(10);
               digitalWrite (pinStep_2,LOW);
