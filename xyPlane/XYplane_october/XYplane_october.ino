@@ -6,7 +6,7 @@
 #include "Outputs.h"
 
 
-// Important Definitions
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Definitions for Pinouts ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 #define pinEnable    4  // PWM or Enable pins (4
 #define pinStep      3  // Step 3
 #define pinDir       2  // Direction 2
@@ -15,66 +15,67 @@
 #define pinDir_2     8  // Direction  8
 #define limSwitch_1  7  // first Limit Switch
 #define limSwitch_2  6  // second Limit Switch
-//~~~~~~~~~~ Microstepping Features ~~~~~~~~~~//
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Microstepping Pins ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 #define microStep1  5   // mode select for microstepping
 #define microStep2  10  // mode select for microstepping
 
 
-//Syringe Variables
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Syringe Variables ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 Adafruit_PWMServoDriver pwm = Adafruit_PWMServoDriver();
 char incomingData = 0;
+char dimensionIn = 0;
 int outputNum = 0;
+int plate = 0;
+int plate_x = 0;
+int plate_y = 0;
+int stepCount = 0;
 
 
 void setup(){
   Serial.begin(9600); // set baud rate for communication
-  //Ezira code
   pwm.begin();
   pwm.setPWMFreq(60);  // Analog servos run at ~60 Hz updates
   pinMode(LED_BUILTIN, OUTPUT);
-  //Ezira code
+
 
   delay(10);
 
-  // OUTPUT declarations for Stepper 1
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ OUTPUT Declarations for Steppers ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
   pinMode( pinEnable,   OUTPUT );
   pinMode( pinDir   ,   OUTPUT );
   pinMode( pinStep  ,   OUTPUT );
 
-  // OUTPUT declarations for Stepper 2
   pinMode( pinEnable_2, OUTPUT );
   pinMode( pinDir_2   , OUTPUT );
   pinMode( pinStep_2  , OUTPUT );
 
-  //Microstepping Output
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ OUTPUT Declarations for Microstepping ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 
   pinMode (microStep1, OUTPUT);
   pinMode (microStep2, OUTPUT);
   digitalWrite (microStep1, HIGH);
   digitalWrite (microStep2, HIGH);
 
-  // Limit Switch initialization
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Initialize Limit Switches ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 
   digitalWrite (limSwitch_1, HIGH);
-
+  digitalWrite (limSwitch_2, HIGH);
 
 }
 
 void loop(){
-  //  Ezira code
-  //  Ask user for number of outputs their microfluidic chip has
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Take User Inputs ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
   Serial.print("Enter how many outputs your microfluidic chip contains:");
   while(Serial.available() == 0){};
-
-  if (Serial.available() > 0) {
-    incomingData = 0;
-    while(1) {
-      incomingData = Serial.read();
-      if (incomingData == '\n') break;
-      if (incomingData == -1) continue;
-      outputNum *= 10;
-      outputNum = ((incomingData - 48) + outputNum);
-    }
+      if (Serial.available() > 0) {
+      incomingData = 0;
+        while(1) {
+          incomingData = Serial.read();
+          if (incomingData == '\n') break;
+          if (incomingData == -1) continue;
+          outputNum *= 10;
+          outputNum = ((incomingData - 48) + outputNum);
+      }
   }
   Serial.println(outputNum);
 
@@ -87,20 +88,41 @@ void loop(){
     outputs[k].assign_coordinates();
   };
 
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Code for XY Plane ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
+Serial.print("Select a well-plate dimensions: Enter 1 for 96-well, 2 for 384, and 3 for 24 wells");
+while(Serial.available() == 0){};
+      if (Serial.available() > 0) {
+      dimensionIn = 0;
+        while(1) {
+          dimensionIn = Serial.read();
+          if (dimensionIn == '\n') break;
+          if (dimensionIn == -1) continue;
+          plate *= 10;
+          plate = ((dimensionIn - 48) + plate);
+      }
+  }
 
-  //Control the actuation of control syringe groups
-
- /* while(1){
-    outputs[0].origin();
-  }*/
-  //Ezira code
 
 
+if (plate == 1){
+    plate_x = 8;
+    plate_y = 12;
+    stepCount = 45;
+}
+else if(plate == 2){
+    plate_x = 16;
+    plate_y = 24;
+    stepCount = 22.5;
+}
+else {
+    plate_x = 4;
+    plate_y = 6;
+    stepCount = 90;
+}
 
- // ~~~ VARIABLES FOR XY-PLANE ~~~ //
 
-   // std::vector<int> V;
-    int wellPlate [8][12];
+
+    int wellPlate [plate_x][plate_y];
     int n,m = 0;
     int order = 1;
 
@@ -109,23 +131,20 @@ void loop(){
   Serial.println ("This is the array for a 96 well plate:");
   Serial.print ("[") ;
 
-    for (n=0; n < 8; n++) {
-      for (m=0; m < 12; m++){
+    for (n=0; n < plate_x; n++) {
+      for (m=0; m < plate_y; m++){
         wellPlate[n][m] = order;
         order++;
         Serial.print (wellPlate[n][m]);
         Serial.print (" ");
       }
-      if (n<7)
+      if (n<(plate_x - 1))
       Serial.println();
     }
     Serial.println("]");
 
 
-// TRANSLATION loop starts here //
-
-
-// for loop that goes through how many outputs you have
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ XY Plane movement ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~//
 for (int outputIterator = 0; outputIterator < outputNum; outputIterator++){
 
 
@@ -138,7 +157,7 @@ for (int outputIterator = 0; outputIterator < outputNum; outputIterator++){
   digitalWrite( pinDir   , HIGH); // Direction control of motor 2
   digitalWrite( pinStep  , LOW);  // initialize motor 2 to be not moving
 
-  for (ivy=0; ivy<(800*4); ivy++){
+  for (ivy=0; ivy<(3300); ivy++){
       if ( (digitalRead(7) == LOW) && (digitalRead(6) == LOW)){
         break;
       }
@@ -164,8 +183,8 @@ int i = 0;  // movement iterator
     // assuming XY plane is at home, visit each location
 for (int size = 1; size < (outputs[outputIterator].coordinates.size() + 1); size++){
 
-      for (n = 0; n < 8; n++) { // n 
-        for (m = 0; m < 12; m++){ // m 
+      for (n = 0; n < plate_x; n++) { // n 
+        for (m = 0; m < plate_y; m++){ // m 
  
            if  (outputs[outputIterator].coordinates[size - 1] == wellPlate[n][m] ){
 
@@ -207,14 +226,14 @@ for (int size = 1; size < (outputs[outputIterator].coordinates.size() + 1); size
              digitalWrite(pinDir_2,HIGH);
            }
 
-            for (i = 0; i < ((22.5*4)*Xnow); i++){
+            for (i = 0; i < ((stepCount*4)*Xnow); i++){
               digitalWrite (pinStep, HIGH);
               delay(10);
               digitalWrite (pinStep,LOW);
               delay(10);
             }
 
-            for (i = 0; i < ((22.5*4)*Ynow); i++){
+            for (i = 0; i < ((stepCount*4)*Ynow); i++){
               digitalWrite (pinStep_2, HIGH);
               delay(10);
               digitalWrite (pinStep_2,LOW);
