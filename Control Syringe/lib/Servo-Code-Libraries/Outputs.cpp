@@ -28,7 +28,7 @@ void Outputs::assign_coordinates(){
        while (token != NULL) {
          coordinates.push_back(atoi(token));
          token = strtok (NULL, " ");
-       }
+       };
 
        std::sort(coordinates.begin(), coordinates.end(), comp);
        write_vector(coordinates); // for each output

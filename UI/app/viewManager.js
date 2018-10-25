@@ -58,7 +58,7 @@ export default class ViewManager {
 
 
     function checkString(str,id) {
-      let str_num = parseInt(str,10);
+      let str_num = parseFloat(str,10);
       if (str_num > 0) {
         document.getElementById(id).style.borderColor = "green";
         document.getElementById(id).style.borderWidth = "0.15rem";
@@ -76,9 +76,25 @@ export default class ViewManager {
     this.inputButton = document.getElementById("inputButton");
     this.newButton = document.getElementById("resetButton");
     this.startButton = document.getElementById("startButton");
+    this.contButton = document.getElementById("contButton");
+    this.dropButton = document.getElementById("dropButton");
 
 
     //event handlers
+    /*this.contButton.addEventListener('click',function(event){
+      socket.emit("send-raw", {
+        "name": '/dev/cu.usbmodem14101',
+        "payload": str2ab_newline("c")
+      });
+    });
+
+    this.dropButton.addEventListener('click',function(event){
+      socket.emit("send-raw", {
+        "name": '/dev/cu.usbmodem14101',
+        "payload": str2ab_newline("d")
+      });
+    });
+    */
     this.inputButton.addEventListener('click', function(event) {
       start = 1;
       vessel = document.getElementById('selectVessel').value;
@@ -86,6 +102,7 @@ export default class ViewManager {
       flowRate = document.getElementById('inputFlow').value;
       volume = document.getElementById('inputVolume').value;
       density = document.getElementById('inputDensity').value;
+      //type = document.getElementById('selectType').value;
 
       //Check that input values are valid
       checkString(outputNumber,"outputNumber");
@@ -100,19 +117,19 @@ export default class ViewManager {
       let pi = 3.14;
       let model_volume = ((sigma*diameter*pi)/(density*gravity)) * 1000000 * 1.1331;
       let droplet_time = model_volume * (3600/flowRate);
-      dispense_time = droplet_time * Math.ceil(volume/model_volume);
+      console.log(droplet_time);
+      dispense_time = droplet_time * Math.round(volume/model_volume);
+      console.log(dispense_time);
 
       //Send data to Arduino after confirming validity of input information
       if (checkString(outputNumber,"outputNumber") && checkString(flowRate,"inputFlow") && checkString(volume,"inputVolume") && checkString(density,"inputDensity")){
         //Model
-        let data = outputNumber; //add + dispense time
+        let data = outputNumber.toString(); //type.toString(); //add + dispense time
         socket.emit("send-raw", {
-          "name": '/dev/cu.usbmodem1411',
+          "name": '/dev/cu.usbmodem14101',
           "payload": str2ab_newline(data)
         });
       };
-
-
 
       //create output tabs
       let nav = "";
@@ -251,21 +268,23 @@ export default class ViewManager {
     this.newButton.addEventListener('click', function(event) {
       let resetData = 'r';
       socket.emit("send-raw", {
-        "name": '/dev/cu.usbmodem1411',
+        "name": '/dev/cu.usbmodem14101',
         "payload": str2ab_newline(resetData)
       });
     });
 
     this.startButton.addEventListener('click', function(event){
       let pi = 3.14;
-      let nozzle_volume = (0.0008^2)*pi*0.18;
-      let adapter_volume = (0.0008^2)*pi*0.24;
-      let total_volume = nozzle_volume + adapter_volume;
-      let flush_time = Math.ceil(((3600/flowRate)*total_volume)+180); //seconds
+      let nozzle_volume = (Math.pow(0.0008, 2))*pi*0.18;
+      let adapter_volume = (Math.pow(0.0008, 2))*pi*0.24;
+      let total_volume = nozzle_volume;
+      console.log(nozzle_volume);//+ adapter_volume;
+      let flush_time = Math.ceil(((3600/flowRate)*total_volume)); //seconds
       let sendData = dispense_time.toString() + " " + flush_time.toString();
+      console.log(sendData);
       if(start == 1){
         socket.emit("send-raw", {
-          "name": '/dev/cu.usbmodem1411',
+          "name": '/dev/cu.usbmodem14101',
           "payload": str2ab_newline(sendData)
         });
       };

@@ -90,6 +90,17 @@
                 </select>
             </div>
           </div>
+          <!--
+          <div class="form-group row">
+            <label for="selectType" class="col-9 col-from-label">Type of Microfluidic Chip</label>
+            <div class="col">
+              <select class="custom-select" name="selectType" id="selectType">
+                  <option value="c">Continous Flow</option>
+                  <option value="d">Droplet</option>
+                </select>
+            </div>
+          </div>
+        -->
           <div class="form-group row">
             <label for="inputFlow" class="col-9 col-form-label">Total Flow Rate in TERRA Adapter (mL/hr)</label>
             <div class="col">
@@ -105,13 +116,21 @@
           <div class="form-group row">
             <label for="inputDensity" class="col-9 col-form-label">Sample Density (kg/m^3)</label>
             <div class="col">
-              <input type="number" class="form-control" id="inputDensity" placeholder="0" name="inputDensity">
+              <input type="number" class="form-control" id="inputDensity" placeholder="1000" name="inputDensity">
             </div>
           </div>
           <div class="form-group row">
-            <div class="col">
-              <button onclick="getOutputs()" class="btn cc-btn text-white" type="button" name="action" id="inputButton" value="inputButton">Initialize TERRA</button>
+            <div class="col d-inline">
+              <button onclick="getOutputs()" class="btn cc-btn text-white" type="button" name="action" id="inputButton" placeholder="1000" value="inputButton">Initialize TERRA</button>
             </div>
+            <!--
+            <div class="col d-inline">
+              <button onclick="sendValue()" style="margin-left:100%;" class="btn cc-btn text-white" type="button" name="action" id="contButton" value="c">C</button>
+            </div>
+            <div class="col d-inline">
+              <button onclick="sendValue()" style="margin-left:60%;" class="btn cc-btn text-white" type="button" name="action" id="dropButton" value="d">D</button>
+            </div>
+          -->
           </div>
         </form>
       </div>
@@ -214,7 +233,7 @@
         document.getElementById('startButton').style.visibility = 'visible';
       };
       socket.emit("send-raw", {
-        "name": '/dev/cu.usbmodem1411',
+        "name": '/dev/cu.usbmodem14101',
         "payload": str2ab_newline(xy[submitOutput])
       });
     };
